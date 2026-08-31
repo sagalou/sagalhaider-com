@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sagal-Louise Haider — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="brand bebas">SAGAL-LOUISE HAIDER</div>
+    <div class="nav-links">
+      <a href="#competences">Compétences</a>
+      <a href="#projets">Projets</a>
+      <a href="#about">À propos</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">Cybersecurity Software Engineer · SOC / CTI</div>
+      <h1 class="hero-title bebas">
+        BLUE TEAM.<br/>SOC-READY.
+      </h1>
+      <p class="hero-text">
+        Étudiante en Cybersecurity Software Engineering à Holberton School Paris, en recherche d'une alternance SOC/CTI analyst dès novembre 2026. Analyse de logs, extraction d'IOC, triage d'incidents : une approche méthodique de la détection à la réponse.
+      </p>
+      <div class="hero-actions">
+        <a href="assets/Sagal-Haider-CV.pdf" download class="btn btn-primary">TÉLÉCHARGER LE CV</a>
+        <a href="#contact" class="btn btn-secondary">CONTACT</a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-frame">
+        <img src="assets/hero-photo.png" alt="Sagal Haider"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMATION -->
+  <section class="formation">
+    <div class="formation-inner">
+      <h2 class="formation-title bebas">ÉCOLE &amp;<br/>FORMATION</h2>
+      <div class="formation-body">
+        <div class="formation-school">Holberton School, Paris</div>
+        <h3 class="formation-degree bebas">Cybersecurity Software Engineering, RNCP niveau 6</h3>
+        <p class="formation-desc">
+          Formation par projets, sans cours magistraux : chaque compétence est acquise en construisant et en résolvant des problèmes concrets, du réseau au code jusqu'à l'analyse de sécurité.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPETENCES -->
+  <section id="competences" class="skills">
+    <h2 class="skills-title bebas">COMPÉTENCES</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h4 class="bebas">PYTHON</h4>
+        <p>re, hashlib, collections, datetime, json</p>
+      </div>
+      <div class="skill-card">
+        <h4 class="bebas">RÉSEAUX</h4>
+        <p>Subnetting, DHCP, DNS, routage, Cisco Packet Tracer</p>
+      </div>
+      <div class="skill-card">
+        <h4 class="bebas">DÉVELOPPEMENT</h4>
+        <p>FastAPI, Flask, SQL, REST API, Git</p>
+      </div>
+      <div class="skill-card">
+        <h4 class="bebas">OUTILS</h4>
+        <p>Wireshark, Linux, Docker</p>
+      </div>
+      <div class="skill-card skill-card-wide">
+        <h4 class="bebas accent-text">BLUE TEAM / SOC</h4>
+        <p>Analyse de logs, extraction d'IOC via regex, détection de pics d'alertes SIEM, hash checking MD5/SHA256, enrichissement d'IOC via AbuseIPDB API, méthodologie de triage et d'investigation</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLUE TEAM FOCUS -->
+  <section class="blueteam">
+    <div class="blueteam-box">
+      <div class="blueteam-label bebas">BLUE TEAM FOCUS</div>
+      <h3 class="blueteam-title bebas">DE LA DÉTECTION À LA RÉPONSE.</h3>
+      <div class="blueteam-cycle">
+        <div class="cycle-step">
+          <span class="cycle-num bebas">01</span>
+          <span class="cycle-label">DÉTECTION</span>
+        </div>
+        <span class="cycle-arrow bebas">→</span>
+        <div class="cycle-step">
+          <span class="cycle-num bebas">02</span>
+          <span class="cycle-label">TRIAGE</span>
+        </div>
+        <span class="cycle-arrow bebas">→</span>
+        <div class="cycle-step">
+          <span class="cycle-num bebas">03</span>
+          <span class="cycle-label">INVESTIGATION</span>
+        </div>
+        <span class="cycle-arrow bebas">→</span>
+        <div class="cycle-step cycle-step-last">
+          <span class="cycle-num cycle-num-accent bebas">04</span>
+          <span class="cycle-label">RÉPONSE</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LANGUES -->
+  <section class="languages">
+    <h2 class="languages-title bebas">LANGUES</h2>
+    <div class="languages-list">
+      <div>Français, langue maternelle</div>
+      <div>Anglais, bilingue</div>
+      <div>Swahili</div>
+      <div>Somali</div>
+      <div>Espagnol</div>
+    </div>
+  </section>
+
+  <!-- PROJETS -->
+  <section id="projets" class="projects">
+    <div class="projects-inner">
+      <h2 class="projects-title bebas">PROJETS PHARES</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <img class="project-screenshot" src="assets/screenshots/shell.png.png" alt="Capture d'écran du projet Shell">
+          <h3 class="bebas">SHELL</h3>
+          <p class="project-desc">Projet bas niveau : commandes shell Unix, gestion de processus.</p>
+          <p class="project-tech">C</p>
+        </div>
+        <div class="project-card">
+          <img class="project-screenshot" src="assets/screenshots/printf.png.png" alt="Capture d'écran du projet printf">
+          <h3 class="bebas">PRINTF</h3>
+          <p class="project-desc">Réimplémentation de la fonction printf en C.</p>
+          <p class="project-tech">C</p>
+        </div>
+        <div class="project-card">
+          <img class="project-screenshot" src="assets/screenshots/hbntory.png.png" alt="Capture d'écran du projet HBntory">
+          <h3 class="bebas">HBNTORY</h3>
+          <p class="project-desc">Plateforme de gestion d'inventaire avec assistant IA intégré.</p>
+          <p class="project-tech">Flask</p>
+        </div>
+        <div class="project-card">
+          <img class="project-screenshot" src="assets/screenshots/multivers_log.png.png" alt="Capture d'écran du projet Multivers.log">
+          <h3 class="bebas">MULTIVERS.LOG</h3>
+          <p class="project-desc">Hackathon "Le System Prompt Perdu" : agent de Q&amp;A documentaire, réalisé en 3 jours avec un partenaire.</p>
+          <p class="project-tech">FastAPI · SQLite+FTS5 · OCR</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT / BACKGROUND -->
+  <section id="about" class="about">
+    <div class="about-row">
+      <h2 class="about-title bebas">AVANT LA<br/>CYBERSÉCURITÉ</h2>
+      <p class="about-text">
+        Avant de me spécialiser en cybersécurité, j'ai travaillé en tant qu'archéologue du bâti et consultante historique sur le patrimoine matériel de la Somalie. Je reste impliquée dans Somali Architecture, une organisation qui documente le patrimoine bâti somali via des modèles 3D et des expositions internationales.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <h2 class="contact-title bebas">TRAVAILLONS<br/>ENSEMBLE.</h2>
+    <div class="contact-row">
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/sagalou/" target="_blank">LinkedIn : sagalou</a>
+        <a href="https://github.com/sagalou" target="_blank">GitHub : sagalou</a>
+      </div>
+      <a href="assets/Sagal-Haider-CV.pdf" download class="btn btn-primary">TÉLÉCHARGER LE CV</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">© 2026 Sagal-Louise Haider</footer>
+
+</body>
+</html>

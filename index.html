@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sagal Haider — Historical Reconstruction</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f4f2ee;--bg2:#eceae4;--dark:#0d0d0d;--blue:#0066ff;--blue-light:rgba(0,102,255,0.08);--border:rgba(0,0,0,0.08);--muted:#888;--text:#1a1a1a}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1rem 2.5rem;background:rgba(244,242,238,0.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:0.12em;color:var(--dark)}
+.nav-logo span{color:var(--blue)}
+.nav-right{display:flex;align-items:center;gap:0.5rem}
+.nav-links{display:flex;gap:0;list-style:none;align-items:center}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.7rem;letter-spacing:0.06em;padding:0.45rem 0.85rem;transition:color 0.2s;text-transform:uppercase;font-weight:400}
+.nav-links a:hover{color:var(--dark)}
+.nav-links a.active{color:var(--dark);border-bottom:2px solid var(--blue)}
+.nav-links a.nav-cta{background:var(--dark);color:#fff;padding:0.42rem 1rem;margin-left:0.5rem;border-bottom:none}
+.nav-links a.nav-cta:hover{background:var(--blue)}
+.lang-switcher{display:flex;border:1px solid var(--border);overflow:hidden;margin-left:1rem}
+.lang-btn{padding:0.38rem 0.65rem;font-size:0.6rem;letter-spacing:0.1em;cursor:pointer;border:none;background:none;color:var(--muted);font-family:'Inter',sans-serif;transition:all 0.2s;border-right:1px solid var(--border);font-weight:400}
+.lang-btn:last-child{border-right:none}
+.lang-btn.active{background:var(--dark);color:#fff}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--dark);transition:all 0.3s}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;bottom:0;background:var(--bg);z-index:99;flex-direction:column;padding:2rem;gap:0;border-top:1px solid var(--border);overflow-y:auto}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:var(--text);text-decoration:none;font-size:1.1rem;font-weight:400;padding:1rem 0;border-bottom:1px solid var(--border);letter-spacing:0.05em}
+.mobile-menu a.nav-cta{margin-top:1rem;background:var(--dark);color:#fff;padding:0.85rem 1.5rem;text-align:center;border-bottom:none}
+.mobile-lang{display:flex;gap:0.5rem;margin-top:1.5rem}
+.mobile-lang button{flex:1;padding:0.65rem;font-size:0.75rem;letter-spacing:0.1em;cursor:pointer;border:1px solid var(--border);background:none;color:var(--muted);font-family:'Inter',sans-serif;font-weight:400}
+.mobile-lang button.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;position:relative;overflow:hidden;padding:7rem 2.5rem 3rem}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--bg) 0%,var(--bg2) 100%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.04) 1px,transparent 1px);background-size:60px 60px}
+.hero-scan{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,102,255,0.3),transparent);animation:scan 7s linear infinite}
+@keyframes scan{0%{top:0;opacity:1}100%{top:100%;opacity:0}}
+.hero-content{position:relative;z-index:2;max-width:700px}
+.hero-tag{display:inline-flex;align-items:center;gap:0.5rem;padding:0.28rem 0.8rem;border:1px solid rgba(0,102,255,0.3);background:rgba(0,102,255,0.06);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);margin-bottom:1.75rem}
+.hero-dot{width:4px;height:4px;border-radius:50%;background:var(--blue);animation:blink 2s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,8vw,6.5rem);line-height:0.92;letter-spacing:0.02em;margin-bottom:1.5rem;color:var(--dark)}
+h1 .blue{color:var(--blue)}
+h1 .dim{color:rgba(0,0,0,0.18)}
+.hero-sub{font-size:0.88rem;line-height:1.9;color:var(--muted);max-width:480px;margin-bottom:2.5rem}
+.hero-actions{display:flex;gap:0.75rem;flex-wrap:wrap}
+.btn-dark{display:inline-flex;align-items:center;gap:0.5rem;padding:0.8rem 1.8rem;background:var(--dark);color:#fff;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:background 0.2s;font-weight:400}
+.btn-dark:hover{background:var(--blue)}
+.btn-outline{display:inline-flex;align-items:center;gap:0.5rem;padding:0.8rem 1.8rem;border:1px solid rgba(0,0,0,0.2);color:var(--text);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;background:none;font-family:'Inter',sans-serif;transition:all 0.2s;font-weight:400}
+.btn-outline:hover{border-color:var(--dark);color:var(--dark)}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);flex-wrap:wrap}
+.sv{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:0.05em;color:var(--dark)}
+.sl{font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-top:0.1rem}
+.tech-strip{padding:1.2rem 2.5rem;background:var(--dark);display:flex;align-items:center;gap:2rem;overflow-x:auto}
+.ts-label{font-size:0.56rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3);white-space:nowrap}
+.ts-items{display:flex;gap:1.75rem;align-items:center}
+.ts-dot{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,0.2)}
+.ts-item{font-size:0.65rem;letter-spacing:0.08em;color:rgba(255,255,255,0.35);white-space:nowrap;font-weight:400}
+.entry-section{padding:4rem 2.5rem}
+.entry-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.entry-card{background:#fff;border:1px solid var(--border);padding:2.5rem 2rem;cursor:pointer;position:relative;overflow:hidden;transition:all 0.3s;box-shadow:0 2px 12px rgba(0,0,0,0.04)}
+.entry-card:hover{box-shadow:0 8px 32px rgba(0,0,0,0.1);border-color:rgba(0,102,255,0.2);transform:translateY(-2px)}
+.entry-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform 0.35s}
+.entry-card:hover::after{transform:scaleX(1)}
+.entry-num{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:rgba(0,0,0,0.04);line-height:1;margin-bottom:0.5rem}
+.entry-label{font-size:0.56rem;letter-spacing:0.26em;text-transform:uppercase;color:var(--blue);margin-bottom:0.6rem;font-weight:500}
+.entry-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.04em;margin-bottom:0.75rem;line-height:1.1;color:var(--dark)}
+.entry-desc{font-size:0.7rem;line-height:1.85;color:var(--muted)}
+.entry-arrow{display:inline-flex;align-items:center;gap:0.4rem;margin-top:1.5rem;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--blue);font-weight:500;transition:gap 0.2s}
+.entry-card:hover .entry-arrow{gap:0.7rem}
+.page{display:none;min-height:100vh;padding:6rem 2.5rem 3rem}
+.page.active{display:block}
+.back-btn{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);cursor:pointer;border:none;background:none;font-family:'Inter',sans-serif;margin-bottom:2rem;transition:color 0.2s;font-weight:400}
+.back-btn:hover{color:var(--dark)}
+.page-header{margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
+.page-eye{font-size:0.58rem;letter-spacing:0.26em;text-transform:uppercase;color:var(--blue);margin-bottom:0.5rem;font-weight:500}
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.5rem);letter-spacing:0.04em;color:var(--dark)}
+.page-sub{font-size:0.76rem;line-height:1.9;color:var(--muted);max-width:540px;margin-top:0.65rem}
+.video-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+.video-card{background:#fff;border:1px solid var(--border);overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.04)}
+.video-slot{position:relative;aspect-ratio:16/9;background:var(--dark);overflow:hidden;cursor:pointer}
+.video-slot video{width:100%;height:100%;object-fit:cover;display:block}
+.video-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.75rem;background:linear-gradient(135deg,#111 0%,#1a1a2e 100%)}
+.video-grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:40px 40px}
+.play-btn{width:52px;height:52px;border-radius:50%;background:rgba(0,102,255,0.9);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;transition:transform 0.2s;cursor:pointer}
+.play-btn:hover{transform:scale(1.1)}
+.video-label-overlay{position:absolute;bottom:0;left:0;right:0;padding:1rem;background:linear-gradient(to top,rgba(0,0,0,0.7),transparent);z-index:1}
+.video-badge{font-size:0.52rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.2rem}
+.video-title-overlay{font-size:0.78rem;color:#fff;font-weight:500}
+.video-info{padding:1.25rem}
+.video-loc{font-size:0.56rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--blue);margin-bottom:0.3rem;font-weight:500}
+.video-name{font-size:0.9rem;font-weight:500;color:var(--dark);margin-bottom:0.4rem}
+.video-desc{font-size:0.68rem;line-height:1.8;color:var(--muted)}
+.video-tags{display:flex;gap:0.3rem;flex-wrap:wrap;margin-top:0.85rem}
+.vtag{font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.5rem;border:1px solid var(--border);color:var(--muted)}
+.approach{margin-top:3rem;padding:2.5rem;background:var(--dark);display:grid;grid-template-columns:1fr 1.6fr;gap:3.5rem;align-items:center}
+.aq{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,2.5vw,2.4rem);line-height:1.1;letter-spacing:0.04em;color:#fff}
+.aq .blue{color:#4d94ff}
+.ab p{font-size:0.74rem;line-height:2;color:rgba(255,255,255,0.45)}
+.ab p+p{margin-top:0.75rem}
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:start}
+.contact-info p{font-size:0.76rem;line-height:2;color:var(--muted);margin-bottom:1.25rem}
+.contact-mail{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.78rem;color:var(--blue);text-decoration:none;font-weight:500;border-bottom:1px solid rgba(0,102,255,0.3);padding-bottom:0.2rem}
+.form-group{margin-bottom:1.1rem}
+.form-label{display:block;font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:0.45rem;font-weight:500}
+.form-input,.form-textarea,.form-select{width:100%;background:#fff;border:1px solid var(--border);color:var(--text);font-family:'Inter',sans-serif;font-size:0.78rem;padding:0.7rem 0.95rem;outline:none;transition:border-color 0.2s;font-weight:300;-webkit-appearance:none}
+.form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--blue)}
+.form-textarea{resize:vertical;min-height:110px}
+.submit-btn{width:100%;padding:0.88rem;background:var(--dark);color:#fff;border:none;font-family:'Inter',sans-serif;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;margin-top:0.5rem;font-weight:400}
+.submit-btn:hover{background:var(--blue)}
+.success-msg{display:none;padding:0.9rem;border:1px solid rgba(0,102,255,0.25);background:rgba(0,102,255,0.06);font-size:0.7rem;color:var(--blue);margin-top:0.75rem}
+footer{padding:1.75rem 2.5rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);flex-wrap:wrap;gap:0.75rem}
+.fb{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.1em;color:var(--muted)}
+.fc{font-size:0.58rem;color:#bbb;letter-spacing:0.08em}
+@media(max-width:768px){
+  nav{padding:1rem 1.25rem}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .lang-switcher{display:none}
+  .hero{padding:5.5rem 1.25rem 2.5rem}
+  h1{font-size:clamp(3rem,12vw,4.5rem)}
+  .hero-stats{gap:1.5rem}
+  .entry-section{padding:2.5rem 1.25rem}
+  .entry-cards{grid-template-columns:1fr;gap:1rem}
+  .page{padding:5rem 1.25rem 2.5rem}
+  .video-grid{grid-template-columns:1fr}
+  .approach{grid-template-columns:1fr;gap:1.5rem;padding:1.75rem}
+  .contact-grid{grid-template-columns:1fr;gap:2rem}
+  .tech-strip{padding:1rem 1.25rem}
+  footer{padding:1.5rem 1.25rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">SAGAL<span>.</span>HAIDER</div>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#" onclick="showHome(event)" class="active" id="nav-home" data-i18n="nav.home">Home</a></li>
+      <li><a href="#" onclick="showPage('archaeology',event)" id="nav-archaeology" data-i18n="nav.archaeology">Archaeological Sites</a></li>
+      <li><a href="#" onclick="showPage('cities',event)" id="nav-cities" data-i18n="nav.cities">East African Cities</a></li>
+      <li><a href="#" onclick="showPage('contact',event)" id="nav-contact" class="nav-cta" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('en',this)">EN</button>
+      <button class="lang-btn" onclick="setLang('fr',this)">FR</button>
+      <button class="lang-btn" onclick="setLang('sw',this)">SW</button>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#" onclick="showHome(event);toggleMenu()">&#127968; <span data-i18n="nav.home">Home</span></a>
+  <a href="#" onclick="showPage('archaeology',event);toggleMenu()" data-i18n="nav.archaeology">Archaeological Sites</a>
+  <a href="#" onclick="showPage('cities',event);toggleMenu()" data-i18n="nav.cities">East African Cities</a>
+  <a href="#" onclick="showPage('contact',event);toggleMenu()" class="nav-cta" data-i18n="nav.contact">Contact</a>
+  <div class="mobile-lang">
+    <button class="active" onclick="setLang('en',this);syncMobileLang(this)">EN</button>
+    <button onclick="setLang('fr',this);syncMobileLang(this)">FR</button>
+    <button onclick="setLang('sw',this);syncMobileLang(this)">SW</button>
+  </div>
+</div>
+
+<!-- HOME -->
+<div id="page-home">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-scan"></div>
+    <div class="hero-content">
+      <div class="hero-tag"><span class="hero-dot"></span><span data-i18n="hero.tag">3D Historical Reconstruction · East Africa</span></div>
+      <h1><span class="dim" data-i18n="hero.h1a">East Africa</span><br><span data-i18n="hero.h1b2">as it </span><span class="blue" data-i18n="hero.h1b">was.</span></h1>
+      <p class="hero-sub" data-i18n="hero.sub">3D reconstructions of East African cities and archaeological sites at precise moments in history — built from primary sources, field archives and real-time rendering.</p>
+      <div class="hero-actions">
+        <button class="btn-dark" onclick="showPage('archaeology',null)" data-i18n="cta.arch">Archaeological Sites &#8594;</button>
+        <button class="btn-outline" onclick="showPage('cities',null)" data-i18n="cta.cities">East African Cities</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="sv">3D</div><div class="sl" data-i18n="stat.render">Real-time render</div></div>
+        <div><div class="sv">~1950</div><div class="sl">Mogadishu</div></div>
+        <div><div class="sv">IVth</div><div class="sl">Aksum</div></div>
+        <div><div class="sv">3</div><div class="sl" data-i18n="stat.lang">Languages</div></div>
+      </div>
+    </div>
+  </section>
+  <div class="tech-strip">
+    <span class="ts-label">Built with</span>
+    <div class="ts-items">
+      <span class="ts-item">Real-time 3D Rendering</span><span class="ts-dot"></span>
+      <span class="ts-item">Photogrammetry</span><span class="ts-dot"></span>
+      <span class="ts-item">LiDAR</span><span class="ts-dot"></span>
+      <span class="ts-item">Historical Archives</span><span class="ts-dot"></span>
+      <span class="ts-item">Field Archaeology</span>
+    </div>
+  </div>
+  <div class="entry-section">
+    <div class="entry-cards">
+      <div class="entry-card" onclick="showPage('archaeology',null)">
+        <div class="entry-num">01</div>
+        <div class="entry-label" data-i18n="card1.label">From dig to life</div>
+        <div class="entry-title" data-i18n="card1.title">Archaeological Site Reconstructions</div>
+        <p class="entry-desc" data-i18n="card1.desc">From excavation data to photorealistic 3D — reconstructing what archaeological sites looked like before the ground swallowed them.</p>
+        <div class="entry-arrow" data-i18n="explore">Explore &#8594;</div>
+      </div>
+      <div class="entry-card" onclick="showPage('cities',null)">
+        <div class="entry-num">02</div>
+        <div class="entry-label" data-i18n="card2.label">Cities in time</div>
+        <div class="entry-title" data-i18n="card2.title">East African Cities</div>
+        <p class="entry-desc" data-i18n="card2.desc">Mogadishu in the 1950s, Aksum at its peak, Dodoma under colonial rule — cities captured at a precise moment, rebuilt in full 3D.</p>
+        <div class="entry-arrow" data-i18n="explore">Explore &#8594;</div>
+      </div>
+    </div>
+  </div>
+  <footer><div class="fb">SAGAL HAIDER</div><div class="fc" data-i18n="footer.copy">&#169; 2026 &#8212; Historical Reconstruction &#183; East Africa</div><div class="fc">contact@sagalhaider.com</div></footer>
+</div>
+
+<!-- ARCHAEOLOGY PAGE -->
+<div id="page-archaeology" class="page">
+  <button class="back-btn" onclick="showHome(null)">&#8592; <span data-i18n="back">Back</span></button>
+  <div class="page-header">
+    <div class="page-eye">01 &#183; <span data-i18n="card1.label">From dig to life</span></div>
+    <div class="page-title" data-i18n="card1.title">Archaeological Site Reconstructions</div>
+    <p class="page-sub" data-i18n="arch.sub">Using excavation reports, field surveys and photogrammetry to reconstruct sites as they once stood &#8212; with rigour and no romanticism.</p>
+  </div>
+  <div class="video-grid">
+    <div class="video-card">
+      <div class="video-slot">
+        <!-- Replace with: <video src="videos/opone.mp4" controls poster="images/opone-thumb.jpg"></video> -->
+        <div class="video-placeholder">
+          <div class="video-grid-lines"></div>
+          <div class="play-btn"><svg width="16" height="18" viewBox="0 0 16 18" fill="white"><path d="M1 1l14 8L1 17V1z"/></svg></div>
+        </div>
+        <div class="video-label-overlay">
+          <div class="video-badge">IInd century &#183; Somalia</div>
+          <div class="video-title-overlay">Port of Opone &#8212; Flyover</div>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-loc">Somalia &#183; Opone</div>
+        <div class="video-name" data-i18n="opone.title">The Port of Opone</div>
+        <p class="video-desc" data-i18n="opone.desc">Aerial flyover of the ancient Somali trading port at its commercial peak &#8212; reconstructed from excavation data.</p>
+        <div class="video-tags"><span class="vtag">Flyover</span><span class="vtag">Excavation data</span><span class="vtag">Photogrammetry</span></div>
+      </div>
+    </div>
+    <div class="video-card">
+      <div class="video-slot">
+        <!-- Replace with: <video src="videos/gedi.mp4" controls poster="images/gedi-thumb.jpg"></video> -->
+        <div class="video-placeholder">
+          <div class="video-grid-lines"></div>
+          <div class="play-btn"><svg width="16" height="18" viewBox="0 0 16 18" fill="white"><path d="M1 1l14 8L1 17V1z"/></svg></div>
+        </div>
+        <div class="video-label-overlay">
+          <div class="video-badge">Xth century &#183; Kenya</div>
+          <div class="video-title-overlay">Gedi &#8212; Street immersion</div>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-loc">Kenya &#183; Gedi</div>
+        <div class="video-name" data-i18n="gedi.title">Gedi &#8212; The Silent City</div>
+        <p class="video-desc" data-i18n="gedi.desc">Ground-level immersion through the Swahili city of Gedi &#8212; mosques, palaces and coral-stone streets rebuilt from field surveys.</p>
+        <div class="video-tags"><span class="vtag">Immersion</span><span class="vtag">Field surveys</span><span class="vtag">3D</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="approach">
+    <div class="aq"><span data-i18n="approach.arch.q1">No</span><br><span class="blue" data-i18n="approach.arch.q2">romanticisation.</span><br><span data-i18n="approach.arch.q3">Historical rigour.</span></div>
+    <div class="ab">
+      <p data-i18n="approach.arch.p1">Every reconstruction starts from primary sources &#8212; excavation reports, field photographs, soil stratigraphy, period plans.</p>
+      <p data-i18n="approach.arch.p2">Where sources are incomplete, uncertainty is documented &#8212; not filled with imagination.</p>
+    </div>
+  </div>
+  <footer><div class="fb">SAGAL HAIDER</div><div class="fc" data-i18n="footer.copy">&#169; 2026 &#8212; Historical Reconstruction &#183; East Africa</div><div class="fc">contact@sagalhaider.com</div></footer>
+</div>
+
+<!-- CITIES PAGE -->
+<div id="page-cities" class="page">
+  <button class="back-btn" onclick="showHome(null)">&#8592; <span data-i18n="back">Back</span></button>
+  <div class="page-header">
+    <div class="page-eye">02 &#183; <span data-i18n="card2.label">Cities in time</span></div>
+    <div class="page-title" data-i18n="card2.title">East African Cities</div>
+    <p class="page-sub" data-i18n="cities.sub">Cities reconstructed at a precise moment in their history &#8212; documented, modelled, rendered.</p>
+  </div>
+  <div class="video-grid">
+    <div class="video-card">
+      <div class="video-slot">
+        <!-- Replace with: <video src="videos/mogadishu.mp4" controls poster="images/mogadishu-thumb.jpg"></video> -->
+        <div class="video-placeholder">
+          <div class="video-grid-lines"></div>
+          <div class="play-btn"><svg width="16" height="18" viewBox="0 0 16 18" fill="white"><path d="M1 1l14 8L1 17V1z"/></svg></div>
+        </div>
+        <div class="video-label-overlay">
+          <div class="video-badge">~1950 &#183; Somalia</div>
+          <div class="video-title-overlay">Mogadishu &#8212; Street level</div>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-loc">Somalia &#183; Mogadishu</div>
+        <div class="video-name" data-i18n="mogadishu.title">Mogadishu Before the War</div>
+        <p class="video-desc" data-i18n="mogadishu.desc">Street-level immersion through 1950s Mogadishu &#8212; Italian colonial boulevards and traditional neighbourhoods from photographic archives.</p>
+        <div class="video-tags"><span class="vtag">Immersion</span><span class="vtag">Archives</span><span class="vtag">3D</span></div>
+      </div>
+    </div>
+    <div class="video-card">
+      <div class="video-slot">
+        <!-- Replace with: <video src="videos/aksum.mp4" controls poster="images/aksum-thumb.jpg"></video> -->
+        <div class="video-placeholder">
+          <div class="video-grid-lines"></div>
+          <div class="play-btn"><svg width="16" height="18" viewBox="0 0 16 18" fill="white"><path d="M1 1l14 8L1 17V1z"/></svg></div>
+        </div>
+        <div class="video-label-overlay">
+          <div class="video-badge">IVth century &#183; Ethiopia</div>
+          <div class="video-title-overlay">Aksum &#8212; Aerial view</div>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-loc">Ethiopia &#183; Aksum</div>
+        <div class="video-name" data-i18n="aksum.title">Aksum at Its Peak</div>
+        <p class="video-desc" data-i18n="aksum.desc">Aerial and street view of the kingdom of Aksum &#8212; obelisks, palaces and trade routes from archaeological excavations.</p>
+        <div class="video-tags"><span class="vtag">Flyover</span><span class="vtag">Archaeology</span><span class="vtag">3D</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="approach">
+    <div class="aq"><span data-i18n="approach.cities.q1">A city</span><br><span data-i18n="approach.cities.q2">at a </span><span class="blue" data-i18n="approach.cities.q3">precise</span><br><span data-i18n="approach.cities.q4">moment.</span></div>
+    <div class="ab">
+      <p data-i18n="approach.cities.p1">Mogadishu in the 1950s is not a lost city. It is a living city with a history and inhabitants. Reconstructing it means showing what existed &#8212; without romanticism.</p>
+      <p data-i18n="approach.cities.p2">Every project is built from primary sources: archives, period plans, testimonies &#8212; rendered in full real-time 3D.</p>
+    </div>
+  </div>
+  <footer><div class="fb">SAGAL HAIDER</div><div class="fc" data-i18n="footer.copy">&#169; 2026 &#8212; Historical Reconstruction &#183; East Africa</div><div class="fc">contact@sagalhaider.com</div></footer>
+</div>
+
+<!-- CONTACT PAGE -->
+<div id="page-contact" class="page">
+  <button class="back-btn" onclick="showHome(null)">&#8592; <span data-i18n="back">Back</span></button>
+  <div class="page-header">
+    <div class="page-eye" data-i18n="nav.contact">Contact &amp; Suggestions</div>
+    <div class="page-title" data-i18n="contact.title">Get in Touch</div>
+    <p class="page-sub" data-i18n="contact.sub">A suggestion for a city or site? Archival material to share? A collaboration in mind?</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <p data-i18n="contact.p1">Historians, archaeologists, diaspora communities and curious minds are all welcome to contribute suggestions, sources or feedback.</p>
+      <p data-i18n="contact.p2">You can also reach me directly:</p>
+      <a href="mailto:contact@sagalhaider.com" class="contact-mail">contact@sagalhaider.com &#8594;</a>
+    </div>
+    <div>
+      <div class="form-group"><label class="form-label" data-i18n="form.name">Your name</label><input class="form-input" type="text" id="f-name"></div>
+      <div class="form-group"><label class="form-label" data-i18n="form.email">Your email</label><input class="form-input" type="email" id="f-email"></div>
+      <div class="form-group">
+        <label class="form-label" data-i18n="form.type">Type of message</label>
+        <select class="form-select" id="f-type">
+          <option value="" data-i18n="form.select">Select...</option>
+          <option data-i18n="form.opt1">Site or city suggestion</option>
+          <option data-i18n="form.opt2">Archival material to share</option>
+          <option data-i18n="form.opt3">Collaboration proposal</option>
+          <option data-i18n="form.opt4">General feedback</option>
+          <option data-i18n="form.opt5">Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label" data-i18n="form.msg">Your message</label><textarea class="form-textarea" id="f-msg"></textarea></div>
+      <button class="submit-btn" onclick="submitForm()" data-i18n="form.send">Send message &#8594;</button>
+      <div class="success-msg" id="success-msg" data-i18n="form.success">&#10003; Message sent &#8212; thank you!</div>
+    </div>
+  </div>
+  <footer><div class="fb">SAGAL HAIDER</div><div class="fc" data-i18n="footer.copy">&#169; 2026 &#8212; Historical Reconstruction &#183; East Africa</div><div class="fc">contact@sagalhaider.com</div></footer>
+</div>
+
+<script>
+const T={en:{"nav.home":"Home","nav.archaeology":"Archaeological Sites","nav.cities":"East African Cities","nav.contact":"Contact & Suggestions","hero.tag":"3D Historical Reconstruction · East Africa","hero.h1a":"East Africa","hero.h1b2":"as it ","hero.h1b":"was.","hero.sub":"3D reconstructions of East African cities and archaeological sites at precise moments in history — built from primary sources, field archives and real-time rendering.","cta.arch":"Archaeological Sites →","cta.cities":"East African Cities","stat.render":"Real-time render","stat.lang":"Languages","card1.label":"From dig to life","card1.title":"Archaeological Site Reconstructions","card1.desc":"From excavation data to photorealistic 3D — reconstructing what archaeological sites looked like before the ground swallowed them.","card2.label":"Cities in time","card2.title":"East African Cities","card2.desc":"Mogadishu in the 1950s, Aksum at its peak, Dodoma under colonial rule — cities captured at a precise moment, rebuilt in full 3D.","explore":"Explore →","back":"Back","arch.sub":"Using excavation reports, field surveys and photogrammetry to reconstruct sites as they once stood — with rigour and no romanticism.","cities.sub":"Cities reconstructed at a precise moment in their history — documented, modelled, rendered.","opone.title":"The Port of Opone","opone.desc":"Aerial flyover of the ancient Somali trading port at its commercial peak — reconstructed from excavation data.","gedi.title":"Gedi — The Silent City","gedi.desc":"Ground-level immersion through the Swahili city of Gedi — mosques, palaces and coral-stone streets rebuilt from field surveys.","mogadishu.title":"Mogadishu Before the War","mogadishu.desc":"Street-level immersion through 1950s Mogadishu — Italian colonial boulevards and traditional neighbourhoods from photographic archives.","aksum.title":"Aksum at Its Peak","aksum.desc":"Aerial and street view of the kingdom of Aksum — obelisks, palaces and trade routes from archaeological excavations.","approach.arch.q1":"No","approach.arch.q2":"romanticisation.","approach.arch.q3":"Historical rigour.","approach.arch.p1":"Every reconstruction starts from primary sources — excavation reports, field photographs, soil stratigraphy, period plans.","approach.arch.p2":"Where sources are incomplete, uncertainty is documented — not filled with imagination.","approach.cities.q1":"A city","approach.cities.q2":"at a ","approach.cities.q3":"precise","approach.cities.q4":"moment.","approach.cities.p1":"Mogadishu in the 1950s is not a lost city. It is a living city with a history and inhabitants. Reconstructing it means showing what existed — without romanticism.","approach.cities.p2":"Every project is built from primary sources: archives, period plans, testimonies — rendered in full real-time 3D.","contact.title":"Get in Touch","contact.sub":"A suggestion for a city or site? Archival material to share? A collaboration in mind?","contact.p1":"Historians, archaeologists, diaspora communities and curious minds are all welcome to contribute suggestions, sources or feedback.","contact.p2":"You can also reach me directly:","form.name":"Your name","form.email":"Your email","form.type":"Type of message","form.select":"Select...","form.msg":"Your message","form.send":"Send message →","form.opt1":"Site or city suggestion","form.opt2":"Archival material to share","form.opt3":"Collaboration proposal","form.opt4":"General feedback","form.opt5":"Other","form.success":"✓ Message sent — thank you!","footer.copy":"© 2026 — Historical Reconstruction · East Africa"},
+fr:{"nav.home":"Accueil","nav.archaeology":"Sites archéologiques","nav.cities":"Villes d'Afrique de l'Est","nav.contact":"Contact & Suggestions","hero.tag":"Reconstitution historique 3D · Afrique de l'Est","hero.h1a":"L'Afrique de l'Est","hero.h1b2":"telle qu'elle ","hero.h1b":"était.","hero.sub":"Reconstitutions 3D de villes et sites archéologiques d'Afrique de l'Est à des moments précis — à partir de sources primaires et rendu temps réel.","cta.arch":"Sites archéologiques →","cta.cities":"Villes d'Afrique de l'Est","stat.render":"Rendu temps réel","stat.lang":"Langues","card1.label":"De la fouille à la vie","card1.title":"Reconstitution de sites archéologiques","card1.desc":"Des données de fouilles à la 3D photoréaliste — reconstituer ce qu'étaient les sites avant que la terre ne les engloutisse.","card2.label":"Les villes dans le temps","card2.title":"Villes d'Afrique de l'Est","card2.desc":"Mogadishu dans les années 1950, Aksum à son apogée, Dodoma sous la colonisation — des villes capturées à un moment précis.","explore":"Explorer →","back":"Retour","arch.sub":"Rapports de fouilles, relevés et photogrammétrie pour reconstituer les sites tels qu'ils étaient — avec rigueur, sans romantisme.","cities.sub":"Des villes reconstituées à un moment précis — documentées, modélisées, rendues.","opone.title":"Le port d'Opone","opone.desc":"Survol aérien de l'ancien port somalien à son apogée — reconstitué à partir de données de fouilles.","gedi.title":"Gedi — La cité silencieuse","gedi.desc":"Immersion au sol dans la cité swahili de Gedi — mosquées, palais et ruelles en corail d'après les relevés de terrain.","mogadishu.title":"Mogadishu avant la guerre","mogadishu.desc":"Immersion dans Mogadishu des années 1950 — boulevards coloniaux italiens et quartiers traditionnels d'après archives photographiques.","aksum.title":"Aksum à son apogée","aksum.desc":"Vue aérienne et au sol du royaume d'Aksum — obélisques, palais et routes commerciales d'après fouilles archéologiques.","approach.arch.q1":"Sans","approach.arch.q2":"romantisme.","approach.arch.q3":"Rigueur historique.","approach.arch.p1":"Chaque reconstitution part de sources primaires — rapports de fouilles, photos de terrain, stratigraphie, plans d'époque.","approach.arch.p2":"Là où les sources sont incomplètes, l'incertitude est documentée — jamais comblée par l'imagination.","approach.cities.q1":"Une ville","approach.cities.q2":"à un moment ","approach.cities.q3":"précis","approach.cities.q4":"de son histoire.","approach.cities.p1":"Mogadishu dans les années 1950 n'est pas une ville perdue. C'est une ville vivante. La reconstituer, c'est montrer ce qui a existé — sans romantisme.","approach.cities.p2":"Chaque projet part de sources primaires : archives, plans d'époque, témoignages — rendu en 3D temps réel.","contact.title":"Nous contacter","contact.sub":"Une suggestion de ville ou de site ? Des archives à partager ? Un projet de collaboration ?","contact.p1":"Historiens, archéologues, diasporas et curieux sont bienvenus pour partager suggestions, sources ou retours.","contact.p2":"Vous pouvez aussi me contacter directement :","form.name":"Votre nom","form.email":"Votre email","form.type":"Type de message","form.select":"Choisir...","form.msg":"Votre message","form.send":"Envoyer →","form.opt1":"Suggestion de site ou ville","form.opt2":"Archives à partager","form.opt3":"Proposition de collaboration","form.opt4":"Retour général","form.opt5":"Autre","form.success":"✓ Message envoyé — merci !","footer.copy":"© 2026 — Reconstitution historique · Afrique de l'Est"},
+sw:{"nav.home":"Nyumbani","nav.archaeology":"Maeneo ya Kiakiolojia","nav.cities":"Miji ya Afrika Mashariki","nav.contact":"Mawasiliano","hero.tag":"Ujenzi wa Kihistoria 3D · Afrika Mashariki","hero.h1a":"Afrika Mashariki","hero.h1b2":"ilivyo","hero.h1b":"kuwa.","hero.sub":"Ujenzi wa 3D wa miji na maeneo ya kiakiolojia ya Afrika Mashariki — kutoka vyanzo vya msingi na uwakilishi wa wakati halisi.","cta.arch":"Maeneo ya Kiakiolojia →","cta.cities":"Miji ya Afrika Mashariki","stat.render":"Uwakilishi wa sasa","stat.lang":"Lugha","card1.label":"Kutoka uchimbaji hadi uhai","card1.title":"Ujenzi wa Maeneo ya Kiakiolojia","card1.desc":"Kutoka data za uchimbaji hadi 3D — kujenga upya maeneo ya kiakiolojia yalivyoonekana.","card2.label":"Miji katika wakati","card2.title":"Miji ya Afrika Mashariki","card2.desc":"Mogadishu miaka ya 1950, Aksum kilele chake, Dodoma chini ya ukoloni — miji iliyonaswa wakati maalum.","explore":"Chunguza →","back":"Rudi","arch.sub":"Kutumia ripoti za uchimbaji na fotogrammeti kujenga upya maeneo — kwa udhibiti na bila hisia.","cities.sub":"Miji iliyojengwa upya wakati maalum — iliyoandikwa, iliyoundwa, iliyowakilishwa.","opone.title":"Bandari ya Opone","opone.desc":"Ndege ya juu ya bandari ya kale ya Kisomali — iliyojengwa upya kutoka data za uchimbaji.","gedi.title":"Gedi — Mji wa Kimya","gedi.desc":"Kuzama ardhini katika mji wa Kiswahili wa Gedi — misikiti, majumba na barabara za matumbawe.","mogadishu.title":"Mogadishu Kabla ya Vita","mogadishu.desc":"Kuzama katika Mogadishu ya miaka ya 1950 — barabara za Italia na mitaa ya jadi kutoka kumbukumbu.","aksum.title":"Aksum Kilele Chake","aksum.desc":"Mtazamo wa anga na ardhini wa Aksum — obelisks, majumba na njia za biashara.","approach.arch.q1":"Bila","approach.arch.q2":"hisia.","approach.arch.q3":"Udhibiti wa kihistoria.","approach.arch.p1":"Kila ujenzi huanza kutoka vyanzo vya msingi — ripoti za uchimbaji, picha za uwanjani, mipango ya kipindi.","approach.arch.p2":"Pale vyanzo visipokamilika, kutokuwa na uhakika kunaandikwa — hakuna kujaza kwa mawazo.","approach.cities.q1":"Mji","approach.cities.q2":"wakati ","approach.cities.q3":"maalum","approach.cities.q4":"wa historia.","approach.cities.p1":"Mogadishu miaka ya 1950 si mji uliopotea. Ni mji hai. Kuujenga upya kunamaanisha kuonyesha kilichokuwepo.","approach.cities.p2":"Kila mradi hujengwa kutoka vyanzo vya msingi: kumbukumbu, mipango, ushuhuda — katika 3D ya wakati halisi.","contact.title":"Wasiliana Nasi","contact.sub":"Pendekezo la mji? Nyenzo za kumbukumbu? Ushirikiano?","contact.p1":"Wanahistoria, wachimbaji, diaspora na watu wanaopenda kujua wanakaribishwa.","contact.p2":"Unaweza pia kunifikia moja kwa moja:","form.name":"Jina lako","form.email":"Barua pepe yako","form.type":"Aina ya ujumbe","form.select":"Chagua...","form.msg":"Ujumbe wako","form.send":"Tuma →","form.opt1":"Pendekezo la eneo au mji","form.opt2":"Nyenzo za kumbukumbu","form.opt3":"Mapendekezo ya ushirikiano","form.opt4":"Maoni ya jumla","form.opt5":"Nyingine","form.success":"✓ Ujumbe umetumwa — asante!","footer.copy":"© 2026 — Ujenzi wa Kihistoria · Afrika Mashariki"}};
+
+function setLang(l,btn){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n');
+    if(T[l][k]!==undefined) el.textContent=T[l][k];
+  });
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function syncMobileLang(btn){
+  document.querySelectorAll('.mobile-lang button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function showPage(name,e){
+  if(e) e.preventDefault();
+  document.getElementById('page-home').style.display='none';
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  const el=document.getElementById('nav-'+name);
+  if(el) el.classList.add('active');
+  window.scrollTo(0,0);
+}
+function showHome(e){
+  if(e) e.preventDefault();
+  document.getElementById('page-home').style.display='block';
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  document.getElementById('nav-home').classList.add('active');
+  window.scrollTo(0,0);
+}
+function toggleMenu(){
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+function submitForm(){
+  const n=document.getElementById('f-name').value;
+  const em=document.getElementById('f-email').value;
+  const m=document.getElementById('f-msg').value;
+  if(!n||!em||!m){alert('Please fill in your name, email and message.');return;}
+  document.getElementById('success-msg').style.display='block';
+  document.getElementById('f-name').value='';
+  document.getElementById('f-email').value='';
+  document.getElementById('f-msg').value='';
+  document.getElementById('f-type').value='';
+}
+</script>
+</body>
+</html>
