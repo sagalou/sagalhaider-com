@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page active">
+  <a href="{% url 'home' %}" class="back-btn">&#8592; Retour</a>
+  <div class="page-header">
+    <div class="page-eye">{{ page_eye }}</div>
+    <div class="page-title">{{ page_title }}</div>
+    <p class="page-sub">{{ page_sub }}</p>
+  </div>
+  <div class="video-grid">
+    {% for r in realisations %}
+    <div class="video-card">
+      <div class="video-slot">
+        {% if r.image %}
+          <img src="{{ r.image.url }}" alt="{{ r.title }}" style="width:100%;height:100%;object-fit:cover;display:block">
+        {% else %}
+          <div class="video-placeholder">
+            <div class="video-grid-lines"></div>
+            <div class="play-btn"><svg width="16" height="18" viewBox="0 0 16 18" fill="white"><path d="M1 1l14 8L1 17V1z"/></svg></div>
+          </div>
+        {% endif %}
+        <div class="video-label-overlay">
+          <div class="video-badge">{{ r.period_label }}</div>
+          <div class="video-title-overlay">{{ r.title }}</div>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-loc">{{ r.site_reference }}</div>
+        <div class="video-name">{{ r.title }}</div>
+        <p class="video-desc">{{ r.description }}</p>
+      </div>
+    </div>
+    {% empty %}
+    <p style="color:var(--muted);font-size:0.8rem">Aucune réalisation pour le moment — ajoutez-en depuis l'admin.</p>
+    {% endfor %}
+  </div>
+  <div class="approach">
+    <div class="aq"><span>Sans</span><br><span class="blue">romantisme.</span><br><span>Rigueur historique.</span></div>
+    <div class="ab">
+      <p>Chaque reconstitution part de sources primaires — rapports de fouilles, photos de terrain, stratigraphie, plans d'époque.</p>
+      <p>Là où les sources sont incomplètes, l'incertitude est documentée — jamais comblée par l'imagination.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

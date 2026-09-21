@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page active">
+  <div class="page-header" style="display:flex;justify-content:space-between;align-items:center">
+    <div>
+      <div class="page-eye">Espace admin</div>
+      <div class="page-title">Demandes clients</div>
+    </div>
+    <a href="{% url 'logout' %}" class="back-btn">Déconnexion</a>
+  </div>
+
+  <div class="form-group" style="max-width:220px">
+    <label class="form-label">Filtrer par statut</label>
+    <select class="form-select" id="status-filter">
+      <option value="">Tous</option>
+      <option value="new">Nouvelle</option>
+      <option value="in_progress">En cours</option>
+      <option value="completed">Terminée</option>
+    </select>
+  </div>
+
+  <div id="requests-list" class="video-grid"></div>
+  <div id="request-detail" style="margin-top:2rem"></div>
+</div>
+
+<script>
+function getCookie(name){
+  const m = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+  return m ? m.pop() : '';
+}
+const csrftoken = getCookie('csrftoken');
+
+async function loadList(){
+  const status = document.getElementById('status-filter').value;
+  const url = status ? `/admin/demandes?statut=${status}` : '/admin/demandes';
+  const res = await fetch(url);
+  if (res.status === 401){ window.location.href = '/login'; return; }
+  const items = await res.json();
+  const container = document.getElementById('requests-list');
+  container.innerHTML = '';
+  items.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'video-card';
+    card.style.cursor = 'pointer';
+    card.innerHTML = `
+      <div class="video-info">
+        <div class="video-loc">${item.statut}</div>
+        <div class="video-name">${item.client_nom}</div>
+        <p class="video-desc">Progression : ${item.progression}% — reçue le ${new Date(item.created_at).toLocaleDateString()}</p>
+      </div>`;
+    card.onclick = () => loadDetail(item.id);
+    container.appendChild(card);
+  });
+}
+
+async function loadDetail(id){
+  const res = await fetch(`/admin/demandes/${id}`);
+  if (res.status === 401){ window.location.href = '/login'; return; }
+  const d = await res.json();
+  const el = document.getElementById('request-detail');
+  const stepsHtml = d.etapes.map(s => `
+    <label style="display:flex;gap:0.5rem;align-items:center;padding:0.4rem 0;font-size:0.8rem">
+      <input type="checkbox" ${s.is_completed ? 'checked disabled' : ''} onclick="completeStep(${d.id}, ${s.id})">
+      ${s.step_name}
+    </label>`).join('');
+  el.innerHTML = `
+    <div class="approach" style="grid-template-columns:1fr">
+      <div class="ab">
+        <p style="color:#fff"><strong>${d.client_nom}</strong> — ${d.client_email}</p>
+        <p>${d.organisation || ''}</p>
+        <p>${d.description_projet}</p>
+        <p>Progression : ${d.progression}%</p>
+        ${stepsHtml}
+      </div>
+    </div>`;
+}
+
+async function completeStep(requestId, stepId){
+  await fetch(`/admin/demandes/${requestId}/etapes/${stepId}/complete`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'X-CSRFToken': csrftoken},
+    body: JSON.stringify({is_completed: true})
+  });
+  loadDetail(requestId);
+  loadList();
+}
+
+document.getElementById('status-filter').addEventListener('change', loadList);
+loadList();
+</script>
+{% endblock %}

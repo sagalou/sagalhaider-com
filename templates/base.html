@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Sagal Haider — Historical Reconstruction{% endblock %}</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><a href="{% url 'home' %}" style="color:inherit;text-decoration:none">SAGAL<span>.</span>HAIDER</a></div>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Accueil</a></li>
+      <li><a href="{% url 'sites' %}" class="{% if request.resolver_match.url_name == 'sites' %}active{% endif %}">Sites archéologiques</a></li>
+      <li><a href="{% url 'cities' %}" class="{% if request.resolver_match.url_name == 'cities' %}active{% endif %}">Villes d'Afrique de l'Est</a></li>
+      <li><a href="{% url 'contact' %}" class="nav-cta {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="{% url 'home' %}">&#127968; Accueil</a>
+  <a href="{% url 'sites' %}">Sites archéologiques</a>
+  <a href="{% url 'cities' %}">Villes d'Afrique de l'Est</a>
+  <a href="{% url 'contact' %}" class="nav-cta">Contact</a>
+</div>
+
+{% block content %}{% endblock %}
+
+<footer><div class="fb">SAGAL HAIDER</div><div class="fc">&#169; 2026 &#8212; Historical Reconstruction &#183; East Africa</div><div class="fc">contact@sagalhaider.com</div></footer>
+
+<div id="chatbot-widget"></div>
+
+<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/chatbot.js' %}"></script>
+</body>
+</html>
