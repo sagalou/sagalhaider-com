@@ -59,17 +59,17 @@ async function loadDetail(id){
   const d = await res.json();
   const el = document.getElementById('request-detail');
   const stepsHtml = d.etapes.map(s => `
-    <label style="display:flex;gap:0.5rem;align-items:center;padding:0.4rem 0;font-size:0.8rem">
+    <label style="display:flex;gap:0.5rem;align-items:center;padding:0.4rem 0;font-size:0.8rem;color:#fff">
       <input type="checkbox" ${s.is_completed ? 'checked disabled' : ''} onclick="completeStep(${d.id}, ${s.id})">
-      ${s.step_name}
+      <span style="color:#fff">${s.step_name}</span>
     </label>`).join('');
   el.innerHTML = `
     <div class="approach" style="grid-template-columns:1fr">
-      <div class="ab">
+      <div class="ab" style="color:rgba(255,255,255,0.75)">
         <p style="color:#fff"><strong>${d.client_nom}</strong> — ${d.client_email}</p>
-        <p>${d.organisation || ''}</p>
-        <p>${d.description_projet}</p>
-        <p>Progression : ${d.progression}%</p>
+        <p style="color:rgba(255,255,255,0.75)">${d.organisation || ''}</p>
+        <p style="color:rgba(255,255,255,0.75)">${d.description_projet}</p>
+        <p style="color:#fff">Progression : ${d.progression}%</p>
         ${stepsHtml}
       </div>
     </div>`;
