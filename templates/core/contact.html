@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page active">
+  <a href="{% url 'home' %}" class="back-btn">&#8592; Retour</a>
+  <div class="page-header">
+    <div class="page-eye">Contact &amp; Demande de projet</div>
+    <div class="page-title">Travaillons ensemble</div>
+    <p class="page-sub">Une suggestion de ville ou de site ? Un projet de restitution 3D en tête ? Décrivez-le ci-dessous.</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <p>Historiens, archéologues, communautés de la diaspora et curieux sont les bienvenus pour partager suggestions, sources ou demandes de collaboration.</p>
+      <p>Vous pouvez aussi me contacter directement :</p>
+      <a href="mailto:contact@sagalhaider.com" class="contact-mail">contact@sagalhaider.com &#8594;</a>
+    </div>
+    <div>
+      <form id="request-form">
+        <div class="form-group"><label class="form-label">Votre nom</label><input class="form-input" type="text" id="f-name" required></div>
+        <div class="form-group"><label class="form-label">Votre email</label><input class="form-input" type="email" id="f-email" required></div>
+        <div class="form-group"><label class="form-label">Organisation (optionnel)</label><input class="form-input" type="text" id="f-org"></div>
+        <div class="form-group"><label class="form-label">Décrivez votre projet</label><textarea class="form-textarea" id="f-msg" required></textarea></div>
+        <!-- Honeypot: left empty by real visitors, hidden via CSS -->
+        <div style="position:absolute;left:-9999px" aria-hidden="true">
+          <input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <button type="submit" class="submit-btn">Envoyer la demande &#8594;</button>
+        <div class="success-msg" id="success-msg">&#10003; Demande envoyée &#8212; merci ! Vous recevrez une confirmation par email.</div>
+        <div class="success-msg" id="error-msg" style="display:none;border-color:#e33;color:#e33;background:rgba(238,51,51,0.06)"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('request-form').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const errorEl = document.getElementById('error-msg');
+  const successEl = document.getElementById('success-msg');
+  errorEl.style.display = 'none';
+  successEl.style.display = 'none';
+
+  const payload = {
+    client_nom: document.getElementById('f-name').value,
+    client_email: document.getElementById('f-email').value,
+    organisation: document.getElementById('f-org').value,
+    description_projet: document.getElementById('f-msg').value,
+    website: document.getElementById('f-website').value
+  };
+
+  try {
+    const res = await fetch("{% url 'create-request' %}", {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    });
+    if (res.status === 201) {
+      successEl.style.display = 'block';
+      this.reset();
+    } else if (res.status === 429) {
+      errorEl.textContent = 'Trop de demandes envoyées récemment, réessayez plus tard.';
+      errorEl.style.display = 'block';
+    } else {
+      const data = await res.json();
+      errorEl.textContent = 'Merci de vérifier les champs du formulaire.';
+      errorEl.style.display = 'block';
+    }
+  } catch (err) {
+    errorEl.textContent = "Erreur réseau, réessayez.";
+    errorEl.style.display = 'block';
+  }
+});
+</script>
+{% endblock %}
