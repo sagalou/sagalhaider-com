@@ -1,46 +1,46 @@
-# Mapping RNCP 5 — Activités & Compétences
+# RNCP 5 Mapping — Activities & Competencies
 
-Référence : fiche RNCP niveau 5, activités types 1 et 2 (développer le
-front-end et le back-end d'une application web sécurisée).
+Reference: RNCP level 5 record, activity types 1 and 2 (developing the
+front-end and back-end of a secured web application).
 
-## Activité type 1 — Développer la partie front-end
+## Activity type 1 — Develop the front-end
 
-| CP | Compétence | Où c'est fait dans le projet |
+| CP | Competency | Where it's done in the project |
 | --- | --- | --- |
-| CP1 | Installer et configurer son environnement de travail | `README.md` (installation, `.env.example`), `requirements.txt`, structure du repo |
-| CP2 | Maquetter des interfaces utilisateur web ou web mobile | Wireframes/maquettes à ajouter dans `docs/maquettes/` (Figma) — reprend la structure visuelle existante : accueil, galerie, formulaire, dashboard admin |
-| CP3 | Réaliser des interfaces utilisateur statiques web ou web mobile | `templates/` (HTML sémantique) + `static/css/style.css`, responsive (media queries) |
-| CP4 | Développer la partie dynamique des interfaces utilisateur | `static/js/chatbot.js` (widget chatbot, fetch API), `templates/core/contact.html` (soumission AJAX du formulaire), `templates/servicerequests/dashboard.html` (dashboard entièrement piloté en JS via fetch) |
+| CP1 | Install and configure the development environment | `README.md` (installation, `.env.example`), `requirements.txt`, repo structure |
+| CP2 | Wireframe/mock up web or mobile web user interfaces | Wireframes/mockups to add in `docs/mockups/` (Figma) — should mirror the existing visual structure: home, gallery, form, admin dashboard |
+| CP3 | Build static web or mobile web user interfaces | `templates/` (semantic HTML) + `static/css/style.css`, responsive (media queries) |
+| CP4 | Develop the dynamic part of user interfaces | `static/js/chatbot.js` (chatbot widget, fetch API), `templates/core/contact.html` (AJAX form submission), `templates/servicerequests/dashboard.html` (dashboard entirely driven by JS via fetch) |
 
-## Activité type 2 — Développer la partie back-end
+## Activity type 2 — Develop the back-end
 
-| CP | Compétence | Où c'est fait dans le projet |
+| CP | Competency | Where it's done in the project |
 | --- | --- | --- |
-| CP5 | Mettre en place une base de données relationnelle | Modèles Django (`realisations/models.py`, `servicerequests/models.py`, `chatbot/models.py`), migrations dans chaque app |
-| CP6 | Développer des composants d'accès aux données SQL et NoSQL | SQL : ORM Django partout (requêtes paramétrées par construction). NoSQL : `core/ratelimit.py`, backend Redis (`django-redis`), utilisé par `/demandes`, `/chatbot/message` et `/login` pour le rate limiting |
-| CP7 | Développer des composants métier côté serveur | Endpoints REST (`*/views.py` de chaque app), logique métier dans les modèles (`ServiceRequest.send_confirmation()`, `check_response_delay()`, `progress()`), `ChatbotService` |
-| CP8 | Documenter le déploiement d'une application dynamique web ou web mobile | `README.md` section CP8, `.github/workflows/ci.yml` (CI/CD) |
+| CP5 | Set up a relational database | Django models (`realisations/models.py`, `servicerequests/models.py`, `chatbot/models.py`), migrations in each app |
+| CP6 | Develop SQL and NoSQL data access components | SQL: Django ORM throughout (parameterized queries by construction). NoSQL: `core/ratelimit.py`, Redis backend (`django-redis`), used by `/demandes`, `/chatbot/message` and `/login` for rate limiting |
+| CP7 | Develop server-side business components | REST endpoints (`*/views.py` in each app), business logic in the models (`ServiceRequest.send_confirmation()`, `check_response_delay()`, `progress()`), `ChatbotService` |
+| CP8 | Document the deployment of a dynamic web or mobile web application | `README.md` CP8 section, `.github/workflows/ci.yml` (CI/CD) |
 
-## Sécurité (transversal au titre "sécurisée")
+## Security (cross-cutting, covers the "secured" part of the title)
 
-- Injection SQL : ORM Django (requêtes paramétrées)
-- Mots de passe : hashage natif Django (PBKDF2)
-- CSRF : protection Django activée partout sauf les endpoints publics
-  explicitement anonymes (`/demandes`, `/chatbot/message`), qui sont eux
-  protégés par rate limiting au lieu du CSRF (pas de session à protéger)
-- Anti-spam : honeypot sur le formulaire de demande (`servicerequests/forms.py`)
-- Rate limiting : sur les 3 endpoints publics les plus exposés (`/demandes`,
+- SQL injection: Django ORM (parameterized queries)
+- Passwords: Django's native hashing (PBKDF2)
+- CSRF: Django protection enabled everywhere except the public endpoints
+  that are explicitly anonymous (`/demandes`, `/chatbot/message`), which
+  are protected by rate limiting instead of CSRF (no session to protect)
+- Anti-spam: honeypot field on the request form (`servicerequests/forms.py`)
+- Rate limiting: on the 3 most exposed public endpoints (`/demandes`,
   `/chatbot/message`, `/login`)
-- WAF : règles nginx (rate limiting, voir `README.md`)
-- Secrets : hors du repo, via `.env` (jamais commité, voir `.gitignore`)
+- WAF: nginx rules (rate limiting, see `README.md`)
+- Secrets: kept out of the repo, via `.env` (never committed, see `.gitignore`)
 
-## Ce qui reste à faire pour un dossier complet
+## What's left for a complete submission
 
-- [ ] Ajouter les maquettes Figma dans `docs/maquettes/` (CP2)
-- [ ] Ajouter du contenu réel dans `Realisation` (au moins Beta Samati)
-      via l'admin, avec vraies images/vidéos
-- [ ] Configurer les vrais secrets GitHub Actions pour le déploiement
-- [ ] Ajouter Argon2 comme hasher (mentionné comme amélioration possible
-      dans la doc technique)
-- [ ] Mettre à jour le document Notion technique pour y ajouter Redis/NoSQL
-      (actuellement absent, ajouté ici suite à la relecture RNCP)
+- [ ] Add Figma mockups to `docs/mockups/` (CP2)
+- [ ] Add real content to `Realisation` (at least Beta Samati) via the
+      admin, with real images/videos
+- [ ] Configure real GitHub Actions secrets for deployment
+- [ ] Add Argon2 as the password hasher (mentioned as a possible
+      improvement in the technical documentation)
+- [ ] Update the Notion technical document to add Redis/NoSQL (currently
+      missing, added here following the RNCP review)

@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{% block title %}Sagal Haider — Historical Reconstruction{% endblock %}</title>
+<title>{% block title %}Restituo — 3D Historical Reconstruction{% endblock %}</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% block extra_head %}{% endblock %}
@@ -12,7 +12,7 @@
 <body>
 
 <nav>
-  <div class="nav-logo"><a href="{% url 'home' %}" style="color:inherit;text-decoration:none">SAGAL<span>.</span>HAIDER</a></div>
+  <div class="nav-logo"><a href="{% url 'home' %}" style="color:inherit;text-decoration:none">RESTITU<span>O</span></a></div>
   <div class="nav-right">
     <ul class="nav-links">
       <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Accueil</a></li>
@@ -35,7 +35,7 @@
 
 {% block content %}{% endblock %}
 
-<footer><div class="fb">SAGAL HAIDER</div><div class="fc">&#169; 2026 &#8212; Historical Reconstruction &#183; East Africa</div><div class="fc">contact@sagalhaider.com</div></footer>
+<footer><div class="fb">RESTITUO</div><div class="fc">&#169; 2026 &#8212; Historical Reconstruction &#183; East Africa</div><div class="fc">by Sagal Haider &#8212; contact@sagalhaider.com</div></footer>
 
 <div id="chatbot-widget"></div>
 
