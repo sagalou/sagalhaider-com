@@ -1,3 +1,4 @@
+from django.core.validators import FileExtensionValidator
 from django.db import models
 
 
@@ -18,7 +19,15 @@ class Realisation(models.Model):
 
     title = models.CharField("titre", max_length=200)
     description = models.TextField("description")
-    image = models.ImageField("image", upload_to="realisations/", blank=True, null=True)
+    image = models.ImageField(
+        "image / affiche", upload_to="realisations/", blank=True, null=True,
+        help_text="Utilisée comme vignette, et comme image d'affiche (poster) si une vidéo est fournie.",
+    )
+    video = models.FileField(
+        "vidéo", upload_to="realisations/videos/", blank=True, null=True,
+        validators=[FileExtensionValidator(["mp4", "webm", "mov"])],
+        help_text="Flyover ou immersion 3D exportée d'Unreal Engine (mp4/webm/mov).",
+    )
     site_reference = models.CharField(
         "site de référence", max_length=200,
         help_text="Ex : Beta Samati, Gedi, Mogadishu, Aksum",
@@ -43,3 +52,7 @@ class Realisation(models.Model):
     @property
     def image_path(self):
         return self.image.url if self.image else ""
+
+    @property
+    def video_path(self):
+        return self.video.url if self.video else ""

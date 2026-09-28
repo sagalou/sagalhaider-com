@@ -16,6 +16,7 @@ def realisations_list(request):
             "titre": r.title,
             "description": r.description,
             "image_path": r.image_path,
+            "video_path": r.video_path,
             "site_reference": r.site_reference,
             "category": r.category,
             "period_label": r.period_label,
