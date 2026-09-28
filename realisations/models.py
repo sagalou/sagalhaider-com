@@ -46,7 +46,7 @@ class Realisation(models.Model):
     video = models.FileField(
         "vidéo", upload_to="realisations/videos/", blank=True, null=True,
         validators=[FileExtensionValidator(["mp4", "webm", "mov"])],
-        help_text="Flyover ou immersion 3D exportée d'Unreal Engine (mp4/webm/mov).",
+        help_text="Flyover ou immersion 3D exportée depuis Blender, Unreal Engine, etc. (mp4/webm/mov).",
     )
     site_reference = models.CharField(
         "site de référence", max_length=200,
