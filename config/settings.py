@@ -27,6 +27,8 @@ ALLOWED_HOSTS = [h.strip() for h in os.environ.get(
     "DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1"
 ).split(",") if h.strip()]
 
+CSRF_TRUSTED_ORIGINS = [f"https://{h}" for h in ALLOWED_HOSTS if h not in ("localhost", "127.0.0.1")]
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -151,6 +153,10 @@ RATE_LIMIT_LOGIN = "10/h"         # per IP, on POST /login
 
 LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/admin/dashboard"
+
+# Chilemme's proxy terminates HTTPS and forwards plain HTTP to nginx;
+# this tells Django to trust the X-Forwarded-Proto header instead.
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 CSRF_COOKIE_SECURE = not DEBUG
 SESSION_COOKIE_SECURE = not DEBUG
