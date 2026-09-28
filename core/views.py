@@ -31,7 +31,7 @@ def cities(request):
         "realisations": realisations,
         "category": "city",
         "page_eye": "02 · Les villes dans le temps",
-        "page_title": "Villes d'Afrique de l'Est",
+        "page_title": "Reconstitutions urbaines",
         "page_sub": (
             "Des villes reconstituées à un moment précis de leur histoire, "
             "documentées, modélisées, rendues."

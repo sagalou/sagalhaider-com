@@ -17,7 +17,7 @@
     <ul class="nav-links">
       <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}" data-i18n="nav.home">Accueil</a></li>
       <li><a href="{% url 'sites' %}" class="{% if request.resolver_match.url_name == 'sites' %}active{% endif %}" data-i18n="nav.sites">Sites archéologiques</a></li>
-      <li><a href="{% url 'cities' %}" class="{% if request.resolver_match.url_name == 'cities' %}active{% endif %}" data-i18n="nav.cities">Villes d'Afrique de l'Est</a></li>
+      <li><a href="{% url 'cities' %}" class="{% if request.resolver_match.url_name == 'cities' %}active{% endif %}" data-i18n="nav.cities">Reconstitutions urbaines</a></li>
       <li><a href="{% url 'contact' %}" class="nav-cta {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" data-i18n="nav.contact">Contact</a></li>
     </ul>
     <div class="lang-switcher">
@@ -34,7 +34,7 @@
 <div class="mobile-menu" id="mobile-menu">
   <a href="{% url 'home' %}">&#127968; <span data-i18n="nav.home">Accueil</span></a>
   <a href="{% url 'sites' %}" data-i18n="nav.sites">Sites archéologiques</a>
-  <a href="{% url 'cities' %}" data-i18n="nav.cities">Villes d'Afrique de l'Est</a>
+  <a href="{% url 'cities' %}" data-i18n="nav.cities">Reconstitutions urbaines</a>
   <a href="{% url 'contact' %}" class="nav-cta" data-i18n="nav.contact">Contact</a>
   <div class="mobile-lang">
     <button class="lang-btn" data-lang="fr" onclick="applyLang('fr')">FR</button>
@@ -49,7 +49,7 @@
 
 <div id="chatbot-widget"></div>
 
-<script src="{% static 'js/i18n.js' %}?v=2"></script>
+<script src="{% static 'js/i18n.js' %}?v=3"></script>
 <script src="{% static 'js/script.js' %}"></script>
 <script src="{% static 'js/chatbot.js' %}"></script>
 </body>
