@@ -1,5 +1,5 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#f4f2ee;--bg2:#eceae4;--dark:#0d0d0d;--blue:#0066ff;--blue-light:rgba(0,102,255,0.08);--border:rgba(0,0,0,0.08);--muted:#888;--text:#1a1a1a}
+:root{--bg:#EDEAE2;--bg2:#E4E0D3;--dark:#211F1B;--blue:#4E6E5D;--blue-light:rgba(78,110,93,0.08);--border:rgba(33,31,27,0.08);--muted:#8C8577;--text:#2E2B26}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1rem 2.5rem;background:rgba(244,242,238,0.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
