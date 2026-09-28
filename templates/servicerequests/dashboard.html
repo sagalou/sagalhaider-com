@@ -46,7 +46,7 @@ async function loadList(){
       <div class="video-info">
         <div class="video-loc">${item.statut}</div>
         <div class="video-name">${item.client_nom}</div>
-        <p class="video-desc">Progression : ${item.progression}% — reçue le ${new Date(item.created_at).toLocaleDateString()}</p>
+        <p class="video-desc">Progression : ${item.progression}% , reçue le ${new Date(item.created_at).toLocaleDateString()}</p>
       </div>`;
     card.onclick = () => loadDetail(item.id);
     container.appendChild(card);
@@ -66,7 +66,7 @@ async function loadDetail(id){
   el.innerHTML = `
     <div class="approach" style="grid-template-columns:1fr">
       <div class="ab" style="color:rgba(255,255,255,0.75)">
-        <p style="color:#fff"><strong>${d.client_nom}</strong> — ${d.client_email}</p>
+        <p style="color:#fff"><strong>${d.client_nom}</strong> , ${d.client_email}</p>
         <p style="color:rgba(255,255,255,0.75)">${d.organisation || ''}</p>
         <p style="color:rgba(255,255,255,0.75)">${d.description_projet}</p>
         <p style="color:#fff">Progression : ${d.progression}%</p>
