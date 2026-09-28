@@ -14,7 +14,11 @@ def realisations_list(request):
         {
             "id": r.id,
             "titre": r.title,
+            "titre_en": r.title_en_display,
+            "titre_sw": r.title_sw_display,
             "description": r.description,
+            "description_en": r.description_en_display,
+            "description_sw": r.description_sw_display,
             "image_path": r.image_path,
             "video_path": r.video_path,
             "site_reference": r.site_reference,

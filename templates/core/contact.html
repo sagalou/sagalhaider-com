@@ -1,30 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="page active">
-  <a href="{% url 'home' %}" class="back-btn">&#8592; Retour</a>
+  <a href="{% url 'home' %}" class="back-btn" data-i18n="gallery.back">&#8592; Retour</a>
   <div class="page-header">
-    <div class="page-eye">Contact &amp; Demande de projet</div>
-    <div class="page-title">Travaillons ensemble</div>
-    <p class="page-sub">Une suggestion de ville ou de site ? Un projet de restitution 3D en tête ? Décrivez-le ci-dessous.</p>
+    <div class="page-eye" data-i18n="contact.eye">Contact &amp; Demande de projet</div>
+    <div class="page-title" data-i18n="contact.title">Travaillons ensemble</div>
+    <p class="page-sub" data-i18n="contact.sub">Une suggestion de ville ou de site ? Un projet de restitution 3D en tête ? Décrivez-le ci-dessous.</p>
   </div>
   <div class="contact-grid">
     <div class="contact-info">
-      <p>Historiens, archéologues, communautés de la diaspora et curieux sont les bienvenus pour partager suggestions, sources ou demandes de collaboration.</p>
-      <p>Vous pouvez aussi me contacter directement :</p>
+      <p data-i18n="contact.info.p1">Historiens, archéologues, communautés de la diaspora et curieux sont les bienvenus pour partager suggestions, sources ou demandes de collaboration.</p>
+      <p data-i18n="contact.info.p2">Vous pouvez aussi me contacter directement :</p>
       <a href="mailto:contact@sagalhaider.com" class="contact-mail">contact@sagalhaider.com &#8594;</a>
     </div>
     <div>
       <form id="request-form">
-        <div class="form-group"><label class="form-label">Votre nom</label><input class="form-input" type="text" id="f-name" required></div>
-        <div class="form-group"><label class="form-label">Votre email</label><input class="form-input" type="email" id="f-email" required></div>
-        <div class="form-group"><label class="form-label">Organisation (optionnel)</label><input class="form-input" type="text" id="f-org"></div>
-        <div class="form-group"><label class="form-label">Décrivez votre projet</label><textarea class="form-textarea" id="f-msg" required></textarea></div>
+        <div class="form-group"><label class="form-label" data-i18n="contact.form.name">Votre nom</label><input class="form-input" type="text" id="f-name" required></div>
+        <div class="form-group"><label class="form-label" data-i18n="contact.form.email">Votre email</label><input class="form-input" type="email" id="f-email" required></div>
+        <div class="form-group"><label class="form-label" data-i18n="contact.form.org">Organisation (optionnel)</label><input class="form-input" type="text" id="f-org"></div>
+        <div class="form-group"><label class="form-label" data-i18n="contact.form.desc">Décrivez votre projet</label><textarea class="form-textarea" id="f-msg" required></textarea></div>
         <!-- Honeypot: left empty by real visitors, hidden via CSS -->
         <div style="position:absolute;left:-9999px" aria-hidden="true">
           <input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off">
         </div>
-        <button type="submit" class="submit-btn">Envoyer la demande &#8594;</button>
-        <div class="success-msg" id="success-msg">&#10003; Demande envoyée, merci ! Vous recevrez une confirmation par email.</div>
+        <button type="submit" class="submit-btn" data-i18n="contact.form.send">Envoyer la demande &#8594;</button>
+        <div class="success-msg" id="success-msg" data-i18n="contact.success">&#10003; Demande envoyée, merci ! Vous recevrez une confirmation par email.</div>
         <div class="success-msg" id="error-msg" style="display:none;border-color:#e33;color:#e33;background:rgba(238,51,51,0.06)"></div>
       </form>
     </div>
@@ -57,15 +57,15 @@ document.getElementById('request-form').addEventListener('submit', async functio
       successEl.style.display = 'block';
       this.reset();
     } else if (res.status === 429) {
-      errorEl.textContent = 'Trop de demandes envoyées récemment, réessayez plus tard.';
+      errorEl.textContent = t('contact.error.rate');
       errorEl.style.display = 'block';
     } else {
       const data = await res.json();
-      errorEl.textContent = 'Merci de vérifier les champs du formulaire.';
+      errorEl.textContent = t('contact.error.generic');
       errorEl.style.display = 'block';
     }
   } catch (err) {
-    errorEl.textContent = "Erreur réseau, réessayez.";
+    errorEl.textContent = t('contact.error.network');
     errorEl.style.display = 'block';
   }
 });

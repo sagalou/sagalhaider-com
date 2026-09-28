@@ -1,0 +1,206 @@
+const T = {
+  fr: {
+    "nav.home": "Accueil",
+    "nav.sites": "Sites archéologiques",
+    "nav.cities": "Villes d'Afrique de l'Est",
+    "nav.contact": "Contact",
+    "footer.copy": "© 2026, Reconstitution historique · Afrique de l'Est",
+    "footer.by": "par Sagal Haider",
+    "home.hero.tag": "Reconstitution historique 3D · Afrique de l'Est",
+    "home.hero.h1a": "L'Afrique de l'Est",
+    "home.hero.h1b2": "telle qu'elle ",
+    "home.hero.h1b": "était.",
+    "home.hero.sub": "Reconstitutions 3D de villes et sites archéologiques d'Afrique de l'Est à des moments précis de leur histoire, à partir de sources primaires, d'archives de terrain et de rendu temps réel.",
+    "home.cta.sites": "Sites archéologiques →",
+    "home.cta.cities": "Villes d'Afrique de l'Est",
+    "home.stat.render": "Rendu temps réel",
+    "home.stat.lang": "Langues",
+    "home.techstrip.label": "Réalisé avec",
+    "home.card1.label": "De la fouille à la vie",
+    "home.card1.title": "Reconstitution de sites archéologiques",
+    "home.card1.desc": "Des données de fouilles à la 3D photoréaliste, reconstituer ce à quoi ressemblaient les sites avant que la terre ne les engloutisse.",
+    "home.explore": "Explorer →",
+    "home.card2.label": "Les villes dans le temps",
+    "home.card2.title": "Villes d'Afrique de l'Est",
+    "home.card2.desc": "Mogadishu dans les années 1950, Aksum à son apogée, des villes capturées à un moment précis, reconstruites en 3D complète.",
+    "gallery.back": "Retour",
+    "gallery.sites.eye": "01 · De la fouille à la vie",
+    "gallery.sites.title": "Reconstitution de sites archéologiques",
+    "gallery.sites.sub": "Rapports de fouilles, relevés de terrain et photogrammétrie pour reconstituer les sites tels qu'ils étaient, avec rigueur, sans romantisme.",
+    "gallery.cities.eye": "02 · Les villes dans le temps",
+    "gallery.cities.title": "Villes d'Afrique de l'Est",
+    "gallery.cities.sub": "Des villes reconstituées à un moment précis de leur histoire, documentées, modélisées, rendues.",
+    "gallery.empty": "Aucune réalisation pour le moment, ajoutez-en depuis l'admin.",
+    "approach.arch.q2": "romantisme.",
+    "approach.arch.q3": "Rigueur historique.",
+    "approach.arch.p1": "Chaque reconstitution part de sources primaires, rapports de fouilles, photos de terrain, stratigraphie, plans d'époque.",
+    "approach.arch.p2": "Là où les sources sont incomplètes, l'incertitude est documentée, jamais comblée par l'imagination.",
+    "approach.cities.q1": "Une ville",
+    "approach.cities.q2": "à un moment ",
+    "approach.cities.q3": "précis",
+    "approach.cities.q4": "de son histoire.",
+    "approach.cities.p1": "Mogadishu dans les années 1950 n'est pas une ville perdue. C'est une ville vivante. La reconstituer, c'est montrer ce qui a existé, sans romantisme.",
+    "approach.cities.p2": "Chaque projet part de sources primaires : archives, plans d'époque, témoignages, rendu en 3D temps réel.",
+    "contact.eye": "Contact & Demande de projet",
+    "contact.title": "Travaillons ensemble",
+    "contact.sub": "Une suggestion de ville ou de site ? Un projet de restitution 3D en tête ? Décrivez-le ci-dessous.",
+    "contact.info.p1": "Historiens, archéologues, communautés de la diaspora et curieux sont les bienvenus pour partager suggestions, sources ou demandes de collaboration.",
+    "contact.info.p2": "Vous pouvez aussi me contacter directement :",
+    "contact.form.name": "Votre nom",
+    "contact.form.email": "Votre email",
+    "contact.form.org": "Organisation (optionnel)",
+    "contact.form.desc": "Décrivez votre projet",
+    "contact.form.send": "Envoyer la demande →",
+    "contact.success": "✓ Demande envoyée, merci ! Vous recevrez une confirmation par email.",
+    "contact.error.rate": "Trop de demandes envoyées récemment, réessayez plus tard.",
+    "contact.error.generic": "Merci de vérifier les champs du formulaire.",
+    "contact.error.network": "Erreur réseau, réessayez."
+  },
+  en: {
+    "nav.home": "Home",
+    "nav.sites": "Archaeological Sites",
+    "nav.cities": "East African Cities",
+    "nav.contact": "Contact",
+    "footer.copy": "© 2026, Historical Reconstruction · East Africa",
+    "footer.by": "by Sagal Haider",
+    "home.hero.tag": "3D Historical Reconstruction · East Africa",
+    "home.hero.h1a": "East Africa",
+    "home.hero.h1b2": "as it ",
+    "home.hero.h1b": "was.",
+    "home.hero.sub": "3D reconstructions of East African cities and archaeological sites at precise moments in history, built from primary sources, field archives and real-time rendering.",
+    "home.cta.sites": "Archaeological Sites →",
+    "home.cta.cities": "East African Cities",
+    "home.stat.render": "Real-time render",
+    "home.stat.lang": "Languages",
+    "home.techstrip.label": "Built with",
+    "home.card1.label": "From dig to life",
+    "home.card1.title": "Archaeological Site Reconstructions",
+    "home.card1.desc": "From excavation data to photorealistic 3D, reconstructing what sites looked like before the ground swallowed them.",
+    "home.explore": "Explore →",
+    "home.card2.label": "Cities in time",
+    "home.card2.title": "East African Cities",
+    "home.card2.desc": "Mogadishu in the 1950s, Aksum at its peak, cities captured at a precise moment, rebuilt in full 3D.",
+    "gallery.back": "Back",
+    "gallery.sites.eye": "01 · From Dig to Life",
+    "gallery.sites.title": "Archaeological Site Reconstructions",
+    "gallery.sites.sub": "Excavation reports, field surveys and photogrammetry to reconstruct sites as they once stood, with rigour and no romanticism.",
+    "gallery.cities.eye": "02 · Cities in Time",
+    "gallery.cities.title": "East African Cities",
+    "gallery.cities.sub": "Cities reconstructed at a precise moment in their history, documented, modelled, rendered.",
+    "gallery.empty": "No projects yet, add one from the admin.",
+    "approach.arch.q2": "romanticisation.",
+    "approach.arch.q3": "Historical rigour.",
+    "approach.arch.p1": "Every reconstruction starts from primary sources, excavation reports, field photographs, soil stratigraphy, period plans.",
+    "approach.arch.p2": "Where sources are incomplete, uncertainty is documented, never filled in with imagination.",
+    "approach.cities.q1": "A city",
+    "approach.cities.q2": "at a ",
+    "approach.cities.q3": "precise",
+    "approach.cities.q4": "moment in its history.",
+    "approach.cities.p1": "Mogadishu in the 1950s is not a lost city. It is a living city. Reconstructing it means showing what existed, without romanticism.",
+    "approach.cities.p2": "Every project is built from primary sources: archives, period plans, testimonies, rendered in real-time 3D.",
+    "contact.eye": "Contact & Project Request",
+    "contact.title": "Let's Work Together",
+    "contact.sub": "A suggestion for a city or site? A 3D reconstruction project in mind? Describe it below.",
+    "contact.info.p1": "Historians, archaeologists, diaspora communities and curious minds are all welcome to share suggestions, sources or collaboration requests.",
+    "contact.info.p2": "You can also reach me directly:",
+    "contact.form.name": "Your name",
+    "contact.form.email": "Your email",
+    "contact.form.org": "Organisation (optional)",
+    "contact.form.desc": "Describe your project",
+    "contact.form.send": "Send request →",
+    "contact.success": "✓ Request sent, thank you! You will receive a confirmation by email.",
+    "contact.error.rate": "Too many requests sent recently, please try again later.",
+    "contact.error.generic": "Please check the form fields.",
+    "contact.error.network": "Network error, please try again."
+  },
+  sw: {
+    "nav.home": "Nyumbani",
+    "nav.sites": "Maeneo ya Kiakiolojia",
+    "nav.cities": "Miji ya Afrika Mashariki",
+    "nav.contact": "Mawasiliano",
+    "footer.copy": "© 2026, Ujenzi wa Kihistoria · Afrika Mashariki",
+    "footer.by": "na Sagal Haider",
+    "home.hero.tag": "Ujenzi wa Kihistoria 3D · Afrika Mashariki",
+    "home.hero.h1a": "Afrika Mashariki",
+    "home.hero.h1b2": "ilivyo ",
+    "home.hero.h1b": "kuwa.",
+    "home.hero.sub": "Ujenzi wa 3D wa miji na maeneo ya kiakiolojia ya Afrika Mashariki wakati maalum wa historia, kutoka vyanzo vya msingi, kumbukumbu za uwanjani na uwakilishi wa wakati halisi.",
+    "home.cta.sites": "Maeneo ya Kiakiolojia →",
+    "home.cta.cities": "Miji ya Afrika Mashariki",
+    "home.stat.render": "Uwakilishi wa sasa",
+    "home.stat.lang": "Lugha",
+    "home.techstrip.label": "Imejengwa na",
+    "home.card1.label": "Kutoka uchimbaji hadi uhai",
+    "home.card1.title": "Ujenzi wa Maeneo ya Kiakiolojia",
+    "home.card1.desc": "Kutoka data za uchimbaji hadi 3D, kujenga upya jinsi maeneo yalivyoonekana kabla ya kufunikwa na ardhi.",
+    "home.explore": "Chunguza →",
+    "home.card2.label": "Miji katika wakati",
+    "home.card2.title": "Miji ya Afrika Mashariki",
+    "home.card2.desc": "Mogadishu miaka ya 1950, Aksum kilele chake, miji iliyonaswa wakati maalum, iliyojengwa upya katika 3D kamili.",
+    "gallery.back": "Rudi",
+    "gallery.sites.eye": "01 · Kutoka Uchimbaji hadi Uhai",
+    "gallery.sites.title": "Ujenzi wa Maeneo ya Kiakiolojia",
+    "gallery.sites.sub": "Ripoti za uchimbaji, tafiti za uwanjani na fotogrammeti kujenga upya maeneo kama yalivyokuwa, kwa udhibiti bila hisia.",
+    "gallery.cities.eye": "02 · Miji Katika Wakati",
+    "gallery.cities.title": "Miji ya Afrika Mashariki",
+    "gallery.cities.sub": "Miji iliyojengwa upya wakati maalum wa historia yake, iliyoandikwa, iliyoundwa, iliyowakilishwa.",
+    "gallery.empty": "Hakuna mradi bado, ongeza kutoka kwa admin.",
+    "approach.arch.q2": "hisia.",
+    "approach.arch.q3": "Udhibiti wa kihistoria.",
+    "approach.arch.p1": "Kila ujenzi huanza kutoka vyanzo vya msingi, ripoti za uchimbaji, picha za uwanjani, tabaka za udongo, mipango ya kipindi.",
+    "approach.arch.p2": "Pale vyanzo visipokamilika, kutokuwa na uhakika kunaandikwa, hakuna kujaza kwa mawazo.",
+    "approach.cities.q1": "Mji",
+    "approach.cities.q2": "wakati ",
+    "approach.cities.q3": "maalum",
+    "approach.cities.q4": "wa historia yake.",
+    "approach.cities.p1": "Mogadishu miaka ya 1950 si mji uliopotea. Ni mji hai. Kuujenga upya kunamaanisha kuonyesha kilichokuwepo, bila hisia.",
+    "approach.cities.p2": "Kila mradi hujengwa kutoka vyanzo vya msingi: kumbukumbu, mipango, ushuhuda, katika 3D ya wakati halisi.",
+    "contact.eye": "Mawasiliano na Ombi la Mradi",
+    "contact.title": "Tushirikiane",
+    "contact.sub": "Una pendekezo la mji au eneo? Una wazo la mradi wa ujenzi wa 3D? Elezea hapa chini.",
+    "contact.info.p1": "Wanahistoria, wachimbaji, jamii za diaspora na watu wanaopenda kujua wanakaribishwa kushiriki mapendekezo, vyanzo au maombi ya ushirikiano.",
+    "contact.info.p2": "Unaweza pia kuwasiliana nami moja kwa moja:",
+    "contact.form.name": "Jina lako",
+    "contact.form.email": "Barua pepe yako",
+    "contact.form.org": "Shirika (hiari)",
+    "contact.form.desc": "Elezea mradi wako",
+    "contact.form.send": "Tuma ombi →",
+    "contact.success": "✓ Ombi limetumwa, asante! Utapokea uthibitisho kupitia barua pepe.",
+    "contact.error.rate": "Maombi mengi yametumwa hivi karibuni, jaribu tena baadaye.",
+    "contact.error.generic": "Tafadhali angalia sehemu za fomu.",
+    "contact.error.network": "Hitilafu ya mtandao, jaribu tena."
+  }
+};
+
+let currentLang = 'fr';
+
+function t(key) {
+  return (T[currentLang] && T[currentLang][key]) || (T.fr && T.fr[key]) || key;
+}
+
+function applyLang(lang) {
+  if (!T[lang]) return;
+  currentLang = lang;
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (T[lang][key] !== undefined) el.textContent = T[lang][key];
+  });
+
+  document.querySelectorAll('[data-i18n-fr]').forEach(el => {
+    const val = el.getAttribute('data-i18n-' + lang) || el.getAttribute('data-i18n-fr');
+    el.textContent = val;
+  });
+
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+  });
+
+  try { localStorage.setItem('restituo_lang', lang); } catch (e) {}
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  let saved = 'fr';
+  try { saved = localStorage.getItem('restituo_lang') || 'fr'; } catch (e) {}
+  applyLang(saved);
+});

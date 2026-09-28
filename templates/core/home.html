@@ -6,23 +6,23 @@
     <div class="hero-grid"></div>
     <div class="hero-scan"></div>
     <div class="hero-content">
-      <div class="hero-tag"><span class="hero-dot"></span><span>3D Historical Reconstruction · East Africa</span></div>
-      <h1><span class="dim">East Africa</span><br><span>as it </span><span class="blue">was.</span></h1>
-      <p class="hero-sub">Reconstitutions 3D de villes et sites archéologiques d'Afrique de l'Est à des moments précis de leur histoire, à partir de sources primaires, d'archives de terrain et de rendu temps réel.</p>
+      <div class="hero-tag"><span class="hero-dot"></span><span data-i18n="home.hero.tag">3D Historical Reconstruction · East Africa</span></div>
+      <h1><span class="dim" data-i18n="home.hero.h1a">East Africa</span><br><span data-i18n="home.hero.h1b2">as it </span><span class="blue" data-i18n="home.hero.h1b">was.</span></h1>
+      <p class="hero-sub" data-i18n="home.hero.sub">Reconstitutions 3D de villes et sites archéologiques d'Afrique de l'Est à des moments précis de leur histoire, à partir de sources primaires, d'archives de terrain et de rendu temps réel.</p>
       <div class="hero-actions">
-        <a href="{% url 'sites' %}" class="btn-dark">Sites archéologiques &#8594;</a>
-        <a href="{% url 'cities' %}" class="btn-outline">Villes d'Afrique de l'Est</a>
+        <a href="{% url 'sites' %}" class="btn-dark" data-i18n="home.cta.sites">Sites archéologiques &#8594;</a>
+        <a href="{% url 'cities' %}" class="btn-outline" data-i18n="home.cta.cities">Villes d'Afrique de l'Est</a>
       </div>
       <div class="hero-stats">
-        <div><div class="sv">3D</div><div class="sl">Rendu temps réel</div></div>
+        <div><div class="sv">3D</div><div class="sl" data-i18n="home.stat.render">Rendu temps réel</div></div>
         <div><div class="sv">~1950</div><div class="sl">Mogadishu</div></div>
         <div><div class="sv">IVe s.</div><div class="sl">Aksum</div></div>
-        <div><div class="sv">5</div><div class="sl">Langues</div></div>
+        <div><div class="sv">5</div><div class="sl" data-i18n="home.stat.lang">Langues</div></div>
       </div>
     </div>
   </section>
   <div class="tech-strip">
-    <span class="ts-label">Built with</span>
+    <span class="ts-label" data-i18n="home.techstrip.label">Built with</span>
     <div class="ts-items">
       <span class="ts-item">Real-time 3D Rendering</span><span class="ts-dot"></span>
       <span class="ts-item">Photogrammetry</span><span class="ts-dot"></span>
@@ -35,17 +35,17 @@
     <div class="entry-cards">
       <a class="entry-card" href="{% url 'sites' %}" style="text-decoration:none;color:inherit;display:block">
         <div class="entry-num">01</div>
-        <div class="entry-label">From dig to life</div>
-        <div class="entry-title">Reconstitution de sites archéologiques</div>
-        <p class="entry-desc">Des données de fouilles à la 3D photoréaliste, reconstituer ce à quoi ressemblaient les sites avant que la terre ne les engloutisse.</p>
-        <div class="entry-arrow">Explorer &#8594;</div>
+        <div class="entry-label" data-i18n="home.card1.label">From dig to life</div>
+        <div class="entry-title" data-i18n="home.card1.title">Reconstitution de sites archéologiques</div>
+        <p class="entry-desc" data-i18n="home.card1.desc">Des données de fouilles à la 3D photoréaliste, reconstituer ce à quoi ressemblaient les sites avant que la terre ne les engloutisse.</p>
+        <div class="entry-arrow" data-i18n="home.explore">Explorer &#8594;</div>
       </a>
       <a class="entry-card" href="{% url 'cities' %}" style="text-decoration:none;color:inherit;display:block">
         <div class="entry-num">02</div>
-        <div class="entry-label">Cities in time</div>
-        <div class="entry-title">Villes d'Afrique de l'Est</div>
-        <p class="entry-desc">Mogadishu dans les années 1950, Aksum à son apogée, des villes capturées à un moment précis, reconstruites en 3D complète.</p>
-        <div class="entry-arrow">Explorer &#8594;</div>
+        <div class="entry-label" data-i18n="home.card2.label">Cities in time</div>
+        <div class="entry-title" data-i18n="home.card2.title">Villes d'Afrique de l'Est</div>
+        <p class="entry-desc" data-i18n="home.card2.desc">Mogadishu dans les années 1950, Aksum à son apogée, des villes capturées à un moment précis, reconstruites en 3D complète.</p>
+        <div class="entry-arrow" data-i18n="home.explore">Explorer &#8594;</div>
       </a>
     </div>
   </div>

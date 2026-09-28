@@ -15,11 +15,16 @@
   <div class="nav-logo"><a href="{% url 'home' %}" style="color:inherit;text-decoration:none">RESTITU<span>O</span></a></div>
   <div class="nav-right">
     <ul class="nav-links">
-      <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Accueil</a></li>
-      <li><a href="{% url 'sites' %}" class="{% if request.resolver_match.url_name == 'sites' %}active{% endif %}">Sites archéologiques</a></li>
-      <li><a href="{% url 'cities' %}" class="{% if request.resolver_match.url_name == 'cities' %}active{% endif %}">Villes d'Afrique de l'Est</a></li>
-      <li><a href="{% url 'contact' %}" class="nav-cta {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a></li>
+      <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}" data-i18n="nav.home">Accueil</a></li>
+      <li><a href="{% url 'sites' %}" class="{% if request.resolver_match.url_name == 'sites' %}active{% endif %}" data-i18n="nav.sites">Sites archéologiques</a></li>
+      <li><a href="{% url 'cities' %}" class="{% if request.resolver_match.url_name == 'cities' %}active{% endif %}" data-i18n="nav.cities">Villes d'Afrique de l'Est</a></li>
+      <li><a href="{% url 'contact' %}" class="nav-cta {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" data-i18n="nav.contact">Contact</a></li>
     </ul>
+    <div class="lang-switcher">
+      <button class="lang-btn" data-lang="fr" onclick="applyLang('fr')">FR</button>
+      <button class="lang-btn" data-lang="en" onclick="applyLang('en')">EN</button>
+      <button class="lang-btn" data-lang="sw" onclick="applyLang('sw')">SW</button>
+    </div>
     <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -27,18 +32,24 @@
 </nav>
 
 <div class="mobile-menu" id="mobile-menu">
-  <a href="{% url 'home' %}">&#127968; Accueil</a>
-  <a href="{% url 'sites' %}">Sites archéologiques</a>
-  <a href="{% url 'cities' %}">Villes d'Afrique de l'Est</a>
-  <a href="{% url 'contact' %}" class="nav-cta">Contact</a>
+  <a href="{% url 'home' %}">&#127968; <span data-i18n="nav.home">Accueil</span></a>
+  <a href="{% url 'sites' %}" data-i18n="nav.sites">Sites archéologiques</a>
+  <a href="{% url 'cities' %}" data-i18n="nav.cities">Villes d'Afrique de l'Est</a>
+  <a href="{% url 'contact' %}" class="nav-cta" data-i18n="nav.contact">Contact</a>
+  <div class="mobile-lang">
+    <button class="lang-btn" data-lang="fr" onclick="applyLang('fr')">FR</button>
+    <button class="lang-btn" data-lang="en" onclick="applyLang('en')">EN</button>
+    <button class="lang-btn" data-lang="sw" onclick="applyLang('sw')">SW</button>
+  </div>
 </div>
 
 {% block content %}{% endblock %}
 
-<footer><div class="fb">RESTITUO</div><div class="fc">&#169; 2026, Historical Reconstruction &#183; East Africa</div><div class="fc">by Sagal Haider, contact@sagalhaider.com</div></footer>
+<footer><div class="fb">RESTITUO</div><div class="fc" data-i18n="footer.copy">&#169; 2026, Historical Reconstruction &#183; East Africa</div><div class="fc"><span data-i18n="footer.by">by Sagal Haider</span>, contact@sagalhaider.com</div></footer>
 
 <div id="chatbot-widget"></div>
 
+<script src="{% static 'js/i18n.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
 <script src="{% static 'js/chatbot.js' %}"></script>
 </body>
