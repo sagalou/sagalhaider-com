@@ -15,7 +15,7 @@ def sites(request):
         "page_title": "Reconstitution de sites archéologiques",
         "page_sub": (
             "Rapports de fouilles, relevés de terrain et photogrammétrie pour "
-            "reconstituer les sites tels qu'ils étaient — avec rigueur, sans "
+            "reconstituer les sites tels qu'ils étaient, avec rigueur, sans "
             "romanticisme."
         ),
     })
@@ -28,7 +28,7 @@ def cities(request):
         "page_eye": "02 · Cities in time",
         "page_title": "Villes d'Afrique de l'Est",
         "page_sub": (
-            "Des villes reconstituées à un moment précis de leur histoire — "
+            "Des villes reconstituées à un moment précis de leur histoire, "
             "documentées, modélisées, rendues."
         ),
     })
