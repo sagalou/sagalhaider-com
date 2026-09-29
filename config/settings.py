@@ -183,5 +183,31 @@ SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = "Lax"
 CSRF_COOKIE_SAMESITE = "Lax"
+
+# Logging : trace les échecs de sécurité (connexions ratées, erreurs serveur)
+import os as _os
+_os.makedirs(BASE_DIR / "logs", exist_ok=True)
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {"format": "{asctime} {levelname} {name} {message}", "style": "{"},
+    },
+    "handlers": {
+        "file": {
+            "level": "WARNING",
+            "class": "logging.FileHandler",
+            "filename": BASE_DIR / "logs" / "security.log",
+            "formatter": "verbose",
+        },
+        "console": {"level": "INFO", "class": "logging.StreamHandler"},
+    },
+    "loggers": {
+        "django.security": {"handlers": ["file", "console"], "level": "WARNING", "propagate": False},
+        "django.request": {"handlers": ["file", "console"], "level": "ERROR", "propagate": False},
+        "axes": {"handlers": ["file", "console"], "level": "WARNING", "propagate": False},
+    },
+}
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = "DENY"
