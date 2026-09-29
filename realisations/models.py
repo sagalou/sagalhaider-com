@@ -1,4 +1,19 @@
 from django.core.validators import FileExtensionValidator
+from django.core.exceptions import ValidationError
+import magic
+
+
+def validate_video_content_type(file):
+    """Checks the real MIME type of an uploaded video, not just its extension,
+    so a malicious file renamed to .mp4 can't slip through."""
+    allowed_types = ("video/mp4", "video/webm", "video/quicktime")
+    file.seek(0)
+    detected = magic.from_buffer(file.read(2048), mime=True)
+    file.seek(0)
+    if detected not in allowed_types:
+        raise ValidationError(
+            f"Type de fichier non autorisé ({detected}). Formats acceptés : mp4, webm, mov."
+        )
 from django.db import models
 
 
@@ -45,7 +60,7 @@ class Realisation(models.Model):
     )
     video = models.FileField(
         "vidéo", upload_to="realisations/videos/", blank=True, null=True,
-        validators=[FileExtensionValidator(["mp4", "webm", "mov"])],
+        validators=[FileExtensionValidator(["mp4", "webm", "mov"]), validate_video_content_type],
         help_text="Flyover ou immersion 3D exportée depuis Blender, Unreal Engine, etc. (mp4/webm/mov).",
     )
     site_reference = models.CharField(
