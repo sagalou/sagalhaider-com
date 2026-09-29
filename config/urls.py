@@ -19,6 +19,9 @@ from django.urls import include, path
 
 from core import views as core_views
 
+from django_otp.admin import OTPAdminSite
+admin.site.__class__ = OTPAdminSite
+
 urlpatterns = [
     path("django-admin/", admin.site.urls),
     path("", include("core.urls")),

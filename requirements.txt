@@ -9,3 +9,5 @@ gunicorn>=22.0
 Pillow>=10.0
 django-axes>=8.3.1
 python-magic>=0.4.27
+django-otp>=1.5.0
+qrcode>=7.4
