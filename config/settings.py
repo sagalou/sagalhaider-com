@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "servicerequests",
     "chatbot",
     "accounts",
+    "axes",
 ]
 
 MIDDLEWARE = [
@@ -52,7 +53,18 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "axes.middleware.AxesMiddleware",
 ]
+
+AUTHENTICATION_BACKENDS = [
+    "axes.backends.AxesStandaloneBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+# django-axes : bloque une IP après plusieurs tentatives de connexion ratées
+AXES_FAILURE_LIMIT = 5
+AXES_COOLOFF_TIME = 1  # heure(s)
+AXES_LOCKOUT_PARAMETERS = ["ip_address", "username"]
 
 ROOT_URLCONF = "config.urls"
 
@@ -160,5 +172,16 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 CSRF_COOKIE_SECURE = not DEBUG
 SESSION_COOKIE_SECURE = not DEBUG
+
+# Durcissement supplémentaire (hors DEBUG local, pour ne pas casser le dev)
+SECURE_SSL_REDIRECT = not DEBUG
+SECURE_HSTS_SECONDS = 604800 if not DEBUG else 0  # 1 semaine, à monter plus tard si tout va bien
+SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = "DENY"
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SAMESITE = "Lax"
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = "DENY"
