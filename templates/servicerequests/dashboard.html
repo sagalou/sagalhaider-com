@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<div style="display:none">{% csrf_token %}</div>
 <div class="page active">
   <div class="page-header" style="display:flex;justify-content:space-between;align-items:center">
     <div>
@@ -24,11 +25,7 @@
 </div>
 
 <script>
-function getCookie(name){
-  const m = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
-  return m ? m.pop() : '';
-}
-const csrftoken = getCookie('csrftoken');
+const csrftoken = document.querySelector('input[name=csrfmiddlewaretoken]').value;
 
 async function loadList(){
   const status = document.getElementById('status-filter').value;
