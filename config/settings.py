@@ -247,3 +247,14 @@ LOGGING = {
     },
 }
 SECURE_BROWSER_XSS_FILTER = True
+
+# Chatbot LLM model tier: "low" for dev/tests (cheap, fast), "high" for
+# demos (better answers). Falls back to "low" for any unknown value.
+CHATBOT_MODEL_TIER = os.environ.get("CHATBOT_MODEL_TIER", "low")
+ANTHROPIC_MODELS = {
+    "low": "claude-haiku-4-5-20251001",
+    "high": "claude-sonnet-5",
+}
+ANTHROPIC_MODEL = ANTHROPIC_MODELS.get(
+    CHATBOT_MODEL_TIER, ANTHROPIC_MODELS["low"]
+)

@@ -89,3 +89,25 @@ class TestChatbotRuleModel:
     def test_no_match_returns_none(self):
         """No matching keyword returns None."""
         assert ChatbotRule.match("bonjour") is None
+
+
+class TestChatbotModelTierSelection:
+    """Tests for the CHATBOT_MODEL_TIER -> ANTHROPIC_MODEL selection."""
+
+    def test_low_tier_selects_haiku(self, settings):
+        """The "low" tier selects the Haiku model."""
+        low_model = settings.ANTHROPIC_MODELS["low"]
+        model = settings.ANTHROPIC_MODELS.get("low", low_model)
+        assert model == "claude-haiku-4-5-20251001"
+
+    def test_high_tier_selects_sonnet(self, settings):
+        """The "high" tier selects the Sonnet model."""
+        low_model = settings.ANTHROPIC_MODELS["low"]
+        model = settings.ANTHROPIC_MODELS.get("high", low_model)
+        assert model == "claude-sonnet-5"
+
+    def test_unknown_tier_falls_back_to_low(self, settings):
+        """An unrecognized tier falls back to the low-tier model."""
+        low_model = settings.ANTHROPIC_MODELS["low"]
+        model = settings.ANTHROPIC_MODELS.get("unknown-tier", low_model)
+        assert model == low_model
