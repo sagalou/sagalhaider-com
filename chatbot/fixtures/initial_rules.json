@@ -1,0 +1,17 @@
+[
+  {
+    "model": "chatbot.chatbotrule",
+    "pk": 1,
+    "fields": {"keyword": "beta samati", "answer": "Beta Samati est une basilique aksoumite en cours de restitution 3D, développée dans Unreal Engine 5 à partir de données de fouilles."}
+  },
+  {
+    "model": "chatbot.chatbotrule",
+    "pk": 2,
+    "fields": {"keyword": "contact", "answer": "Vous pouvez me contacter via le formulaire de la page Contact, ou directement à contact@sagalhaider.com."}
+  },
+  {
+    "model": "chatbot.chatbotrule",
+    "pk": 3,
+    "fields": {"keyword": "délai", "answer": "Le délai de traitement d'une demande dépend de sa complexité, je reviens généralement vers vous sous 7 jours."}
+  }
+]

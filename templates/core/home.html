@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="page-home">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-scan"></div>
+    <div class="hero-content">
+      <div class="hero-tag"><span class="hero-dot"></span><span data-i18n="home.hero.tag">3D Historical Reconstruction</span></div>
+      <h1><span class="dim" data-i18n="home.hero.h1a">History</span><br><span data-i18n="home.hero.h1b2">reconstructed </span><span class="blue" data-i18n="home.hero.h1b">in 3D.</span></h1>
+      <p class="hero-sub" data-i18n="home.hero.sub">Reconstitutions 3D de sites et de villes, fidèles à l'époque, pour musées, chaînes documentaires et acteurs de l'archéologie préventive et programmée, à partir de sources primaires, d'archives de terrain et de rendu temps réel.</p>
+      <div class="hero-actions">
+        <a href="{% url 'sites' %}" class="btn-dark" data-i18n="home.cta.sites">Sites archéologiques &#8594;</a>
+        <a href="{% url 'cities' %}" class="btn-outline" data-i18n="home.cta.cities">Reconstitutions urbaines</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="sv">3D</div><div class="sl" data-i18n="home.stat.render">Rendu temps réel</div></div>
+        <div><div class="sv">4 ans</div><div class="sl" data-i18n="home.stat.experience">Expérience 3D</div></div>
+        <div><div class="sv" data-i18n="home.stat.periods.value">Âge du Bronze → Moyen Âge</div><div class="sl" data-i18n="home.stat.periods.label">Périodes de prédilection</div></div>
+        <div><div class="sv">3</div><div class="sl" data-i18n="home.stat.lang">Langues</div></div>
+      </div>
+    </div>
+  </section>
+  <div class="tech-strip">
+    <span class="ts-label" data-i18n="home.techstrip.label">Built with</span>
+    <div class="ts-items">
+      <span class="ts-item">Real-time 3D Rendering</span><span class="ts-dot"></span>
+      <span class="ts-item">Photogrammetry</span><span class="ts-dot"></span>
+      <span class="ts-item">LiDAR</span><span class="ts-dot"></span>
+      <span class="ts-item">Historical Archives</span><span class="ts-dot"></span>
+      <span class="ts-item">Field Archaeology</span>
+    </div>
+  </div>
+</div>
+{% endblock %}

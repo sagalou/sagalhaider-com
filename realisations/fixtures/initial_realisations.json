@@ -1,0 +1,15 @@
+[
+  {
+    "model": "realisations.realisation",
+    "pk": 1,
+    "fields": {
+      "title": "Beta Samati",
+      "description": "Restitution 3D d'une basilique aksoumite, développée dans Unreal Engine 5 à partir des données de fouilles disponibles.",
+      "image": "",
+      "site_reference": "Beta Samati",
+      "category": "site",
+      "period_label": "IVe siècle",
+      "created_at": "2026-01-01T00:00:00Z"
+    }
+  }
+]

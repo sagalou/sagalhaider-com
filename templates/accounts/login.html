@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page active" style="max-width:400px;margin:0 auto">
+  <div class="page-header">
+    <div class="page-eye">Espace admin</div>
+    <div class="page-title">Connexion</div>
+  </div>
+  {% if error %}<p style="color:#e33;font-size:0.8rem;margin-bottom:1rem">{{ error }}</p>{% endif %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group"><label class="form-label">Identifiant</label><input class="form-input" type="text" name="username" required autofocus></div>
+    <div class="form-group"><label class="form-label">Mot de passe</label><input class="form-input" type="password" name="password" required></div>
+    <button type="submit" class="submit-btn">Se connecter</button>
+  </form>
+</div>
+{% endblock %}
