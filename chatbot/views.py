@@ -1,3 +1,5 @@
+"""Views for the chatbot app."""
+
 import json
 
 from django.conf import settings
@@ -13,8 +15,8 @@ from .services import ChatbotService
 @csrf_exempt
 @require_POST
 def chatbot_message(request):
-    """
-    POST /chatbot/message
+    """Handle POST /chatbot/message.
+
     No auth, rate-limited by IP.
     JSON in: {message, session_id}
     200: success · 400: empty/malformed · 429: quota exceeded
@@ -40,6 +42,8 @@ def chatbot_message(request):
         status = getattr(exc, "status_code", 503)
         if status not in (502, 503):
             status = 503
-        return JsonResponse({"error": "chatbot temporarily unavailable"}, status=status)
+        return JsonResponse(
+            {"error": "chatbot temporarily unavailable"}, status=status
+        )
 
     return JsonResponse(result, status=200)

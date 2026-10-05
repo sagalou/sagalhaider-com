@@ -1,3 +1,5 @@
+"""Models for the servicerequests app."""
+
 from datetime import timedelta
 
 from django.conf import settings
@@ -7,8 +9,10 @@ from django.utils import timezone
 
 
 class ServiceRequest(models.Model):
-    """A client's request for a 3D restitution project, tracked through
-    admin-managed steps until completion."""
+    """A client's request for a 3D restitution project.
+
+    Tracked through admin-managed steps until completion.
+    """
 
     STATUS_NEW = "new"
     STATUS_IN_PROGRESS = "in_progress"
@@ -40,11 +44,14 @@ class ServiceRequest(models.Model):
     )
 
     class Meta:
+        """Metadata for the ServiceRequest model."""
+
         verbose_name = "demande"
         verbose_name_plural = "demandes"
         ordering = ["-created_at"]
 
     def __str__(self):
+        """Return the client name and status as the string representation."""
         return f"{self.client_name} — {self.get_status_display()}"
 
     def send_confirmation(self):
@@ -64,8 +71,11 @@ class ServiceRequest(models.Model):
         )
 
     def check_response_delay(self):
-        """Trigger a reminder email if more than 7 days without a status
-        update (i.e. still 'new'), and record when it was sent."""
+        """Send a reminder email if the request has been idle too long.
+
+        Triggers when more than 7 days have passed without a status
+        update (i.e. still 'new'), and records when it was sent.
+        """
         if self.status != self.STATUS_NEW:
             return False
         stale_since = self.last_reminder_sent_at or self.created_at
@@ -106,14 +116,18 @@ class RequestStep(models.Model):
     completed_at = models.DateTimeField("terminée le", null=True, blank=True)
 
     class Meta:
+        """Metadata for the RequestStep model."""
+
         verbose_name = "étape"
         verbose_name_plural = "étapes"
         ordering = ["order"]
 
     def __str__(self):
+        """Return the client name and step name as the representation."""
         return f"{self.request.client_name} — {self.step_name}"
 
     def mark_complete(self):
+        """Mark this step as completed and record the completion time."""
         self.is_completed = True
         self.completed_at = timezone.now()
         self.save(update_fields=["is_completed", "completed_at"])

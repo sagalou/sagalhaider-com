@@ -1,3 +1,5 @@
+"""Views for the servicerequests app."""
+
 import json
 from functools import wraps
 
@@ -15,8 +17,11 @@ from .models import RequestStep, ServiceRequest
 
 
 def api_login_required(view):
-    """Like login_required, but returns 401 JSON instead of redirecting —
-    these are API-style endpoints, not browser pages."""
+    """Return 401 JSON instead of redirecting when unauthenticated.
+
+    Like login_required, but for API-style endpoints rather than
+    browser pages.
+    """
 
     @wraps(view)
     def wrapped(request, *args, **kwargs):
@@ -30,9 +35,10 @@ def api_login_required(view):
 @csrf_exempt
 @require_POST
 def create_request(request):
-    """
-    POST /demandes
-    No auth. JSON in: {client_nom, client_email, organisation, description_projet}
+    """Handle POST /demandes.
+
+    No auth. JSON in: {client_nom, client_email, organisation,
+    description_projet}
     201: created · 400: missing/invalid fields · 429: rate limited
     """
     limit, window = parse_rate(settings.RATE_LIMIT_DEMANDES)
@@ -53,7 +59,9 @@ def create_request(request):
     })
 
     if not form.is_valid():
-        return JsonResponse({"error": "invalid fields", "details": form.errors}, status=400)
+        return JsonResponse(
+            {"error": "invalid fields", "details": form.errors}, status=400
+        )
 
     service_request = form.save()
     service_request.send_confirmation()
@@ -70,16 +78,19 @@ def create_request(request):
 
 @login_required
 def admin_dashboard_page(request):
-    """HTML shell for the AdminDashboard. Data is loaded client-side from
-    the JSON endpoints below (/admin/demandes, /admin/demandes/{id})."""
+    """Render the HTML shell for the AdminDashboard.
+
+    Data is loaded client-side from the JSON endpoints below
+    (/admin/demandes, /admin/demandes/{id}).
+    """
     return render(request, "servicerequests/dashboard.html")
 
 
 @api_login_required
 @require_GET
 def admin_requests_list(request):
-    """
-    GET /admin/demandes
+    """Handle GET /admin/demandes.
+
     Auth required (session). Optional ?statut= filter.
     """
     qs = ServiceRequest.objects.all()
@@ -103,8 +114,8 @@ def admin_requests_list(request):
 @api_login_required
 @require_GET
 def admin_request_detail(request, request_id):
-    """
-    GET /admin/demandes/{id}
+    """Handle GET /admin/demandes/{id}.
+
     200: success · 401: unauthenticated · 404: not found
     """
     try:
@@ -140,10 +151,11 @@ def admin_request_detail(request, request_id):
 @api_login_required
 @require_POST
 def complete_step(request, request_id, step_id):
-    """
-    POST /admin/demandes/{id}/etapes/{step_id}/complete
+    """Handle POST /admin/demandes/{id}/etapes/{step_id}/complete.
+
     JSON in: {is_completed: true}
-    200: updated · 400: invalid field · 401: unauthenticated · 404: not found
+    200: updated · 400: invalid field · 401: unauthenticated
+    404: not found
 
     Deliberately NOT csrf_exempt: this is an authenticated admin action, so
     it keeps Django's session CSRF protection. The dashboard's JS sends the
@@ -160,7 +172,10 @@ def complete_step(request, request_id, step_id):
         return JsonResponse({"error": "invalid JSON"}, status=400)
 
     if payload.get("is_completed") is not True:
-        return JsonResponse({"error": "invalid field: is_completed must be true"}, status=400)
+        return JsonResponse(
+            {"error": "invalid field: is_completed must be true"},
+            status=400,
+        )
 
     step.mark_complete()
 

@@ -1,15 +1,13 @@
-"""
-URL mapping matching the Stage 3 endpoint spec:
+"""URL mapping matching the Stage 3 endpoint spec.
 
-/realisations                                          -> realisations app
-/demandes                                               -> servicerequests app
-/login                                                  -> accounts app
-/admin/demandes[...]                                    -> servicerequests app
-/chatbot/message                                        -> chatbot app
-/django-admin/                                          -> Django's own admin site
-                                                            (moved off /admin/ since the
-                                                             project's own admin dashboard
-                                                             lives at /admin/demandes)
+/realisations          -> realisations app
+/demandes              -> servicerequests app
+/login                 -> accounts app
+/admin/demandes[...]   -> servicerequests app
+/chatbot/message       -> chatbot app
+/django-admin/         -> Django's own admin site (moved off /admin/
+                           since the project's own admin dashboard
+                           lives at /admin/demandes)
 """
 
 from django.conf import settings
@@ -32,4 +30,6 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+    )

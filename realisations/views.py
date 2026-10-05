@@ -1,3 +1,5 @@
+"""Views for the realisations app."""
+
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
 
@@ -6,9 +8,10 @@ from .models import Realisation
 
 @require_GET
 def realisations_list(request):
-    """
-    GET /realisations
-    No auth. Returns JSON list: {id, titre, description, image_path, site_reference}
+    """Handle GET /realisations.
+
+    No auth. Returns JSON list: {id, titre, description, image_path,
+    site_reference}
     """
     data = [
         {

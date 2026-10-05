@@ -4,7 +4,8 @@ Django settings for the sagalhaider.com project.
 Technical choices per Stage 3 documentation (RNCP portfolio project):
 - Backend: Django
 - Database: SQL via Django ORM (SQLite for dev, Postgres-ready for prod)
-- NoSQL: Redis, used for rate limiting on public endpoints (/demandes, /chatbot/message) — CP6
+- NoSQL: Redis, used for rate limiting on public endpoints
+  (/demandes, /chatbot/message) -- CP6
 - Frontend: Django templates (server-rendered)
 - Admin auth: native Django sessions
 - Password hashing: Django default (PBKDF2)
@@ -19,7 +20,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 dotenv.load_dotenv(BASE_DIR / ".env")
 
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-insecure-secret-key-change-in-prod")
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET_KEY", "dev-insecure-secret-key-change-in-prod"
+)
 
 DEBUG = os.environ.get("DJANGO_DEBUG", "1") == "1"
 
@@ -27,7 +30,10 @@ ALLOWED_HOSTS = [h.strip() for h in os.environ.get(
     "DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1"
 ).split(",") if h.strip()]
 
-CSRF_TRUSTED_ORIGINS = [f"https://{h}" for h in ALLOWED_HOSTS if h not in ("localhost", "127.0.0.1")]
+CSRF_TRUSTED_ORIGINS = [
+    f"https://{h}" for h in ALLOWED_HOSTS
+    if h not in ("localhost", "127.0.0.1")
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -64,9 +70,9 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
 
-# django-axes : bloque une IP après plusieurs tentatives de connexion ratées
+# django-axes: locks out an IP after too many failed login attempts
 AXES_FAILURE_LIMIT = 5
-AXES_COOLOFF_TIME = 1  # heure(s)
+AXES_COOLOFF_TIME = 1  # hour(s)
 AXES_LOCKOUT_PARAMETERS = ["ip_address", "username"]
 
 ROOT_URLCONF = "config.urls"
@@ -90,7 +96,8 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 # --- Database (SQL via Django ORM) ---
-# SQLite for local dev; set DATABASE_URL-style env vars in prod (VPS Postgres or MySQL).
+# SQLite for local dev; set DATABASE_URL-style env vars in prod
+# (VPS Postgres or MySQL).
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -108,10 +115,19 @@ if os.environ.get("DB_ENGINE") == "postgres":
     }
 
 AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {
+        "NAME": "django.contrib.auth.password_validation."
+        "UserAttributeSimilarityValidator"
+    },
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
+    {
+        "NAME": "django.contrib.auth.password_validation."
+        "CommonPasswordValidator"
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation."
+        "NumericPasswordValidator"
+    },
 ]
 
 LANGUAGE_CODE = "fr-fr"
@@ -124,7 +140,8 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = "media/"
-MEDIA_ROOT = BASE_DIR / "media"  # File storage on the VPS filesystem, per Stage 3 doc
+# File storage on the VPS filesystem, per Stage 3 doc
+MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -156,7 +173,9 @@ EMAIL_PORT = int(os.environ.get("EMAIL_PORT", "587"))
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
-DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "contact@sagalhaider.com")
+DEFAULT_FROM_EMAIL = os.environ.get(
+    "DEFAULT_FROM_EMAIL", "contact@sagalhaider.com"
+)
 
 # --- Anthropic API (chatbot fallback) ---
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
@@ -176,9 +195,10 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 CSRF_COOKIE_SECURE = not DEBUG
 SESSION_COOKIE_SECURE = not DEBUG
 
-# Durcissement supplémentaire (hors DEBUG local, pour ne pas casser le dev)
+# Additional hardening (skipped in local DEBUG mode so dev isn't broken)
 SECURE_SSL_REDIRECT = not DEBUG
-SECURE_HSTS_SECONDS = 604800 if not DEBUG else 0  # 1 semaine, à monter plus tard si tout va bien
+# 1 week; raise later once everything is confirmed stable
+SECURE_HSTS_SECONDS = 604800 if not DEBUG else 0
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = "DENY"
@@ -187,15 +207,17 @@ CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = "Lax"
 CSRF_COOKIE_SAMESITE = "Lax"
 
-# Logging : trace les échecs de sécurité (connexions ratées, erreurs serveur)
-import os as _os
-_os.makedirs(BASE_DIR / "logs", exist_ok=True)
+# Logging: tracks security failures (failed logins, server errors)
+os.makedirs(BASE_DIR / "logs", exist_ok=True)
 
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
-        "verbose": {"format": "{asctime} {levelname} {name} {message}", "style": "{"},
+        "verbose": {
+            "format": "{asctime} {levelname} {name} {message}",
+            "style": "{",
+        },
     },
     "handlers": {
         "file": {
@@ -207,10 +229,21 @@ LOGGING = {
         "console": {"level": "INFO", "class": "logging.StreamHandler"},
     },
     "loggers": {
-        "django.security": {"handlers": ["file", "console"], "level": "WARNING", "propagate": False},
-        "django.request": {"handlers": ["file", "console"], "level": "ERROR", "propagate": False},
-        "axes": {"handlers": ["file", "console"], "level": "WARNING", "propagate": False},
+        "django.security": {
+            "handlers": ["file", "console"],
+            "level": "WARNING",
+            "propagate": False,
+        },
+        "django.request": {
+            "handlers": ["file", "console"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        "axes": {
+            "handlers": ["file", "console"],
+            "level": "WARNING",
+            "propagate": False,
+        },
     },
 }
 SECURE_BROWSER_XSS_FILTER = True
-X_FRAME_OPTIONS = "DENY"

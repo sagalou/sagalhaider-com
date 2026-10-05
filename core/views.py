@@ -1,14 +1,20 @@
+"""Views for the core app (public home, galleries, contact pages)."""
+
 from django.shortcuts import render
 
 from realisations.models import Realisation
 
 
 def home(request):
+    """Render the home page."""
     return render(request, "core/home.html")
 
 
 def sites(request):
-    realisations = Realisation.objects.filter(category=Realisation.CATEGORY_SITE)
+    """Render the archaeological sites gallery."""
+    realisations = Realisation.objects.filter(
+        category=Realisation.CATEGORY_SITE
+    )
     return render(request, "core/gallery.html", {
         "realisations": realisations,
         "category": "site",
@@ -26,7 +32,10 @@ def sites(request):
 
 
 def cities(request):
-    realisations = Realisation.objects.filter(category=Realisation.CATEGORY_CITY)
+    """Render the cities gallery."""
+    realisations = Realisation.objects.filter(
+        category=Realisation.CATEGORY_CITY
+    )
     return render(request, "core/gallery.html", {
         "realisations": realisations,
         "category": "city",
@@ -43,6 +52,9 @@ def cities(request):
 
 
 def contact(request):
-    """Renders the ClientRequestForm page (submission itself goes through
-    the JSON /demandes endpoint via fetch, see contact.html)."""
+    """Render the ClientRequestForm page.
+
+    Submission itself goes through the JSON /demandes endpoint via
+    fetch, see contact.html.
+    """
     return render(request, "core/contact.html")

@@ -16,11 +16,11 @@ from django.core.cache import caches
 
 
 def is_rate_limited(key: str, limit: int, window_seconds: int) -> bool:
-    """
-    Return True if `key` has been hit more than `limit` times within the
-    last `window_seconds`, and record this hit.
+    """Return True if `key` was hit too often, and record this hit.
 
-    Uses a simple fixed-window counter in Redis: INCR + EXPIRE-on-first-hit.
+    True if `key` has been hit more than `limit` times within the
+    last `window_seconds`. Uses a simple fixed-window counter in
+    Redis: INCR + EXPIRE-on-first-hit.
     """
     cache = caches["ratelimit"]
     now_bucket = int(time.time() // window_seconds)
@@ -37,6 +37,7 @@ def is_rate_limited(key: str, limit: int, window_seconds: int) -> bool:
 
 
 def client_ip(request) -> str:
+    """Return the request's client IP, honoring X-Forwarded-For."""
     forwarded = request.META.get("HTTP_X_FORWARDED_FOR")
     if forwarded:
         return forwarded.split(",")[0].strip()
@@ -44,7 +45,7 @@ def client_ip(request) -> str:
 
 
 def parse_rate(rate: str) -> tuple[int, int]:
-    """Parse a "N/h" or "N/m" style rate string into (limit, window_seconds)."""
+    """Parse a "N/h" or "N/m" rate string into (limit, window_seconds)."""
     count, _, period = rate.partition("/")
     windows = {"s": 1, "m": 60, "h": 3600, "d": 86400}
     return int(count), windows.get(period, 3600)

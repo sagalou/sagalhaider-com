@@ -1,3 +1,5 @@
+"""Views for the accounts app (admin login and logout)."""
+
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
@@ -11,8 +13,8 @@ from core.ratelimit import client_ip, is_rate_limited, parse_rate
 @csrf_protect
 @require_http_methods(["GET", "POST"])
 def login_view(request):
-    """
-    /login
+    """Handle GET/POST for /login.
+
     GET: renders the AdminLoginPage.
     POST: form {username, password}.
     302: success (redirect + session cookie) · 401: invalid credentials
@@ -40,6 +42,7 @@ def login_view(request):
 
 
 def logout_view(request):
+    """Log the current user out and redirect to /login."""
     from django.contrib.auth import logout
     logout(request)
     return redirect("/login")

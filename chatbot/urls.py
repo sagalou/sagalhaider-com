@@ -1,3 +1,5 @@
+"""URL routes for the chatbot app."""
+
 from django.urls import path
 
 from . import views

@@ -1,13 +1,16 @@
+"""Chatbot response logic: scripted FAQ with an LLM fallback."""
+
 from django.conf import settings
 
 from .models import ChatbotRule
 
 
 class ChatbotService:
-    """
-    Encapsulates the API key and call logic. Tries the scripted FAQ
-    (ChatbotRule) first — free, zero external dependency — and falls back
-    to the Anthropic API for open-ended questions.
+    """Encapsulate the API key and call logic.
+
+    Tries the scripted FAQ (ChatbotRule) first — free, zero external
+    dependency — and falls back to the Anthropic API for open-ended
+    questions.
     """
 
     SYSTEM_PROMPT = (
