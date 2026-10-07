@@ -17,10 +17,10 @@ from .models import RequestStep, ServiceRequest
 
 
 def api_login_required(view):
-    """Return 401 JSON instead of redirecting when unauthenticated.
+    """Return 401 JSON unless the user has passed 2FA verification.
 
-    Like login_required, but for API-style endpoints rather than
-    browser pages.
+    Used on the dashboard's JSON endpoints, which must be protected
+    like the dashboard page itself.
     """
 
     @wraps(view)
