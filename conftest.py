@@ -25,3 +25,26 @@ def clear_ratelimit_cache():
     caches["ratelimit"].clear()
     yield
     caches["ratelimit"].clear()
+
+
+@pytest.fixture
+def otp_login():
+    """Return a helper that logs a user in with a verified 2FA device.
+
+    It creates a confirmed TOTP device for the user, logs them in, and
+    marks the session as OTP-verified, as a real 2FA login would.
+    """
+    from django_otp import DEVICE_ID_SESSION_KEY
+    from django_otp.plugins.otp_totp.models import TOTPDevice
+
+    def _login(client, user):
+        device = TOTPDevice.objects.create(
+            user=user, name="test", confirmed=True,
+        )
+        client.force_login(user)
+        session = client.session
+        session[DEVICE_ID_SESSION_KEY] = device.persistent_id
+        session.save()
+        return device
+
+    return _login

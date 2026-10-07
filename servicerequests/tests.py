@@ -99,26 +99,41 @@ class TestAdminEndpoints:
         res = client.get(reverse("admin-requests-list"))
         assert res.status_code == 401
 
+    def test_list_rejects_password_only_session(self, client, staff_user):
+        """A session without a verified 2FA device gets 401."""
+        client.force_login(staff_user)
+        res = client.get(reverse("admin-requests-list"))
+        assert res.status_code == 401
+
+    def test_dashboard_page_requires_2fa(self, client, staff_user):
+        """The dashboard page redirects a password-only session to login."""
+        client.force_login(staff_user)
+        res = client.get(reverse("admin-dashboard-page"))
+        assert res.status_code == 302
+        assert res.url.startswith("/login")
+
     def test_list_returns_data_when_authenticated(
-        self, client, staff_user, a_request,
+        self, client, staff_user, a_request, otp_login,
     ):
         """An authenticated staff user sees the request list."""
-        client.force_login(staff_user)
+        otp_login(client, staff_user)
         res = client.get(reverse("admin-requests-list"))
         assert res.status_code == 200
         assert res.json()[0]["client_nom"] == "Client A"
 
-    def test_detail_404_for_unknown_id(self, client, staff_user):
+    def test_detail_404_for_unknown_id(
+        self, client, staff_user, otp_login,
+    ):
         """An unknown request id returns 404."""
-        client.force_login(staff_user)
+        otp_login(client, staff_user)
         res = client.get(reverse("admin-request-detail", args=[9999]))
         assert res.status_code == 404
 
     def test_complete_step_updates_progress(
-        self, client, staff_user, a_request,
+        self, client, staff_user, a_request, otp_login,
     ):
         """Completing a step updates progress and persists the flag."""
-        client.force_login(staff_user)
+        otp_login(client, staff_user)
         step = a_request.steps.first()
         res = client.post(
             reverse("complete-step", args=[a_request.id, step.id]),
@@ -131,10 +146,10 @@ class TestAdminEndpoints:
         assert step.is_completed is True
 
     def test_complete_step_rejects_bad_payload(
-        self, client, staff_user, a_request,
+        self, client, staff_user, a_request, otp_login,
     ):
         """A non-boolean is_completed value is rejected with 400."""
-        client.force_login(staff_user)
+        otp_login(client, staff_user)
         step = a_request.steps.first()
         res = client.post(
             reverse("complete-step", args=[a_request.id, step.id]),

@@ -4,11 +4,11 @@ import json
 from functools import wraps
 
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST
+from django_otp.decorators import otp_required
 
 from core.ratelimit import client_ip, is_rate_limited, parse_rate
 
@@ -25,7 +25,7 @@ def api_login_required(view):
 
     @wraps(view)
     def wrapped(request, *args, **kwargs):
-        if not request.user.is_authenticated:
+        if not request.user.is_verified():
             return JsonResponse({"error": "session expired"}, status=401)
         return view(request, *args, **kwargs)
 
@@ -76,7 +76,7 @@ def create_request(request):
     )
 
 
-@login_required
+@otp_required
 def admin_dashboard_page(request):
     """Render the HTML shell for the AdminDashboard.
 
