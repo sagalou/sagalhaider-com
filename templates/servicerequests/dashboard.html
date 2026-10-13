@@ -27,9 +27,15 @@
 <script>
 const csrftoken = document.querySelector('input[name=csrfmiddlewaretoken]').value;
 
+function esc(s){
+  const d = document.createElement('div');
+  d.textContent = s ?? '';
+  return d.innerHTML;
+}
+
 async function loadList(){
   const status = document.getElementById('status-filter').value;
-  const url = status ? `/admin/demandes?statut=${status}` : '/admin/demandes';
+  const url = status ? `/admin/demandes?statut=${encodeURIComponent(status)}` : '/admin/demandes';
   const res = await fetch(url);
   if (res.status === 401){ window.location.href = '/login'; return; }
   const items = await res.json();
@@ -41,8 +47,8 @@ async function loadList(){
     card.style.cursor = 'pointer';
     card.innerHTML = `
       <div class="video-info">
-        <div class="video-loc">${item.statut}</div>
-        <div class="video-name">${item.client_nom}</div>
+        <div class="video-loc">${esc(item.statut)}</div>
+        <div class="video-name">${esc(item.client_nom)}</div>
         <p class="video-desc">Progression : ${item.progression}%, reçue le ${new Date(item.created_at).toLocaleDateString()}</p>
       </div>`;
     card.onclick = () => loadDetail(item.id);
@@ -58,14 +64,14 @@ async function loadDetail(id){
   const stepsHtml = d.etapes.map(s => `
     <label style="display:flex;gap:0.5rem;align-items:center;padding:0.4rem 0;font-size:0.8rem;color:#fff">
       <input type="checkbox" ${s.is_completed ? 'checked disabled' : ''} onclick="completeStep(${d.id}, ${s.id})">
-      <span style="color:#fff">${s.step_name}</span>
+      <span style="color:#fff">${esc(s.step_name)}</span>
     </label>`).join('');
   el.innerHTML = `
     <div class="approach" style="grid-template-columns:1fr">
       <div class="ab" style="color:rgba(255,255,255,0.75)">
-        <p style="color:#fff"><strong>${d.client_nom}</strong>, ${d.client_email}</p>
-        <p style="color:rgba(255,255,255,0.75)">${d.organisation || ''}</p>
-        <p style="color:rgba(255,255,255,0.75)">${d.description_projet}</p>
+        <p style="color:#fff"><strong>${esc(d.client_nom)}</strong>, ${esc(d.client_email)}</p>
+        <p style="color:rgba(255,255,255,0.75)">${esc(d.organisation)}</p>
+        <p style="color:rgba(255,255,255,0.75)">${esc(d.description_projet)}</p>
         <p style="color:#fff">Progression : ${d.progression}%</p>
         ${stepsHtml}
       </div>
