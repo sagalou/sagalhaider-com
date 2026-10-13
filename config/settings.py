@@ -8,7 +8,7 @@ Technical choices per Stage 3 documentation (RNCP portfolio project):
   (/demandes, /chatbot/message) -- CP6
 - Frontend: Django templates (server-rendered)
 - Admin auth: native Django sessions
-- Password hashing: Django default (PBKDF2)
+- Password hashing: Argon2 (PBKDF2 kept as fallback for old hashes)
 """
 
 import os
@@ -68,6 +68,14 @@ MIDDLEWARE = [
 AUTHENTICATION_BACKENDS = [
     "axes.backends.AxesStandaloneBackend",
     "django.contrib.auth.backends.ModelBackend",
+]
+
+# Password hashing: Argon2 (memory-hard, recommended by Django).
+# PBKDF2 kept second so existing hashes still work and get
+# upgraded to Argon2 on next login.
+PASSWORD_HASHERS = [
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
 ]
 
 # django-axes: locks out an IP after too many failed login attempts
