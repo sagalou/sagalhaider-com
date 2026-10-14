@@ -57,7 +57,16 @@ const T = {
     "contact.success": "✓ Demande envoyée, merci ! Vous recevrez une confirmation par email.",
     "contact.error.rate": "Trop de demandes envoyées récemment, réessayez plus tard.",
     "contact.error.generic": "Merci de vérifier les champs du formulaire.",
-    "contact.error.network": "Erreur réseau, réessayez."
+    "contact.error.network": "Erreur réseau, réessayez.",
+
+        "chatbot.title": "Une question ?",
+    "chatbot.open": "Ouvrir l'assistant",
+    "chatbot.placeholder": "Votre question...",
+    "chatbot.hello": "Bonjour, je peux répondre à vos questions sur les projets, mon parcours ou vous aider à préparer une demande.",
+    "chatbot.you": "Vous : ",
+    "chatbot.error.rate": "Trop de messages envoyés, réessayez dans un moment.",
+    "chatbot.error.down": "Le chatbot est momentanément indisponible.",
+    "chatbot.error.network": "Erreur réseau, réessayez."
   },
   en: {
     "nav.home": "Home",
@@ -117,7 +126,15 @@ const T = {
     "contact.success": "✓ Request sent, thank you! You will receive a confirmation by email.",
     "contact.error.rate": "Too many requests sent recently, please try again later.",
     "contact.error.generic": "Please check the form fields.",
-    "contact.error.network": "Network error, please try again."
+    "contact.error.network": "Network error, please try again.",
+        "chatbot.title": "Any questions?",
+    "chatbot.open": "Open the assistant",
+    "chatbot.placeholder": "Your question...",
+    "chatbot.hello": "Hello, I can answer your questions about the projects, my background, or help you prepare a request.",
+    "chatbot.you": "You: ",
+    "chatbot.error.rate": "Too many messages sent, please try again in a moment.",
+    "chatbot.error.down": "The chatbot is temporarily unavailable.",
+    "chatbot.error.network": "Network error, please try again."
   },
   sw: {
     "nav.home": "Nyumbani",
@@ -177,7 +194,15 @@ const T = {
     "contact.success": "✓ Ombi limetumwa, asante! Utapokea uthibitisho kupitia barua pepe.",
     "contact.error.rate": "Maombi mengi yametumwa hivi karibuni, jaribu tena baadaye.",
     "contact.error.generic": "Tafadhali angalia sehemu za fomu.",
-    "contact.error.network": "Hitilafu ya mtandao, jaribu tena."
+    "contact.error.network": "Hitilafu ya mtandao, jaribu tena.",
+        "chatbot.title": "Una swali?",
+    "chatbot.open": "Fungua msaidizi",
+    "chatbot.placeholder": "Swali lako...",
+    "chatbot.hello": "Habari, ninaweza kujibu maswali yako kuhusu miradi, safari yangu ya kitaaluma, au kukusaidia kuandaa ombi.",
+    "chatbot.you": "Wewe: ",
+    "chatbot.error.rate": "Ujumbe mwingi umetumwa, jaribu tena baada ya muda.",
+    "chatbot.error.down": "Chatbot haipatikani kwa sasa.",
+    "chatbot.error.network": "Hitilafu ya mtandao, jaribu tena."
   }
 };
 
@@ -199,6 +224,16 @@ function applyLang(lang) {
   document.querySelectorAll('[data-i18n-fr]').forEach(el => {
     const val = el.getAttribute('data-i18n-' + lang) || el.getAttribute('data-i18n-fr');
     el.textContent = val;
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (T[lang][key] !== undefined) el.placeholder = T[lang][key];
+  });
+
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+    const key = el.getAttribute('data-i18n-aria');
+    if (T[lang][key] !== undefined) el.setAttribute('aria-label', T[lang][key]);
   });
 
   document.querySelectorAll('.lang-btn').forEach(b => {

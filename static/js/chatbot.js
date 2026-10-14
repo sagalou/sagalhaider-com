@@ -12,15 +12,15 @@
   })();
 
   root.innerHTML = `
-    <div id="cb-tooltip" class="cb-tooltip">Une question ?</div>
-    <div id="cb-toggle" class="cb-toggle" aria-label="Ouvrir l'assistant">
+    <div id="cb-tooltip" class="cb-tooltip" data-i18n="chatbot.title">Une question ?</div>
+    <div id="cb-toggle" class="cb-toggle" aria-label="Ouvrir l'assistant" data-i18n-aria="chatbot.open">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
     </div>
     <div id="cb-panel" class="cb-panel">
-      <div class="cb-header">Une question ?</div>
+      <div class="cb-header" data-i18n="chatbot.title">Une question ?</div>
       <div id="cb-messages" class="cb-messages"></div>
       <form id="cb-form" class="cb-form">
-        <input id="cb-input" class="cb-input" type="text" placeholder="Votre question...">
+        <input id="cb-input" class="cb-input" type="text" placeholder="Votre question..." data-i18n-placeholder="chatbot.placeholder">
         <button type="submit" class="cb-send">→</button>
       </form>
     </div>`;
@@ -47,7 +47,7 @@
     panel.classList.toggle('is-open');
     if (opening && !hasOpened){
       hasOpened = true;
-      addMessage("Bonjour, je peux répondre à vos questions sur les projets, mon parcours ou vous aider à préparer une demande.", 'bot');
+      addMessage(t('chatbot.hello'), 'bot');
     }
   });
 
@@ -55,7 +55,7 @@
     const messages = document.getElementById('cb-messages');
     const bubble = document.createElement('div');
     bubble.classList.add('cb-msg', from === 'bot' ? 'cb-msg--bot' : 'cb-msg--user');
-    bubble.textContent = (from === 'bot' ? '' : 'Vous : ') + text;
+    bubble.textContent = (from === 'bot' ? '' : t('chatbot.you')) + text;
     messages.appendChild(bubble);
     messages.scrollTop = messages.scrollHeight;
   }
@@ -75,17 +75,17 @@
         body: JSON.stringify({message: message, session_id: sessionId})
       });
       if (res.status === 429){
-        addMessage("Trop de messages envoyés, réessayez dans un moment.", 'bot');
+        addMessage(t('chatbot.error.rate'), 'bot');
         return;
       }
       if (res.status >= 500){
-        addMessage("Le chatbot est momentanément indisponible.", 'bot');
+        addMessage(t('chatbot.error.down'), 'bot');
         return;
       }
       const data = await res.json();
       addMessage(data.reponse, 'bot');
     } catch (err) {
-      addMessage("Erreur réseau, réessayez.", 'bot');
+      addMessage(t('chatbot.error.network'), 'bot');
     }
   });
 })();
