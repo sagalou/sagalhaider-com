@@ -1,10 +1,14 @@
 """Tests for the servicerequests app."""
 
 import json
+from datetime import timedelta
 
 import pytest
 from django.contrib.auth import get_user_model
+from django.core import mail
+from django.core.management import call_command
 from django.urls import reverse
+from django.utils import timezone
 
 from .models import RequestStep, ServiceRequest
 
@@ -182,3 +186,24 @@ class TestServiceRequestModel:
             request=req, step_name="2", order=2, is_completed=False
         )
         assert req.progress() == 50
+
+
+@pytest.mark.django_db
+def test_send_reminders_only_for_overdue_requests():
+    """Only a 'new' request older than 7 days triggers a reminder."""
+    old = ServiceRequest.objects.create(
+        client_name="Ancienne", client_email="a@example.com",
+        project_description="Demande ancienne",
+    )
+    ServiceRequest.objects.filter(pk=old.pk).update(
+        created_at=timezone.now() - timedelta(days=8)
+    )
+    ServiceRequest.objects.create(
+        client_name="Récente", client_email="b@example.com",
+        project_description="Demande récente",
+    )
+
+    call_command("send_reminders")
+
+    assert len(mail.outbox) == 1
+    assert "Ancienne" in mail.outbox[0].body
