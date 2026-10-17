@@ -248,3 +248,37 @@ document.addEventListener('DOMContentLoaded', function () {
   try { saved = localStorage.getItem('restituo_lang') || 'fr'; } catch (e) {}
   applyLang(saved);
 });
+
+// Page À propos
+Object.assign(T.fr, {
+  "nav.about": "À propos",
+  "about.eye": "À propos",
+  "about.p1": "Moi c'est Sagal, et j'ai fait beaucoup de choses. J'ai un CAP de charpente obtenu chez les Compagnons du Tour de France, et j'ai travaillé comme charpentière pendant près de dix ans. J'ai ensuite repris mes études à l'INALCO, à Paris, où j'ai obtenu une licence de swahili avec un parcours en histoire et archéologie du monde, puis un master en Mondes médiévaux, spécialité archéologie du bâti. J'ai ensuite participé à plusieurs fouilles programmées et préventives en Occitanie et en Afrique de l'Est, avant de suivre une formation en développement web. C'est ce parcours qui m'a permis de proposer cette plateforme de restitution de plans archéologiques.",
+  "about.p2": "Au cours de cette quête d'apprentissage, j'ai collaboré avec Somali Architecture, avec qui j'ai pu organiser des expositions internationales sur le patrimoine matériel de la Somalie. J'ai également écrit pour la revue Dissidente, ainsi que pour le média turc Daily Sabah.",
+  "about.p3": "Comme tout archéologue, j'ai une période de prédilection, ou plutôt deux : l'âge du Bronze et l'époque médiévale. Mais je peux tout aussi bien travailler sur n'importe quelle autre période. Je serais ravie de piloter vos projets de restitution. Forte d'une expérience en gestion d'équipe et en méthodologie de recherche, je vous propose de travailler ensemble !",
+  "about.links": "Pour aller plus loin :",
+  "about.article": "Mon article dans Daily Sabah →",
+  "about.cta": "Me contacter →"
+});
+
+Object.assign(T.en, {
+  "nav.about": "About",
+  "about.eye": "About",
+  "about.p1": "I'm Sagal, and I've done quite a few things. I hold a CAP in carpentry from the Compagnons du Tour de France, and I worked as a carpenter for almost ten years. I then went back to university at INALCO in Paris, where I earned a bachelor's degree in Swahili with a track in world history and archaeology, followed by a master's degree in Medieval Worlds, specialising in building archaeology. I then took part in several research and rescue excavations in Occitania and East Africa, before training in web development. This path is what led me to create this platform for the restitution of archaeological plans.",
+  "about.p2": "Along this learning journey, I worked with Somali Architecture, organising international exhibitions on Somalia's tangible heritage. I have also written for the French magazine Dissidente and for the Turkish newspaper Daily Sabah.",
+  "about.p3": "Like every archaeologist, I have a favourite period, or rather two: the Bronze Age and the medieval period. But I can just as well work on any other period. I would be delighted to lead your restitution projects. With experience in team management and research methodology, let's work together!",
+  "about.links": "Further reading:",
+  "about.article": "My article in Daily Sabah →",
+  "about.cta": "Contact me →"
+});
+
+Object.assign(T.sw, {
+  "nav.about": "Kuhusu",
+  "about.eye": "Kuhusu mimi",
+  "about.p1": "Mimi ni Sagal, na nimefanya mambo mengi. Nina cheti cha CAP cha useremala kutoka Compagnons du Tour de France, na nilifanya kazi ya useremala kwa karibu miaka kumi. Kisha nilirudi masomoni katika INALCO, Paris, ambapo nilipata shahada ya kwanza ya Kiswahili pamoja na masomo ya historia na akiolojia ya dunia, kisha shahada ya uzamili katika Ulimwengu wa Zama za Kati, nikibobea katika akiolojia ya majengo. Baadaye nilishiriki katika uchimbaji kadhaa wa kiakiolojia wa kiutafiti na wa dharura huko Occitanie na Afrika Mashariki, kabla ya kusomea uundaji wa tovuti. Safari hii ndiyo iliyoniwezesha kuanzisha jukwaa hili la uundaji upya wa michoro ya kiakiolojia.",
+  "about.p2": "Katika safari hii ya kujifunza, nimeshirikiana na Somali Architecture, ambapo niliandaa maonyesho ya kimataifa kuhusu urithi wa majengo wa Somalia. Pia nimeandika makala kwa jarida la Dissidente, pamoja na gazeti la Kituruki Daily Sabah.",
+  "about.p3": "Kama kila mwanaakiolojia, nina kipindi ninachokipenda zaidi, au tuseme viwili: Enzi ya Shaba na Zama za Kati. Lakini naweza pia kufanya kazi kuhusu kipindi kingine chochote. Ningefurahi kuongoza miradi yako ya uundaji upya. Kwa uzoefu wangu katika uongozi wa timu na mbinu za utafiti, tushirikiane!",
+  "about.links": "Kwa maelezo zaidi:",
+  "about.article": "Makala yangu katika Daily Sabah →",
+  "about.cta": "Wasiliana nami →"
+});

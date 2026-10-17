@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page active">
+  <a href="{% url 'home' %}" class="back-btn" data-i18n="gallery.back">&#8592; Retour</a>
+  <div class="page-header">
+    <div class="page-eye" data-i18n="about.eye">À propos</div>
+    <div class="page-title">Sagal Haider</div>
+  </div>
+  <div class="contact-info" style="max-width:680px">
+    <p data-i18n="about.p1">Moi c'est Sagal, et j'ai fait beaucoup de choses. J'ai un CAP de charpente obtenu chez les Compagnons du Tour de France, et j'ai travaillé comme charpentière pendant près de dix ans. J'ai ensuite repris mes études à l'INALCO, à Paris, où j'ai obtenu une licence de swahili avec un parcours en histoire et archéologie du monde, puis un master en Mondes médiévaux, spécialité archéologie du bâti. J'ai ensuite participé à plusieurs fouilles programmées et préventives en Occitanie et en Afrique de l'Est, avant de suivre une formation en développement web. C'est ce parcours qui m'a permis de proposer cette plateforme de restitution de plans archéologiques.</p>
+    <p data-i18n="about.p2">Au cours de cette quête d'apprentissage, j'ai collaboré avec Somali Architecture, avec qui j'ai pu organiser des expositions internationales sur le patrimoine matériel de la Somalie. J'ai également écrit pour la revue Dissidente, ainsi que pour le média turc Daily Sabah.</p>
+    <p data-i18n="about.p3">Comme tout archéologue, j'ai une période de prédilection, ou plutôt deux : l'âge du Bronze et l'époque médiévale. Mais je peux tout aussi bien travailler sur n'importe quelle autre période. Je serais ravie de piloter vos projets de restitution. Forte d'une expérience en gestion d'équipe et en méthodologie de recherche, je vous propose de travailler ensemble !</p>
+    <p data-i18n="about.links">Pour aller plus loin :</p>
+    <ul style="list-style:none;padding:0;margin:0 0 2rem;display:flex;flex-direction:column;gap:0.6rem">
+      <li><a href="https://somaliarchitecture.com/" class="contact-mail" target="_blank" rel="noopener noreferrer">Somali Architecture &#8594;</a></li>
+      <li><a href="https://www.dailysabah.com/arts/reviving-somalias-vanishing-past-mogadishus-sacred-heritage/news" class="contact-mail" target="_blank" rel="noopener noreferrer" data-i18n="about.article">Mon article dans Daily Sabah &#8594;</a></li>
+    </ul>
+    <a href="{% url 'contact' %}" class="btn-dark" data-i18n="about.cta">Me contacter &#8594;</a>
+  </div>
+</div>
+{% endblock %}

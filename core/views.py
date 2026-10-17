@@ -58,3 +58,8 @@ def contact(request):
     fetch, see contact.html.
     """
     return render(request, "core/contact.html")
+
+
+def about(request):
+    """Render the about page (background and collaborations)."""
+    return render(request, "core/about.html")
