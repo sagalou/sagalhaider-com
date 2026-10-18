@@ -215,6 +215,7 @@ function t(key) {
 function applyLang(lang) {
   if (!T[lang]) return;
   currentLang = lang;
+  document.documentElement.lang = lang;
 
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
@@ -237,11 +238,35 @@ function applyLang(lang) {
   });
 
   document.querySelectorAll('.lang-btn').forEach(b => {
-    b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+    const isActive = b.getAttribute('data-lang') === lang;
+    b.classList.toggle('active', isActive);
+    b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
   });
 
   try { localStorage.setItem('restituo_lang', lang); } catch (e) {}
 }
+
+// Accessibilité
+Object.assign(T.fr, {
+  "a11y.skip": "Aller au contenu",
+  "nav.label": "Navigation principale",
+  "chatbot.send": "Envoyer",
+  "chatbot.input": "Votre question"
+});
+
+Object.assign(T.en, {
+  "a11y.skip": "Skip to content",
+  "nav.label": "Main navigation",
+  "chatbot.send": "Send",
+  "chatbot.input": "Your question"
+});
+
+Object.assign(T.sw, {
+  "a11y.skip": "Ruka hadi maudhui",
+  "nav.label": "Urambazaji mkuu",
+  "chatbot.send": "Tuma",
+  "chatbot.input": "Swali lako"
+});
 
 document.addEventListener('DOMContentLoaded', function () {
   let saved = 'fr';

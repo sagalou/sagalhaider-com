@@ -4,7 +4,7 @@
   <a href="{% url 'home' %}" class="back-btn" data-i18n="gallery.back">&#8592; Retour</a>
   <div class="page-header">
     <div class="page-eye" data-i18n="{{ i18n_eye }}">{{ page_eye }}</div>
-    <div class="page-title" data-i18n="{{ i18n_title }}">{{ page_title }}</div>
+    <h1 class="page-title" data-i18n="{{ i18n_title }}">{{ page_title }}</h1>
     <p class="page-sub" data-i18n="{{ i18n_sub }}">{{ page_sub }}</p>
   </div>
   <div class="video-grid">
@@ -14,6 +14,7 @@
         {% if r.video %}
           <video
             controls
+            aria-label="{{ r.title }}"
             {% if r.image %}poster="{{ r.image.url }}"{% endif %}
             style="width:100%;height:100%;object-fit:cover;display:block;background:#000">
             <source src="{{ r.video.url }}">

@@ -5,13 +5,13 @@
   <div class="page-header" style="display:flex;justify-content:space-between;align-items:center">
     <div>
       <div class="page-eye">Espace admin</div>
-      <div class="page-title">Demandes clients</div>
+      <h1 class="page-title">Demandes clients</h1>
     </div>
     <a href="{% url 'logout' %}" class="back-btn">Déconnexion</a>
   </div>
 
   <div class="form-group" style="max-width:220px">
-    <label class="form-label">Filtrer par statut</label>
+    <label class="form-label" for="status-filter">Filtrer par statut</label>
     <select class="form-select" id="status-filter">
       <option value="">Tous</option>
       <option value="new">Nouvelle</option>
@@ -21,7 +21,7 @@
   </div>
 
   <div id="requests-list" class="video-grid"></div>
-  <div id="request-detail" style="margin-top:2rem"></div>
+  <div id="request-detail" style="margin-top:2rem" tabindex="-1"></div>
 </div>
 
 <script>
@@ -45,6 +45,8 @@ async function loadList(){
     const card = document.createElement('div');
     card.className = 'video-card';
     card.style.cursor = 'pointer';
+    card.tabIndex = 0;
+    card.setAttribute('role', 'button');
     card.innerHTML = `
       <div class="video-info">
         <div class="video-loc">${esc(item.statut)}</div>
@@ -52,6 +54,12 @@ async function loadList(){
         <p class="video-desc">Progression : ${item.progression}%, reçue le ${new Date(item.created_at).toLocaleDateString()}</p>
       </div>`;
     card.onclick = () => loadDetail(item.id);
+    card.onkeydown = (e) => {
+      if (e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        loadDetail(item.id);
+      }
+    };
     container.appendChild(card);
   });
 }
@@ -69,13 +77,14 @@ async function loadDetail(id){
   el.innerHTML = `
     <div class="approach" style="grid-template-columns:1fr">
       <div class="ab" style="color:rgba(255,255,255,0.75)">
-        <p style="color:#fff"><strong>${esc(d.client_nom)}</strong>, ${esc(d.client_email)}</p>
+        <h2 style="color:#fff;font-size:0.9rem;margin:0 0 0.5rem">${esc(d.client_nom)}, ${esc(d.client_email)}</h2>
         <p style="color:rgba(255,255,255,0.75)">${esc(d.organisation)}</p>
         <p style="color:rgba(255,255,255,0.75)">${esc(d.description_projet)}</p>
         <p style="color:#fff">Progression : ${d.progression}%</p>
         ${stepsHtml}
       </div>
     </div>`;
+  el.focus();
 }
 
 async function completeStep(requestId, stepId){
