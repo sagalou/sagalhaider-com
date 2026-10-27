@@ -1,3 +1,4 @@
+{# Base layout shared by all pages: head, navigation, footer, chatbot and scripts. #}
 {% load static %}
 <!DOCTYPE html>
 <html lang="fr">
@@ -10,8 +11,10 @@
 {% block extra_head %}{% endblock %}
 </head>
 <body>
+{# Skip link: lets keyboard users jump straight to the main content. #}
 <a href="#main" class="skip-link" data-i18n="a11y.skip">Aller au contenu</a>
 
+{# Desktop navigation. The active page gets aria-current="page". #}
 <nav aria-label="Navigation principale" data-i18n-aria="nav.label">
   <div class="nav-logo"><a href="{% url 'home' %}" style="color:inherit;text-decoration:none">RESTITU<span>O</span></a></div>
   <div class="nav-right">
@@ -33,6 +36,7 @@
   </div>
 </nav>
 
+{# Mobile menu, opened by the hamburger button (see script.js). #}
 <div class="mobile-menu" id="mobile-menu">
   <a href="{% url 'home' %}"><span aria-hidden="true">&#127968;</span> <span data-i18n="nav.home">Accueil</span></a>
   <a href="{% url 'sites' %}" data-i18n="nav.sites">Sites archéologiques</a>
@@ -46,14 +50,17 @@
   </div>
 </div>
 
+{# Page content, filled by each child template. #}
 <main id="main" tabindex="-1">
 {% block content %}{% endblock %}
 </main>
 
 <footer><div class="fb">RESTITUO</div><div class="fc" data-i18n="footer.copy">&#169; 2026, Reconstitution historique 3D</div><div class="fc"><span data-i18n="footer.by">par Sagal Haider</span>, <a href="mailto:contact@sagalhaider.com" style="color:inherit">contact@sagalhaider.com</a></div></footer>
 
+{# Empty container, the chatbot is built by chatbot.js. #}
 <aside id="chatbot-widget" aria-label="Une question ?" data-i18n-aria="chatbot.title"></aside>
 
+{# i18n.js must load first: script.js and chatbot.js use its t() function. #}
 <script src="{% static 'js/i18n.js' %}?v=6"></script>
 <script src="{% static 'js/script.js' %}?v=2"></script>
 <script src="{% static 'js/chatbot.js' %}?v=6"></script>
