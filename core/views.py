@@ -22,8 +22,7 @@ def sites(request):
         "page_title": "Reconstitution de sites archéologiques",
         "page_sub": (
             "Rapports de fouilles, relevés de terrain et photogrammétrie pour "
-            "reconstituer les sites tels qu'ils étaient, avec rigueur, sans "
-            "romantisme."
+            "reconstituer les sites tels qu'ils étaient, avec rigueur."
         ),
         "i18n_eye": "gallery.sites.eye",
         "i18n_title": "gallery.sites.title",
@@ -58,3 +57,8 @@ def contact(request):
     fetch, see contact.html.
     """
     return render(request, "core/contact.html")
+
+
+def about(request):
+    """Render the about page (background and collaborations)."""
+    return render(request, "core/about.html")

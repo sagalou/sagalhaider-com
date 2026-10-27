@@ -1,19 +1,25 @@
+{# Gallery page, shared by archaeological sites and urban reconstructions. Texts come from the view context. #}
 {% extends "base.html" %}
 {% block content %}
 <div class="page active">
+  {# Back to the home page. #}
   <a href="{% url 'home' %}" class="back-btn" data-i18n="gallery.back">&#8592; Retour</a>
+  {# Page title, set by the view depending on the category. #}
   <div class="page-header">
     <div class="page-eye" data-i18n="{{ i18n_eye }}">{{ page_eye }}</div>
-    <div class="page-title" data-i18n="{{ i18n_title }}">{{ page_title }}</div>
+    <h1 class="page-title" data-i18n="{{ i18n_title }}">{{ page_title }}</h1>
     <p class="page-sub" data-i18n="{{ i18n_sub }}">{{ page_sub }}</p>
   </div>
   <div class="video-grid">
+    {# One card per realisation: video first, then image, then placeholder. #}
     {% for r in realisations %}
     <div class="video-card">
       <div class="video-slot">
+        {# Video with the image as poster when available. #}
         {% if r.video %}
           <video
             controls
+            aria-label="{{ r.title }}"
             {% if r.image %}poster="{{ r.image.url }}"{% endif %}
             style="width:100%;height:100%;object-fit:cover;display:block;background:#000">
             <source src="{{ r.video.url }}">
@@ -22,11 +28,13 @@
         {% elif r.image %}
           <img src="{{ r.image.url }}" alt="{{ r.title }}" style="width:100%;height:100%;object-fit:cover;display:block">
         {% else %}
+          {# No media yet: decorative placeholder. #}
           <div class="video-placeholder">
             <div class="video-grid-lines"></div>
             <div class="play-btn"><svg width="16" height="18" viewBox="0 0 16 18" fill="white"><path d="M1 1l14 8L1 17V1z"/></svg></div>
           </div>
         {% endif %}
+        {# Title overlay, hidden on videos so it does not cover the controls. #}
         {% if not r.video %}
         <div class="video-label-overlay">
           <div class="video-badge">{{ r.period_label }}</div>
@@ -35,6 +43,7 @@
         </div>
         {% endif %}
       </div>
+      {# Card text, translated through data-i18n-fr/en/sw attributes. #}
       <div class="video-info">
         <div class="video-loc">{{ r.site_reference }}</div>
         <div class="video-name"
@@ -43,15 +52,17 @@
            data-i18n-fr="{{ r.description }}" data-i18n-en="{{ r.description_en_display }}" data-i18n-sw="{{ r.description_sw_display }}">{{ r.description }}</p>
       </div>
     </div>
+    {# Shown when no realisation exists in this category. #}
     {% empty %}
     <p style="color:var(--muted);font-size:0.8rem" data-i18n="gallery.empty">Aucune réalisation pour le moment, ajoutez-en depuis l'admin.</p>
     {% endfor %}
   </div>
+  {# Approach block, text depends on the category (city or site). #}
   <div class="approach">
     {% if category == "city" %}
     <div class="aq"><span data-i18n="approach.cities.q1">Une ville</span><br><span data-i18n="approach.cities.q2">à un moment </span><span class="blue" data-i18n="approach.cities.q3">précis</span><br><span data-i18n="approach.cities.q4">de son histoire.</span></div>
     <div class="ab">
-      <p data-i18n="approach.cities.p1">Mogadishu dans les années 1950 n'est pas une ville perdue. C'est une ville vivante. La reconstituer, c'est montrer ce qui a existé, sans romantisme.</p>
+      <p data-i18n="approach.cities.p1">Mogadishu dans les années 1950 n'est pas une ville perdue. C'est une ville vivante. La reconstituer, c'est montrer ce qui a existé.</p>
       <p data-i18n="approach.cities.p2">Chaque projet part de sources primaires : archives, plans d'époque, témoignages, rendu en 3D temps réel.</p>
     </div>
     {% else %}

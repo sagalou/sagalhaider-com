@@ -42,7 +42,7 @@ class ChatbotService:
 
         client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
         response = client.messages.create(
-            model="claude-sonnet-5",
+            model=settings.ANTHROPIC_MODEL,
             max_tokens=300,
             system=self.SYSTEM_PROMPT,
             messages=[{"role": "user", "content": message}],

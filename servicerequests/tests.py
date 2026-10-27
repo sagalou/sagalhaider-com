@@ -1,10 +1,14 @@
 """Tests for the servicerequests app."""
 
 import json
+from datetime import timedelta
 
 import pytest
 from django.contrib.auth import get_user_model
+from django.core import mail
+from django.core.management import call_command
 from django.urls import reverse
+from django.utils import timezone
 
 from .models import RequestStep, ServiceRequest
 
@@ -99,26 +103,41 @@ class TestAdminEndpoints:
         res = client.get(reverse("admin-requests-list"))
         assert res.status_code == 401
 
+    def test_list_rejects_password_only_session(self, client, staff_user):
+        """A session without a verified 2FA device gets 401."""
+        client.force_login(staff_user)
+        res = client.get(reverse("admin-requests-list"))
+        assert res.status_code == 401
+
+    def test_dashboard_page_requires_2fa(self, client, staff_user):
+        """The dashboard page redirects a password-only session to login."""
+        client.force_login(staff_user)
+        res = client.get(reverse("admin-dashboard-page"))
+        assert res.status_code == 302
+        assert res.url.startswith("/login")
+
     def test_list_returns_data_when_authenticated(
-        self, client, staff_user, a_request,
+        self, client, staff_user, a_request, otp_login,
     ):
         """An authenticated staff user sees the request list."""
-        client.force_login(staff_user)
+        otp_login(client, staff_user)
         res = client.get(reverse("admin-requests-list"))
         assert res.status_code == 200
         assert res.json()[0]["client_nom"] == "Client A"
 
-    def test_detail_404_for_unknown_id(self, client, staff_user):
+    def test_detail_404_for_unknown_id(
+        self, client, staff_user, otp_login,
+    ):
         """An unknown request id returns 404."""
-        client.force_login(staff_user)
+        otp_login(client, staff_user)
         res = client.get(reverse("admin-request-detail", args=[9999]))
         assert res.status_code == 404
 
     def test_complete_step_updates_progress(
-        self, client, staff_user, a_request,
+        self, client, staff_user, a_request, otp_login,
     ):
         """Completing a step updates progress and persists the flag."""
-        client.force_login(staff_user)
+        otp_login(client, staff_user)
         step = a_request.steps.first()
         res = client.post(
             reverse("complete-step", args=[a_request.id, step.id]),
@@ -131,10 +150,10 @@ class TestAdminEndpoints:
         assert step.is_completed is True
 
     def test_complete_step_rejects_bad_payload(
-        self, client, staff_user, a_request,
+        self, client, staff_user, a_request, otp_login,
     ):
         """A non-boolean is_completed value is rejected with 400."""
-        client.force_login(staff_user)
+        otp_login(client, staff_user)
         step = a_request.steps.first()
         res = client.post(
             reverse("complete-step", args=[a_request.id, step.id]),
@@ -167,3 +186,24 @@ class TestServiceRequestModel:
             request=req, step_name="2", order=2, is_completed=False
         )
         assert req.progress() == 50
+
+
+@pytest.mark.django_db
+def test_send_reminders_only_for_overdue_requests():
+    """Only a 'new' request older than 7 days triggers a reminder."""
+    old = ServiceRequest.objects.create(
+        client_name="Ancienne", client_email="a@example.com",
+        project_description="Demande ancienne",
+    )
+    ServiceRequest.objects.filter(pk=old.pk).update(
+        created_at=timezone.now() - timedelta(days=8)
+    )
+    ServiceRequest.objects.create(
+        client_name="Récente", client_email="b@example.com",
+        project_description="Demande récente",
+    )
+
+    call_command("send_reminders")
+
+    assert len(mail.outbox) == 1
+    assert "Ancienne" in mail.outbox[0].body
