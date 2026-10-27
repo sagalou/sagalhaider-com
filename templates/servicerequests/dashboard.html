@@ -1,5 +1,7 @@
+{# Admin dashboard: list of client requests, detail view and step tracking. Data loaded from the JSON API. #}
 {% extends "base.html" %}
 {% block content %}
+{# Hidden CSRF token, read by the script for POST requests. #}
 <div style="display:none">{% csrf_token %}</div>
 <div class="page active">
   <div class="page-header" style="display:flex;justify-content:space-between;align-items:center">
@@ -7,9 +9,11 @@
       <div class="page-eye">Espace admin</div>
       <h1 class="page-title">Demandes clients</h1>
     </div>
+    {# Logout link. #}
     <a href="{% url 'logout' %}" class="back-btn">Déconnexion</a>
   </div>
 
+  {# Status filter, reloads the list on change. #}
   <div class="form-group" style="max-width:220px">
     <label class="form-label" for="status-filter">Filtrer par statut</label>
     <select class="form-select" id="status-filter">
@@ -20,6 +24,7 @@
     </select>
   </div>
 
+  {# Filled by loadList() and loadDetail(). #}
   <div id="requests-list" class="video-grid"></div>
   <div id="request-detail" style="margin-top:2rem" tabindex="-1"></div>
 </div>
@@ -27,12 +32,14 @@
 <script>
 const csrftoken = document.querySelector('input[name=csrfmiddlewaretoken]').value;
 
+// Escape HTML before inserting client data into the page (XSS protection).
 function esc(s){
   const d = document.createElement('div');
   d.textContent = s ?? '';
   return d.innerHTML;
 }
 
+// Fetch requests (filtered by status) and display one card per request. 401 redirects to login.
 async function loadList(){
   const status = document.getElementById('status-filter').value;
   const url = status ? `/admin/demandes?statut=${encodeURIComponent(status)}` : '/admin/demandes';
@@ -64,6 +71,7 @@ async function loadList(){
   });
 }
 
+// Fetch one request and display its details and steps.
 async function loadDetail(id){
   const res = await fetch(`/admin/demandes/${id}`);
   if (res.status === 401){ window.location.href = '/login'; return; }
@@ -87,6 +95,7 @@ async function loadDetail(id){
   el.focus();
 }
 
+// Mark a step as completed, then refresh the detail and the list.
 async function completeStep(requestId, stepId){
   await fetch(`/admin/demandes/${requestId}/etapes/${stepId}/complete`, {
     method: 'POST',
@@ -97,6 +106,7 @@ async function completeStep(requestId, stepId){
   loadList();
 }
 
+// Initial load and reload when the filter changes.
 document.getElementById('status-filter').addEventListener('change', loadList);
 loadList();
 </script>
