@@ -1,3 +1,7 @@
+/**
+ * Translation dictionary for the three site languages (fr, en, sw).
+ * Keys are referenced in templates through data-i18n attributes.
+ */
 const T = {
   fr: {
     "nav.home": "Accueil",
@@ -206,12 +210,25 @@ const T = {
   }
 };
 
+// Active language, French by default.
 let currentLang = 'fr';
 
+/**
+ * Return the translation of a key in the active language.
+ * Falls back to French, then to the key itself if missing.
+ * @param {string} key - translation key, e.g. 'nav.home'
+ * @returns {string}
+ */
 function t(key) {
   return (T[currentLang] && T[currentLang][key]) || (T.fr && T.fr[key]) || key;
 }
 
+/**
+ * Switch the whole page to another language.
+ * Updates text, placeholders, aria-labels and the language buttons,
+ * then saves the choice in localStorage.
+ * @param {string} lang - 'fr', 'en' or 'sw'
+ */
 function applyLang(lang) {
   if (!T[lang]) return;
   currentLang = lang;
@@ -246,7 +263,7 @@ function applyLang(lang) {
   try { localStorage.setItem('restituo_lang', lang); } catch (e) {}
 }
 
-// Accessibilité
+// Accessibility labels (skip link, navigation, chatbot form).
 Object.assign(T.fr, {
   "a11y.skip": "Aller au contenu",
   "nav.label": "Navigation principale",
@@ -268,13 +285,14 @@ Object.assign(T.sw, {
   "chatbot.input": "Swali lako"
 });
 
+// On page load, restore the language saved by the visitor.
 document.addEventListener('DOMContentLoaded', function () {
   let saved = 'fr';
   try { saved = localStorage.getItem('restituo_lang') || 'fr'; } catch (e) {}
   applyLang(saved);
 });
 
-// Page À propos
+// About page translations.
 Object.assign(T.fr, {
   "nav.about": "À propos",
   "about.eye": "À propos",
