@@ -1,3 +1,4 @@
+{# Admin login page: username, password and 2FA code (TOTP). #}
 {% extends "base.html" %}
 {% block content %}
 <div class="page active" style="max-width:400px;margin:0 auto">
@@ -5,11 +6,15 @@
     <div class="page-eye">Espace admin</div>
     <h1 class="page-title">Connexion</h1>
   </div>
+  {# Generic error message, does not reveal which field was wrong. #}
   {% if error %}<p role="alert" style="color:#B3261E;font-size:0.8rem;margin-bottom:1rem">{{ error }}</p>{% endif %}
+  {# Classic POST form, no JavaScript needed. #}
   <form method="post">
+    {# CSRF protection required by Django on every POST form. #}
     {% csrf_token %}
     <div class="form-group"><label class="form-label" for="id-username">Identifiant</label><input class="form-input" type="text" id="id-username" name="username" autocomplete="username" required autofocus></div>
     <div class="form-group"><label class="form-label" for="id-password">Mot de passe</label><input class="form-input" type="password" id="id-password" name="password" autocomplete="current-password" required></div>
+    {# 6-digit code from the authenticator app (two-factor authentication). #}
     <div class="form-group"><label class="form-label" for="id-otp">Code de vérification</label><input class="form-input" type="text" id="id-otp" name="otp_token" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required></div>
     <button type="submit" class="submit-btn">Se connecter</button>
   </form>
