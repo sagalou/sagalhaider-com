@@ -1,29 +1,35 @@
+{# Contact page: contact info and project request form. #}
 {% extends "base.html" %}
 {% block content %}
 <div class="page active">
+  {# Back to the home page. #}
   <a href="{% url 'home' %}" class="back-btn" data-i18n="gallery.back">&#8592; Retour</a>
+  {# Page title and intro. #}
   <div class="page-header">
     <div class="page-eye" data-i18n="contact.eye">Contact &amp; Demande de projet</div>
     <h1 class="page-title" data-i18n="contact.title">Travaillons ensemble</h1>
     <p class="page-sub" data-i18n="contact.sub">Une suggestion de ville ou de site ? Un projet de restitution 3D en tête ? Décrivez-le ci-dessous.</p>
   </div>
   <div class="contact-grid">
+    {# Direct contact by email. #}
     <div class="contact-info">
       <p data-i18n="contact.info.p1">Historiens, archéologues, communautés de la diaspora et curieux sont les bienvenus pour partager suggestions, sources ou demandes de collaboration.</p>
       <p data-i18n="contact.info.p2">Vous pouvez aussi me contacter directement :</p>
       <a href="mailto:contact@sagalhaider.com" class="contact-mail">contact@sagalhaider.com &#8594;</a>
     </div>
     <div>
+      {# Project request form, sent as JSON by the script below. #}
       <form id="request-form">
         <div class="form-group"><label class="form-label" for="f-name" data-i18n="contact.form.name">Votre nom</label><input class="form-input" type="text" id="f-name" autocomplete="name" required></div>
         <div class="form-group"><label class="form-label" for="f-email" data-i18n="contact.form.email">Votre email</label><input class="form-input" type="email" id="f-email" autocomplete="email" required></div>
         <div class="form-group"><label class="form-label" for="f-org" data-i18n="contact.form.org">Organisation (optionnel)</label><input class="form-input" type="text" id="f-org" autocomplete="organization"></div>
         <div class="form-group"><label class="form-label" for="f-msg" data-i18n="contact.form.desc">Décrivez votre projet</label><textarea class="form-textarea" id="f-msg" required></textarea></div>
-        <!-- Honeypot: left empty by real visitors, hidden via CSS -->
+        {# Honeypot: hidden field left empty by humans, filled by bots, rejected server-side. #}
         <div style="position:absolute;left:-9999px" aria-hidden="true">
           <input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off">
         </div>
         <button type="submit" class="submit-btn" data-i18n="contact.form.send">Envoyer la demande &#8594;</button>
+        {# Feedback messages, shown by the script after submission. #}
         <div class="success-msg" id="success-msg" role="status" data-i18n="contact.success">&#10003; Demande envoyée, merci ! Vous recevrez une confirmation par email.</div>
         <div class="success-msg" id="error-msg" role="alert" style="display:none;border-color:#B3261E;color:#B3261E;background:rgba(179,38,30,0.06)"></div>
       </form>
@@ -31,6 +37,7 @@
   </div>
 </div>
 
+{# Form submission: posts the request and displays success or error. #}
 <script>
 document.getElementById('request-form').addEventListener('submit', async function(e){
   e.preventDefault();
@@ -39,6 +46,7 @@ document.getElementById('request-form').addEventListener('submit', async functio
   errorEl.style.display = 'none';
   successEl.style.display = 'none';
 
+  // Request body, field names match the ServiceRequest API.
   const payload = {
     client_nom: document.getElementById('f-name').value,
     client_email: document.getElementById('f-email').value,
@@ -53,6 +61,7 @@ document.getElementById('request-form').addEventListener('submit', async functio
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(payload)
     });
+    // 201: created, 429: rate limited, other: validation error.
     if (res.status === 201) {
       successEl.textContent = t('contact.success');
       successEl.style.display = 'block';
