@@ -1,0 +1,34 @@
+{# Privacy page: personal data collected by the site and GDPR rights. #}
+{% extends "base.html" %}
+{% block title %}Confidentialité, Restituo{% endblock %}
+{% block content %}
+<div class="page active">
+  {# Back to the home page. #}
+  <a href="{% url 'home' %}" class="back-btn" data-i18n="gallery.back">&#8592; Retour</a>
+  {# Page title. #}
+  <div class="page-header">
+    <div class="page-eye" data-i18n="privacy.eye">Données personnelles</div>
+    <h1 class="page-title" data-i18n="privacy.title">Confidentialité</h1>
+  </div>
+  {# Content, translated through the privacy.* keys in i18n.js. #}
+  <div class="contact-info" style="max-width:760px">
+    <h2 class="privacy-h2" data-i18n="privacy.who.h">Responsable du traitement</h2>
+    <p data-i18n="privacy.who.p">Sagal Haider, éditrice du site Restituo. Pour toute question sur vos données : contact@sagalhaider.com.</p>
+
+    <h2 class="privacy-h2" data-i18n="privacy.form.h">Formulaire de demande</h2>
+    <p data-i18n="privacy.form.p">Quand vous envoyez une demande, je collecte votre nom, votre email, votre organisation (facultative) et la description de votre projet. Ces données servent uniquement à répondre à votre demande et à en assurer le suivi. Elles sont conservées 3 ans après notre dernier échange, puis supprimées.</p>
+
+    <h2 class="privacy-h2" data-i18n="privacy.ip.h">Adresse IP et sécurité</h2>
+    <p data-i18n="privacy.ip.p">Pour protéger le site contre les abus, votre adresse IP est utilisée pour limiter le nombre de requêtes (conservée 1 heure) et pour bloquer les tentatives de connexion répétées à l'espace d'administration (conservée 30 jours). Les journaux de sécurité sont conservés 6 mois. Ce traitement repose sur l'intérêt légitime à sécuriser le site.</p>
+
+    <h2 class="privacy-h2" data-i18n="privacy.chatbot.h">Chatbot</h2>
+    <p data-i18n="privacy.chatbot.p">Les messages envoyés au chatbot ne sont pas enregistrés sur le site. Quand la question ne figure pas dans la FAQ, elle est transmise à l'API d'Anthropic pour générer une réponse. N'y indiquez pas d'informations personnelles.</p>
+
+    <h2 class="privacy-h2" data-i18n="privacy.third.h">Prestataires</h2>
+    <p data-i18n="privacy.third.p">Le site est hébergé sur un serveur privé virtuel et protégé par Cloudflare. Les emails sont envoyés via Gmail et les polices de caractères sont chargées depuis Google Fonts (Google). Aucune donnée n'est vendue ni utilisée à des fins publicitaires, et le site n'utilise pas de cookies de suivi.</p>
+
+    <h2 class="privacy-h2" data-i18n="privacy.rights.h">Vos droits</h2>
+    <p data-i18n="privacy.rights.p">Vous pouvez demander l'accès à vos données, leur rectification ou leur suppression en écrivant à contact@sagalhaider.com. Si vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL (cnil.fr).</p>
+  </div>
+</div>
+{% endblock %}

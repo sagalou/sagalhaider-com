@@ -67,6 +67,8 @@ jobs:
 
           rsync -az --delete \
             --exclude '.git' --exclude 'db.sqlite3' --exclude '.env' \
+            --exclude '/venv/' --exclude '/logs/' --exclude '/backups/' \
+            --exclude '/staticfiles/' --exclude '/media/' \
             -e "ssh -i ~/.ssh/deploy_key -p $VPS_PORT" \
             ./ "$VPS_USER@$VPS_HOST:/var/www/sagalhaider-com/"
 

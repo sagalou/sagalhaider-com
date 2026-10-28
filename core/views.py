@@ -62,3 +62,8 @@ def contact(request):
 def about(request):
     """Render the about page (background and collaborations)."""
     return render(request, "core/about.html")
+
+
+def privacy(request):
+    """Render the privacy page (personal data and GDPR rights)."""
+    return render(request, "core/privacy.html")
