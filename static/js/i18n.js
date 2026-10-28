@@ -325,3 +325,64 @@ Object.assign(T.sw, {
   "about.article": "Makala yangu katika Daily Sabah →",
   "about.cta": "Wasiliana nami →"
 });
+
+// Privacy page and GDPR notice translations.
+Object.assign(T.fr, {
+  "footer.privacy": "Confidentialité",
+  "contact.rgpd": "Vos données servent uniquement à traiter votre demande et sont conservées 3 ans après notre dernier échange. Vous pouvez demander leur suppression à contact@sagalhaider.com.",
+  "contact.rgpd.link": "En savoir plus",
+  "privacy.eye": "Données personnelles",
+  "privacy.title": "Confidentialité",
+  "privacy.who.h": "Responsable du traitement",
+  "privacy.who.p": "Sagal Haider, éditrice du site Restituo. Pour toute question sur vos données : contact@sagalhaider.com.",
+  "privacy.form.h": "Formulaire de demande",
+  "privacy.form.p": "Quand vous envoyez une demande, je collecte votre nom, votre email, votre organisation (facultative) et la description de votre projet. Ces données servent uniquement à répondre à votre demande et à en assurer le suivi. Elles sont conservées 3 ans après notre dernier échange, puis supprimées.",
+  "privacy.ip.h": "Adresse IP et sécurité",
+  "privacy.ip.p": "Pour protéger le site contre les abus, votre adresse IP est utilisée pour limiter le nombre de requêtes (conservée 1 heure) et pour bloquer les tentatives de connexion répétées à l'espace d'administration (conservée 30 jours). Les journaux de sécurité sont conservés 6 mois. Ce traitement repose sur l'intérêt légitime à sécuriser le site.",
+  "privacy.chatbot.h": "Chatbot",
+  "privacy.chatbot.p": "Les messages envoyés au chatbot ne sont pas enregistrés sur le site. Quand la question ne figure pas dans la FAQ, elle est transmise à l'API d'Anthropic pour générer une réponse. N'y indiquez pas d'informations personnelles.",
+  "privacy.third.h": "Prestataires",
+  "privacy.third.p": "Le site est hébergé sur un serveur privé virtuel et protégé par Cloudflare. Les emails sont envoyés via Gmail et les polices de caractères sont chargées depuis Google Fonts (Google). Aucune donnée n'est vendue ni utilisée à des fins publicitaires, et le site n'utilise pas de cookies de suivi.",
+  "privacy.rights.h": "Vos droits",
+  "privacy.rights.p": "Vous pouvez demander l'accès à vos données, leur rectification ou leur suppression en écrivant à contact@sagalhaider.com. Si vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL (cnil.fr)."
+});
+
+Object.assign(T.en, {
+  "footer.privacy": "Privacy",
+  "contact.rgpd": "Your data is used only to handle your request and is kept for 3 years after our last exchange. You can ask for it to be deleted at contact@sagalhaider.com.",
+  "contact.rgpd.link": "Learn more",
+  "privacy.eye": "Personal data",
+  "privacy.title": "Privacy",
+  "privacy.who.h": "Data controller",
+  "privacy.who.p": "Sagal Haider, publisher of the Restituo website. For any question about your data: contact@sagalhaider.com.",
+  "privacy.form.h": "Request form",
+  "privacy.form.p": "When you send a request, I collect your name, your email, your organisation (optional) and your project description. This data is used only to answer and follow up on your request. It is kept for 3 years after our last exchange, then deleted.",
+  "privacy.ip.h": "IP address and security",
+  "privacy.ip.p": "To protect the site against abuse, your IP address is used to limit the number of requests (kept for 1 hour) and to block repeated login attempts on the administration area (kept for 30 days). Security logs are kept for 6 months. This processing is based on the legitimate interest of keeping the site secure.",
+  "privacy.chatbot.h": "Chatbot",
+  "privacy.chatbot.p": "Messages sent to the chatbot are not stored on the site. When a question is not in the FAQ, it is sent to the Anthropic API to generate an answer. Please do not include personal information.",
+  "privacy.third.h": "Service providers",
+  "privacy.third.p": "The site is hosted on a virtual private server and protected by Cloudflare. Emails are sent through Gmail and fonts are loaded from Google Fonts (Google). No data is sold or used for advertising, and the site uses no tracking cookies.",
+  "privacy.rights.h": "Your rights",
+  "privacy.rights.p": "You can request access to your data, its correction or its deletion by writing to contact@sagalhaider.com. If you believe your rights are not respected, you can file a complaint with the CNIL, the French data protection authority (cnil.fr)."
+});
+
+Object.assign(T.sw, {
+  "footer.privacy": "Faragha",
+  "contact.rgpd": "Taarifa zako zinatumika tu kushughulikia ombi lako na huhifadhiwa kwa miaka 3 baada ya mawasiliano yetu ya mwisho. Unaweza kuomba zifutwe kupitia contact@sagalhaider.com.",
+  "contact.rgpd.link": "Soma zaidi",
+  "privacy.eye": "Taarifa binafsi",
+  "privacy.title": "Faragha",
+  "privacy.who.h": "Mhusika wa uchakataji",
+  "privacy.who.p": "Sagal Haider, mchapishaji wa tovuti ya Restituo. Kwa swali lolote kuhusu taarifa zako: contact@sagalhaider.com.",
+  "privacy.form.h": "Fomu ya ombi",
+  "privacy.form.p": "Unapotuma ombi, ninakusanya jina lako, barua pepe yako, shirika lako (si lazima) na maelezo ya mradi wako. Taarifa hizi zinatumika tu kujibu na kufuatilia ombi lako. Huhifadhiwa kwa miaka 3 baada ya mawasiliano yetu ya mwisho, kisha hufutwa.",
+  "privacy.ip.h": "Anwani ya IP na usalama",
+  "privacy.ip.p": "Ili kulinda tovuti dhidi ya matumizi mabaya, anwani yako ya IP inatumika kupunguza idadi ya maombi (huhifadhiwa saa 1) na kuzuia majaribio ya mara kwa mara ya kuingia kwenye eneo la usimamizi (huhifadhiwa siku 30). Kumbukumbu za usalama huhifadhiwa miezi 6. Uchakataji huu unategemea maslahi halali ya kulinda usalama wa tovuti.",
+  "privacy.chatbot.h": "Chatbot",
+  "privacy.chatbot.p": "Ujumbe unaotumwa kwa chatbot hauhifadhiwi kwenye tovuti. Swali lisipokuwepo kwenye FAQ, hutumwa kwa API ya Anthropic ili kupata jibu. Tafadhali usiweke taarifa binafsi.",
+  "privacy.third.h": "Watoa huduma",
+  "privacy.third.p": "Tovuti inahifadhiwa kwenye seva binafsi ya mtandaoni na kulindwa na Cloudflare. Barua pepe hutumwa kupitia Gmail na fonti hupakiwa kutoka Google Fonts (Google). Hakuna taarifa inayouzwa au kutumika kwa matangazo, na tovuti haitumii vidakuzi vya ufuatiliaji.",
+  "privacy.rights.h": "Haki zako",
+  "privacy.rights.p": "Unaweza kuomba kupata taarifa zako, kuzirekebisha au kuzifuta kwa kuandika kwa contact@sagalhaider.com. Ukiona haki zako haziheshimiwi, unaweza kuwasilisha malalamiko kwa CNIL, mamlaka ya Ufaransa ya ulinzi wa taarifa (cnil.fr)."
+});

@@ -228,10 +228,13 @@ LOGGING = {
         },
     },
     "handlers": {
+        # One file per day, kept 6 months (GDPR: logs contain IPs).
         "file": {
             "level": "WARNING",
-            "class": "logging.FileHandler",
+            "class": "logging.handlers.TimedRotatingFileHandler",
             "filename": BASE_DIR / "logs" / "security.log",
+            "when": "midnight",
+            "backupCount": 180,
             "formatter": "verbose",
         },
         "console": {"level": "INFO", "class": "logging.StreamHandler"},

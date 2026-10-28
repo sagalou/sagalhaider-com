@@ -28,6 +28,8 @@
         <div style="position:absolute;left:-9999px" aria-hidden="true">
           <input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off">
         </div>
+        {# GDPR notice: what is collected, why, how long, and the user's rights. #}
+        <p class="form-note"><span data-i18n="contact.rgpd">Vos données servent uniquement à traiter votre demande et sont conservées 3 ans après notre dernier échange. Vous pouvez demander leur suppression à contact@sagalhaider.com.</span> <a href="{% url 'privacy' %}" data-i18n="contact.rgpd.link">En savoir plus</a></p>
         <button type="submit" class="submit-btn" data-i18n="contact.form.send">Envoyer la demande &#8594;</button>
         {# Feedback messages, shown by the script after submission. #}
         <div class="success-msg" id="success-msg" role="status" data-i18n="contact.success">&#10003; Demande envoyée, merci ! Vous recevrez une confirmation par email.</div>
