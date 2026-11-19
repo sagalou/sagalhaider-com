@@ -1,4 +1,21 @@
+/*
+ * Restituo, main stylesheet.
+ *
+ * How to find something:
+ *   - Colors of the whole site: the variables in :root, at the top.
+ *     Changing --accent changes every accent at once.
+ *   - Buttons: search for "BUTTON:" in this file.
+ *   - Mobile version: the @media (max-width: 768px) block near the end.
+ *   - Accessibility rules: the "Accessibility" section at the end.
+ *   - Colors still written in raw values instead of variables: search "TODO".
+ *
+ * Tip: right-click an element in the browser, "Inspect", read its class,
+ * then search that class here (Ctrl+F).
+ */
+
 /* === Reset === */
+/* Reset: removes default browser margins and paddings.
+   border-box: width and height include padding and border. */
 *,*::before,*::after {
   margin: 0;
   padding: 0;
@@ -6,21 +23,25 @@
 }
 
 /* === Variables === */
+/* Design tokens. Change a color here and it updates everywhere
+   var(--name) is used. This is where the brand palette lives. */
 :root {
-  --bg: #EDEAE2;
-  --bg2: #E4E0D3;
-  --dark: #211F1B;
-  --blue: #4E6E5D;
-  --blue-light: rgba(78,110,93,0.08);
-  --border: rgba(33,31,27,0.08);
-  --muted: #665F53;
-  --text: #2E2B26;
+  --bg: #EDEAE2;              /* page background */
+  --bg2: #E4E0D3;             /* second background, hero gradient */
+  --dark: #211F1B;            /* near black: titles, dark buttons */
+  --accent: #4E6E5D;          /* accent color (green): links, hovers, chatbot */
+  --accent-light: rgba(78,110,93,0.08); /* very light accent: message backgrounds */
+  --border: rgba(33,31,27,0.08); /* thin borders */
+  --muted: #665F53;           /* secondary text */
+  --text: #2E2B26;            /* main text */
 }
 
 /* === Base elements === */
+/* Smooth scrolling when clicking an in-page link. */
 html {
   scroll-behavior: smooth;
 }
+/* Page background, default text color and font. */
 body {
   background: var(--bg);
   color: var(--text);
@@ -30,6 +51,7 @@ body {
 }
 
 /* === Navigation === */
+/* Top navigation bar, fixed at the top while scrolling. */
 nav {
   position: fixed;
   top: 0;
@@ -44,14 +66,16 @@ nav {
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
 }
+/* Logo text in the navigation bar. */
 .nav-logo {
   font-family: 'Bebas Neue',sans-serif;
   font-size: 1.25rem;
   letter-spacing: 0.12em;
   color: var(--dark);
 }
+/* Accent-colored part of the logo. */
 .nav-logo span {
-  color: var(--blue);
+  color: var(--accent);
 }
 .nav-right {
   display: flex;
@@ -64,6 +88,7 @@ nav {
   list-style: none;
   align-items: center;
 }
+/* Navigation links (default state). */
 .nav-links a {
   color: var(--muted);
   text-decoration: none;
@@ -74,13 +99,16 @@ nav {
   text-transform: uppercase;
   font-weight: 400;
 }
+/* Navigation links on mouse hover. */
 .nav-links a:hover {
   color: var(--dark);
 }
+/* Link of the current page, underlined with the accent color. */
 .nav-links a.active {
   color: var(--dark);
-  border-bottom: 2px solid var(--blue);
+  border-bottom: 2px solid var(--accent);
 }
+/* BUTTON: dark "Contact" call-to-action in the navigation bar. */
 .nav-links a.nav-cta {
   background: var(--dark);
   color: #fff;
@@ -88,17 +116,20 @@ nav {
   margin-left: 0.5rem;
   border-bottom: none;
 }
+/* BUTTON: Contact call-to-action on hover. */
 .nav-links a.nav-cta:hover {
-  background: var(--blue);
+  background: var(--accent);
 }
 
 /* === Language switcher === */
+/* Language switcher container (FR / EN / SW). */
 .lang-switcher {
   display: flex;
   border: 1px solid var(--border);
   overflow: hidden;
   margin-left: 1rem;
 }
+/* BUTTON: one language button. */
 .lang-btn {
   padding: 0.38rem 0.65rem;
   font-size: 0.6rem;
@@ -115,12 +146,14 @@ nav {
 .lang-btn:last-child {
   border-right: none;
 }
+/* BUTTON: the selected language. */
 .lang-btn.active {
   background: var(--dark);
   color: #fff;
 }
 
 /* === Mobile navigation === */
+/* Mobile menu icon. Hidden on desktop, shown in the media query below. */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -137,6 +170,7 @@ nav {
   background: var(--dark);
   transition: all 0.3s;
 }
+/* Full-screen mobile menu, hidden until .open is added by JavaScript. */
 .mobile-menu {
   display: none;
   position: fixed;
@@ -152,6 +186,7 @@ nav {
   border-top: 1px solid var(--border);
   overflow-y: auto;
 }
+/* Mobile menu when opened. */
 .mobile-menu.open {
   display: flex;
 }
@@ -177,6 +212,7 @@ nav {
   gap: 0.5rem;
   margin-top: 1.5rem;
 }
+/* BUTTON: language buttons in the mobile menu. */
 .mobile-lang button {
   flex: 1;
   padding: 0.65rem;
@@ -189,6 +225,7 @@ nav {
   font-family: 'Inter',sans-serif;
   font-weight: 400;
 }
+/* BUTTON: selected language in the mobile menu. */
 .mobile-lang button.active {
   background: var(--dark);
   color: #fff;
@@ -196,6 +233,7 @@ nav {
 }
 
 /* === Hero === */
+/* Home page hero: full-height first section. */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -211,12 +249,15 @@ nav {
   inset: 0;
   background: linear-gradient(135deg,var(--bg) 0%,var(--bg2) 100%);
 }
+/* Decorative grid lines behind the hero. */
 .hero-grid {
   position: absolute;
   inset: 0;
   background-image: linear-gradient(rgba(0,0,0,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.04) 1px,transparent 1px);
   background-size: 60px 60px;
 }
+/* Animated horizontal line crossing the hero.
+   TODO: color still written in raw RGB (old blue), not var(--accent). */
 .hero-scan {
   position: absolute;
   left: 0;
@@ -240,6 +281,8 @@ nav {
   z-index: 2;
   max-width: 700px;
 }
+/* Small label above the main title.
+   TODO: border and background still in raw RGB (old blue). */
 .hero-tag {
   display: inline-flex;
   align-items: center;
@@ -250,14 +293,15 @@ nav {
   font-size: 0.58rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--blue);
+  color: var(--accent);
   margin-bottom: 1.75rem;
 }
+/* Blinking dot inside the hero label. */
 .hero-dot {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: var(--blue);
+  background: var(--accent);
   animation: blink 2s ease infinite;
 }
 @keyframes blink {
@@ -268,6 +312,7 @@ nav {
     opacity: 0.2;
   }
 }
+/* Main title. clamp() makes the size adapt to the screen width. */
 h1 {
   font-family: 'Bebas Neue',sans-serif;
   font-size: clamp(3.5rem,8vw,6.5rem);
@@ -276,9 +321,11 @@ h1 {
   margin-bottom: 1.5rem;
   color: var(--dark);
 }
+/* Accent-colored word in the main title (class "blue" in home.html). */
 h1 .blue {
-  color: var(--blue);
+  color: var(--accent);
 }
+/* Greyed word in the main title. */
 h1 .dim {
   color: #7E7A72;
 }
@@ -294,6 +341,7 @@ h1 .dim {
   gap: 0.75rem;
   flex-wrap: wrap;
 }
+/* BUTTON: dark primary button. */
 .btn-dark {
   display: inline-flex;
   align-items: center;
@@ -310,9 +358,11 @@ h1 .dim {
   transition: background 0.2s;
   font-weight: 400;
 }
+/* BUTTON: dark primary button on hover. */
 .btn-dark:hover {
-  background: var(--blue);
+  background: var(--accent);
 }
+/* BUTTON: outlined secondary button. */
 .btn-outline {
   display: inline-flex;
   align-items: center;
@@ -329,10 +379,12 @@ h1 .dim {
   transition: all 0.2s;
   font-weight: 400;
 }
+/* BUTTON: outlined secondary button on hover. */
 .btn-outline:hover {
   border-color: var(--dark);
   color: var(--dark);
 }
+/* Row of key figures under the hero. */
 .hero-stats {
   display: flex;
   gap: 2.5rem;
@@ -356,6 +408,7 @@ h1 .dim {
 }
 
 /* === Tech strip === */
+/* Dark strip listing the technologies used. */
 .tech-strip {
   padding: 1.2rem 2.5rem;
   background: var(--dark);
@@ -394,11 +447,13 @@ h1 .dim {
 .entry-section {
   padding: 4rem 2.5rem;
 }
+/* Home page cards grid: two columns on desktop. */
 .entry-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
 }
+/* One home page card (archaeological sites / cities). */
 .entry-card {
   background: #fff;
   border: 1px solid var(--border);
@@ -409,11 +464,14 @@ h1 .dim {
   transition: all 0.3s;
   box-shadow: 0 2px 12px rgba(0,0,0,0.04);
 }
+/* Card on hover: lifts slightly.
+   TODO: border color still in raw RGB (old blue). */
 .entry-card:hover {
   box-shadow: 0 8px 32px rgba(0,0,0,0.1);
   border-color: rgba(0,102,255,0.2);
   transform: translateY(-2px);
 }
+/* Accent line at the bottom of the card, revealed on hover. */
 .entry-card::after {
   content: '';
   position: absolute;
@@ -421,7 +479,7 @@ h1 .dim {
   left: 0;
   right: 0;
   height: 3px;
-  background: var(--blue);
+  background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.35s;
@@ -440,7 +498,7 @@ h1 .dim {
   font-size: 0.56rem;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--blue);
+  color: var(--accent);
   margin-bottom: 0.6rem;
   font-weight: 500;
 }
@@ -465,7 +523,7 @@ h1 .dim {
   font-size: 0.62rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--blue);
+  color: var(--accent);
   font-weight: 500;
   transition: gap 0.2s;
 }
@@ -474,6 +532,7 @@ h1 .dim {
 }
 
 /* === Pages === */
+/* Inner pages, hidden unless they have the .active class. */
 .page {
   display: none;
   min-height: 100vh;
@@ -482,6 +541,7 @@ h1 .dim {
 .page.active {
   display: block;
 }
+/* BUTTON: "Back" link at the top of inner pages. */
 .back-btn {
   display: inline-flex;
   align-items: center;
@@ -510,10 +570,11 @@ h1 .dim {
   font-size: 0.58rem;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--blue);
+  color: var(--accent);
   margin-bottom: 0.5rem;
   font-weight: 500;
 }
+/* Title of an inner page. */
 .page-title {
   font-family: 'Bebas Neue',sans-serif;
   font-size: clamp(2.2rem,5vw,3.5rem);
@@ -529,17 +590,20 @@ h1 .dim {
 }
 
 /* === Gallery (videos) === */
+/* Gallery grid: two videos per row on desktop. */
 .video-grid {
   display: grid;
   grid-template-columns: repeat(2,1fr);
   gap: 1.5rem;
 }
+/* One gallery item (video + text). */
 .video-card {
   background: #fff;
   border: 1px solid var(--border);
   overflow: hidden;
   box-shadow: 0 2px 12px rgba(0,0,0,0.04);
 }
+/* Video frame, kept in 16:9 with aspect-ratio. */
 .video-slot {
   position: relative;
   aspect-ratio: 16/9;
@@ -569,6 +633,8 @@ h1 .dim {
   background-image: linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
   background-size: 40px 40px;
 }
+/* BUTTON: round play button on videos.
+   TODO: background still in raw RGB (old bright blue). */
 .play-btn {
   width: 52px;
   height: 52px;
@@ -613,7 +679,7 @@ h1 .dim {
   font-size: 0.56rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--blue);
+  color: var(--accent);
   margin-bottom: 0.3rem;
   font-weight: 500;
 }
@@ -644,6 +710,7 @@ h1 .dim {
 }
 
 /* === Approach === */
+/* Dark block describing the approach, on gallery pages. */
 .approach {
   margin-top: 3rem;
   padding: 2.5rem;
@@ -660,6 +727,8 @@ h1 .dim {
   letter-spacing: 0.04em;
   color: #fff;
 }
+/* Accent-colored word in the approach quote (class "blue" in gallery.html).
+   TODO: raw hex color (old blue), not var(--accent). */
 .aq .blue {
   color: #4d94ff;
 }
@@ -673,6 +742,7 @@ h1 .dim {
 }
 
 /* === Contact === */
+/* Contact page: info on the left, form on the right. */
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
@@ -690,7 +760,7 @@ h1 .dim {
   align-items: center;
   gap: 0.4rem;
   font-size: 0.78rem;
-  color: var(--blue);
+  color: var(--accent);
   text-decoration: none;
   font-weight: 500;
   border-bottom: 1px solid rgba(78,110,93,0.35);
@@ -710,6 +780,7 @@ h1 .dim {
   margin-bottom: 0.45rem;
   font-weight: 500;
 }
+/* Form fields (default state). */
 .form-input,.form-textarea,.form-select {
   width: 100%;
   background: #fff;
@@ -723,13 +794,15 @@ h1 .dim {
   font-weight: 300;
   -webkit-appearance: none;
 }
+/* Form field being typed in: accent border. */
 .form-input:focus,.form-textarea:focus,.form-select:focus {
-  border-color: var(--blue);
+  border-color: var(--accent);
 }
 .form-textarea {
   resize: vertical;
   min-height: 110px;
 }
+/* BUTTON: form submit button. */
 .submit-btn {
   width: 100%;
   padding: 0.88rem;
@@ -745,20 +818,23 @@ h1 .dim {
   margin-top: 0.5rem;
   font-weight: 400;
 }
+/* BUTTON: form submit button on hover. */
 .submit-btn:hover {
-  background: var(--blue);
+  background: var(--accent);
 }
+/* Confirmation message, shown by JavaScript after sending. */
 .success-msg {
   display: none;
   padding: 0.9rem;
   border: 1px solid rgba(78,110,93,0.35);
-  background: var(--blue-light);
+  background: var(--accent-light);
   font-size: 0.7rem;
-  color: var(--blue);
+  color: var(--accent);
   margin-top: 0.75rem;
 }
 
 /* === Footer === */
+/* Page footer. */
 footer {
   padding: 1.75rem 2.5rem;
   display: flex;
@@ -781,6 +857,7 @@ footer {
 }
 
 /* === Chatbot === */
+/* Chatbot "Une question ?" bubble, shown for a few seconds. */
 .cb-tooltip {
   display: none;
   position: fixed;
@@ -799,6 +876,7 @@ footer {
 .cb-tooltip.is-open {
   display: block;
 }
+/* BUTTON: round chatbot button, bottom right. */
 .cb-toggle {
   position: fixed;
   bottom: 1.5rem;
@@ -806,7 +884,7 @@ footer {
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: var(--blue);
+  background: var(--accent);
   color: #fff;
   display: flex;
   align-items: center;
@@ -815,9 +893,11 @@ footer {
   z-index: 200;
   box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 }
+/* BUTTON: chatbot button on hover. */
 .cb-toggle:hover {
   background: var(--dark);
 }
+/* Chatbot window, hidden until opened. */
 .cb-panel {
   display: none;
   position: fixed;
@@ -835,6 +915,8 @@ footer {
 .cb-panel.is-open {
   display: flex;
 }
+/* Chatbot window title bar.
+   TODO: raw hex color, could be var(--dark). */
 .cb-header {
   padding: 0.75rem 1rem;
   background: #0d0d0d;
@@ -852,11 +934,13 @@ footer {
 .cb-msg {
   margin: 0.4rem 0;
 }
+/* Chatbot answer text. */
 .cb-msg--bot {
   color: #333;
 }
+/* Visitor message text, in the accent color. */
 .cb-msg--user {
-  color: var(--blue);
+  color: var(--accent);
 }
 .cb-form {
   display: flex;
@@ -869,18 +953,22 @@ footer {
   font-size: 0.78rem;
   outline: none;
 }
+/* BUTTON: chatbot send button. */
 .cb-send {
   border: none;
-  background: var(--blue);
+  background: var(--accent);
   color: #fff;
   padding: 0 0.9rem;
   cursor: pointer;
 }
+/* BUTTON: chatbot send button on hover. */
 .cb-send:hover {
   background: var(--dark);
 }
 
 /* === Responsive === */
+/* Responsive: everything below applies to screens 768px wide or less
+   (phones, small tablets). One column, mobile menu, smaller paddings. */
 @media(max-width:768px) {
   nav {
     padding: 1rem 1.25rem;
@@ -934,6 +1022,8 @@ footer {
 }
 
 /* === Accessibility === */
+/* Accessibility: "skip to content" link, invisible until focused
+   with the keyboard (Tab). */
 .skip-link {
   position: absolute;
   left: -9999px;
@@ -952,13 +1042,14 @@ footer {
 main:focus {
   outline: none;
 }
+/* Accessibility: visible accent outline for keyboard navigation. */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 [tabindex]:focus-visible {
-  outline: 2px solid var(--blue);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 .cb-toggle {
@@ -972,6 +1063,8 @@ textarea:focus-visible,
   margin: 0;
   font-weight: 400;
 }
+/* Accessibility: disables animations for users who asked their
+   system to reduce motion. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -989,6 +1082,7 @@ textarea:focus-visible,
   font-weight: 600;
   margin: 2rem 0 0.6rem;
 }
+/* GDPR notice under the contact form. */
 .form-note {
   font-size: 0.75rem;
   line-height: 1.5;
