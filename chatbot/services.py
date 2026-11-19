@@ -1,8 +1,12 @@
 """Chatbot response logic: scripted FAQ with an LLM fallback."""
 
+import re
+
 from django.conf import settings
 
 from .models import ChatbotRule
+
+MARKDOWN_RE = re.compile(r"[*#`]+")
 
 
 class ChatbotService:
@@ -17,16 +21,19 @@ class ChatbotService:
         "Tu es l'assistant du site de Sagal Haider, spécialisée en "
         "restitution 3D de sites archéologiques et de villes d'Afrique de "
         "l'Est. Réponds brièvement et avec rigueur, sans inventer de faits "
-        "historiques que tu ne connais pas."
+        "historiques que tu ne connais pas. Réponds en texte brut, sans "
+        "markdown : pas d'astérisques, de titres ni de listes à puces."
     )
 
     def respond(self, message: str) -> dict:
         """Return {"reponse": str, "source": "faq" | "llm"}."""
         rule_answer = ChatbotRule.match(message)
         if rule_answer:
-            return {"reponse": rule_answer, "source": "faq"}
-
-        return self._call_anthropic(message)
+            result = {"reponse": rule_answer, "source": "faq"}
+        else:
+            result = self._call_anthropic(message)
+        result["reponse"] = MARKDOWN_RE.sub("", result["reponse"])
+        return result
 
     def _call_anthropic(self, message: str) -> dict:
         if not settings.ANTHROPIC_API_KEY:
